@@ -40,6 +40,7 @@ input:focus-visible{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px r
 .err.show{display:block}
 .help{margin:22px 0 0;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px;line-height:1.9}
 .help b{color:var(--ink)}
+.update-box{margin-top:15px;text-align:center;}
 @media (max-width:820px){
   .page{grid-template-columns:1fr;grid-template-rows:auto 1fr}
   .brand{padding:26px 22px 30px;min-height:0}
@@ -86,15 +87,17 @@ input:focus-visible{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px r
         </div>
         <button class="go" id="go" type="submit">دخول</button>
       </form>
+
+      <!-- زر تحديث النسخة والبيانات (موضع صحيح داخل البطاقة) -->
+      <div class="update-box">
+        <button type="button" id="forceUpdateBtn" style="background: transparent; border: 1px solid var(--line); color: var(--muted); padding: 8px 14px; border-radius: 999px; font: 700 12px Tajawal, Arial, sans-serif; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+          🔄 تحديث النسخة وسحب البيانات الجديدة
+        </button>
+      </div>
+
       <p class="help"><b>المخدوم:</b> يدخل بالكود الذي أعطاه له أمين الخدمة.<br><b>الخادم وأمين الخدمة:</b> يدخلان بالبريد الإلكتروني.<br>نسيت كلمة المرور؟ اطلب من أمين الخدمة إعادة تعيينها.</p>
     </div>
   </main>
-</div>
-<!-- زر تحديث النسخة والبيانات -->
-<div style="text-align: center; margin-top: 15px;">
-  <button type="button" id="forceUpdateBtn" style="background: transparent; border: 1px solid var(--line, #dce6f2); color: var(--muted, #708098); padding: 8px 14px; border-radius: 999px; font: 700 12px Tajawal, Arial, sans-serif; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
-    🔄 تحديث النسخة وسحب البيانات الجديدة
-  </button>
 </div>
 
 <script>
@@ -104,13 +107,11 @@ document.getElementById('forceUpdateBtn').addEventListener('click', async functi
   btn.style.opacity = "0.7";
 
   try {
-    // 1. مسح التخزين المؤقت لمتصفح المستخدم (Local/Session) مع الحفاظ على البيانات الضرورية إن أردت
     if (window.caches) {
       const cacheNames = await caches.keys();
       await Promise.all(cacheNames.map(name => caches.delete(name)));
     }
 
-    // 2. إلغاء تفعيل أي Service Workers قديمة لمنع الاحتفاظ بنسخ قديمة
     if ('serviceWorker' in navigator) {
       const registrations = await navigator.serviceWorker.getRegistrations();
       for (let registration of registrations) {
@@ -118,11 +119,7 @@ document.getElementById('forceUpdateBtn').addEventListener('click', async functi
       }
     }
 
-    // 3. مسح الـ LocalStorage مؤقتاً أو تخطي الكاش بالتحديث الإجباري
-    // (ملاحظة: لا نقوم بمسح بيانات تسجيل الدخول الحساسة إذا أردت بقاء الجلسة، ولكن لمسح الكاش الكامل نعتمد على Hard Reload)
-    
     setTimeout(() => {
-      // إعادة تحميل الصفحة من السيرفر مباشرة متخطياً الكاش نهائياً
       window.location.href = window.location.href.split('?')[0] + '?v=' + new Date().getTime();
     }, 1000);
 
@@ -148,7 +145,6 @@ document.getElementById('forceUpdateBtn').addEventListener('click', async functi
     tg.setAttribute('aria-pressed',String(show));
   });
 
-  // إن كانت هناك جلسة صالحة بالفعل ندخل مباشرة
   fetch('/api/me',{credentials:'same-origin',cache:'no-store'}).then(function(r){
     if(r.ok) location.replace('index.html');
   }).catch(function(){});
