@@ -47,7 +47,7 @@ body{font-family:Tajawal,sans-serif;background:#f4f7fb;color:#1e293b}.top{backgr
     <p class="text-muted mb-3">لضمان توليد الباركود بشكل صحيح وارتباطه بنظام الحضور والغياب، تتم إضافة أو استيراد المخدومين حصرياً من اللوحة الرئيسية.</p>
     <a href="admin-dashboard.html?task=members" class="btn btn-primary px-4 py-2 fw-bold shadow-sm">الذهاب للوحة الإدارة لإضافة مخدوم 🚀</a>
   </div>
-  <div class="cardx"><div class="d-flex justify-content-between mb-3"><h5 class="fw-bold">قائمة المخدومين (للعرض والتحكم بحساباتهم)</h5><button id="loadStudents" class="btn btn-dark btn-sm">تحديث</button></div><div class="table-responsive"><table class="table table-bordered text-center"><thead><tr><th>الكود</th><th>الاسم</th><th>الفرقة</th><th>النقاط</th><th>إجراء</th></tr></thead><tbody id="studentsBody"><tr><td colspan="5">جاري التحميل...</td></tr></tbody></table></div></div>
+  <div class="cardx"><div class="d-flex justify-content-between mb-3"><h5 class="fw-bold">قائمة المخدومين (للعرض والتحكم بحساباتهم)</h5><button id="loadStudentsBtn" class="btn btn-dark btn-sm">تحديث</button></div><div class="table-responsive"><table class="table table-bordered text-center"><thead><tr><th>الكود</th><th>الاسم</th><th>الفرقة</th><th>النقاط</th><th>إجراء</th></tr></thead><tbody id="studentsBody"><tr><td colspan="5">جاري التحميل...</td></tr></tbody></table></div></div>
 </div>
 <div class="tab-pane fade" id="sheets"><div class="cardx"><h5 class="fw-bold text-primary">إضافة شيت</h5><form id="addSheet"><input id="sh_title" class="form-control mb-2" placeholder="العنوان" required><input id="sh_link" type="url" class="form-control mb-2" placeholder="الرابط" required><select id="sh_level" class="form-select mb-3"><option>الفرقة الأولى</option><option>الفرقة الثانية</option><option>الفرقة الثالثة</option><option>الفرقة الرابعة</option><option>عام للجميع</option></select><button class="btn btn-primary">نشر الشيت</button></form></div><div class="cardx mt-3"><h5 class="fw-bold">الشيتات المنشورة</h5><div class="table-responsive"><table class="table table-bordered text-center"><thead><tr><th>العنوان</th><th>الفرقة</th><th>الرابط</th><th>إجراء</th></tr></thead><tbody id="sheetsBody"><tr><td colspan="4">جاري التحميل...</td></tr></tbody></table></div></div></div>
 <div class="tab-pane fade" id="promote"><div class="cardx"><h5 class="fw-bold text-warning">ترحيل دفعة</h5><div class="row g-2"><div class="col-md-5"><select id="promo_from" class="form-select"><option>الفرقة الأولى</option><option>الفرقة الثانية</option><option>الفرقة الثالثة</option><option>الفرقة الرابعة</option></select></div><div class="col-md-2 text-center py-2">←</div><div class="col-md-5"><select id="promo_to" class="form-select"><option>الفرقة الثانية</option><option>الفرقة الثالثة</option><option>الفرقة الرابعة</option><option>خريجين</option></select></div></div><button id="promoteBtn" class="btn btn-danger mt-3">تنفيذ الترحيل</button></div></div>
@@ -74,27 +74,58 @@ async function api(url,options={}){
 }
 
 const act=body=>api('/api/admin',{method:'POST',body:JSON.stringify(body)});
-const fail=e=>show(e.message,'danger');
+const fail=e=>{
+    console.error(e);
+    show(e.message || 'حدث خطأ غير معروف','danger');
+};
 const empty=(n,msg)=>`<tr><td colspan="${n}">${msg}</td></tr>`;
 
 async function dashboard(){
   try {
-    const j=await api('/api/admin?type=dashboard&t='+Date.now());const d=j.data;
-    if($('sStudents'))$('sStudents').textContent=d.totalStudents;
-    if($('sReaders'))$('sReaders').textContent=d.readers;
-    if($('sPoints'))$('sPoints').textContent=d.totalPoints;
-    if($('sSubjects'))$('sSubjects').textContent=d.totalSubjects;
-    if($('generated'))$('generated').textContent='آخر تحديث: '+new Date(d.generatedAt).toLocaleString('ar-EG');
-    if($('topBody'))$('topBody').innerHTML=d.topStudents.length?d.topStudents.map(s=>`<tr><td>${esc(s.name||'-')}<div class="small text-muted">${esc(s.code||'')}</div></td><td>${esc(s.level||'-')}</td><td>${s.readings}</td><td><span class="badge bg-primary">${s.points}</span></td></tr>`).join(''):empty(4,'لا توجد بيانات');
-    if($('levels'))$('levels').innerHTML=Object.entries(d.byLevel).map(([k,v])=>`<div class="d-flex justify-content-between border-bottom py-2"><span>${esc(k)}</span><strong>${v}</strong></div>`).join('');
-  } catch(e) { fail(e); }
+    const j=await api('/api/admin?type=dashboard&t='+Date.now());
+    const d=j.data;
+    
+    // إضافة حماية (Null Checks) لتجنب توقف السكربت إذا لم يجد العنصر
+    if($('sStudents'))$('sStudents').textContent=d.totalStudents || '0';
+    if($('sReaders'))$('sReaders').textContent=d.readers || '0';
+    if($('sPoints'))$('sPoints').textContent=d.totalPoints || '0';
+    if($('sSubjects'))$('sSubjects').textContent=d.totalSubjects || '0';
+    
+    if($('generated')) {
+        let genTime = d.generatedAt ? new Date(d.generatedAt).toLocaleString('ar-EG') : 'الآن';
+        $('generated').textContent='آخر تحديث: '+ genTime;
+    }
+    
+    if($('topBody')) {
+        let topStudentsHtml = (d.topStudents && d.topStudents.length) 
+            ? d.topStudents.map(s=>`<tr><td>${esc(s.name||'-')}<div class="small text-muted">${esc(s.code||'')}</div></td><td>${esc(s.level||'-')}</td><td>${s.readings||0}</td><td><span class="badge bg-primary">${s.points||0}</span></td></tr>`).join('') 
+            : empty(4,'لا توجد بيانات');
+        $('topBody').innerHTML = topStudentsHtml;
+    }
+    
+    if($('levels') && d.byLevel) {$('levels').innerHTML=Object.entries(d.byLevel).map(([k,v])=>`<div class="d-flex justify-content-between border-bottom py-2"><span>${esc(k)}</span><strong>${v}</strong></div>`).join('');
+    }
+  } catch(e) { 
+      fail(e); 
+  }
 }
 
 async function loadStudents(){
   try {
     const j=await api('/api/admin?type=students&t='+Date.now());
-    if($('studentsBody'))$('studentsBody').innerHTML=j.data.length?j.data.map(s=>`<tr><td>${esc(s.code)}</td><td>${esc(s.name)}</td><td>${esc(s.level||'-')}</td><td>${s.points||0}</td><td class="text-nowrap"><button class="btn btn-sm btn-outline-secondary" data-act="pw" data-code="${esc(s.code)}">إعادة تعيين كلمة المرور</button></td></tr>`).join(''):empty(5,'لا يوجد مخدومون');
-    if($('spiritualBody'))$('spiritualBody').innerHTML=j.data.length?j.data.map(s=>`<tr><td>${esc(s.code)}</td><td>${esc(s.name)}</td><td>${esc(s.level||'-')}</td><td>${s.points||0}</td><td>${s.readCount||0}</td><td>${s.spiritualDays||0}</td><td>${s.sheetsCount||0}</td></tr>`).join(''):empty(7,'لا توجد بيانات');
+    if($('studentsBody')) {
+        let studentsHtml = (j.data && j.data.length) 
+            ? j.data.map(s=>`<tr><td>${esc(s.code||'-')}</td><td>${esc(s.name||'-')}</td><td>${esc(s.level||'-')}</td><td>${s.points||0}</td><td class="text-nowrap"><button class="btn btn-sm btn-outline-secondary" data-act="pw" data-code="${esc(s.code||'')}">إعادة تعيين كلمة المرور</button></td></tr>`).join('')
+            : empty(5,'لا يوجد مخدومون');
+        $('studentsBody').innerHTML = studentsHtml;
+    }
+    
+    if($('spiritualBody')) {
+        let spiritualHtml = (j.data && j.data.length) 
+            ? j.data.map(s=>`<tr><td>${esc(s.code||'-')}</td><td>${esc(s.name||'-')}</td><td>${esc(s.level||'-')}</td><td>${s.points||0}</td><td>${s.readCount||0}</td><td>${s.spiritualDays||0}</td><td>${s.sheetsCount||0}</td></tr>`).join('')
+            : empty(7,'لا توجد بيانات');
+        $('spiritualBody').innerHTML = spiritualHtml;
+    }
   } catch(e) { fail(e); }
 }
 
@@ -109,7 +140,12 @@ if($('studentsBody')) {$('studentsBody').addEventListener('click',async e=>{
 async function loadSheets(){
   try {
     const j=await api('/api/admin?type=sheets&t='+Date.now());
-    if($('sheetsBody'))$('sheetsBody').innerHTML=j.data.length?j.data.map(s=>`<tr><td>${esc(s.title)}</td><td>${esc(s.level==='الكل'?'عام للجميع':s.level)}</td><td><a href="${esc(ChurchAuth.safeUrl(s.link))}" target="_blank" rel="noopener noreferrer">فتح</a></td><td><button class="btn btn-sm btn-outline-danger" data-id="${esc(s.id)}">حذف</button></td></tr>`).join(''):empty(4,'لا توجد شيتات منشورة');
+    if($('sheetsBody')) {
+        let sheetsHtml = (j.data && j.data.length) 
+            ? j.data.map(s=>`<tr><td>${esc(s.title||'-')}</td><td>${esc(s.level==='الكل'?'عام للجميع':s.level)}</td><td><a href="${esc(ChurchAuth.safeUrl(s.link))}" target="_blank" rel="noopener noreferrer">فتح</a></td><td><button class="btn btn-sm btn-outline-danger" data-id="${esc(s.id||'')}">حذف</button></td></tr>`).join('')
+            : empty(4,'لا توجد شيتات منشورة');
+        $('sheetsBody').innerHTML = sheetsHtml;
+    }
   } catch(e) { fail(e); }
 }
 
@@ -119,7 +155,12 @@ if($('sheetsBody')) {$('sheetsBody').addEventListener('click',async e=>{const b=
 async function loadProjects(){
   try {
     const j=await api('/api/admin?type=projects&t='+Date.now());
-    if($('projectsBody'))$('projectsBody').innerHTML=j.data.length?j.data.map(p=>`<tr><td>${esc(p.title)}</td><td>${esc(p.date)}</td><td>${esc(p.level==='الكل'?'عام للجميع':p.level)}</td><td>${Number(p.points)||0}</td><td><button class="btn btn-sm btn-outline-danger" data-id="${esc(p.id)}">حذف</button></td></tr>`).join(''):empty(5,'لا توجد مشروعات');
+    if($('projectsBody')) {
+        let projectsHtml = (j.data && j.data.length) 
+            ? j.data.map(p=>`<tr><td>${esc(p.title||'-')}</td><td>${esc(p.date||'-')}</td><td>${esc(p.level==='الكل'?'عام للجميع':p.level)}</td><td>${Number(p.points)||0}</td><td><button class="btn btn-sm btn-outline-danger" data-id="${esc(p.id||'')}">حذف</button></td></tr>`).join('')
+            : empty(5,'لا توجد مشروعات');
+        $('projectsBody').innerHTML = projectsHtml;
+    }
   } catch(e) { fail(e); }
 }
 
@@ -130,7 +171,12 @@ async function loadServants(){
   try {
     const j=await api('/api/admin?type=servants&t='+Date.now());
     const me=ChurchAuth.session()&&ChurchAuth.session().uid;
-    if($('servantsBody'))$('servantsBody').innerHTML=j.data.length?j.data.map(s=>`<tr><td>${esc(s.name||'-')}</td><td dir="ltr">${esc(s.email)}</td><td>${s.role==='admin'?'أمين الخدمة':'خادم'}</td><td>${s.role==='servant'&&s.uid!==me?`<button class="btn btn-sm btn-outline-danger" data-uid="${esc(s.uid)}">حذف</button>`:''}</td></tr>`).join(''):empty(4,'لا توجد حسابات');
+    if($('servantsBody')) {
+        let servantsHtml = (j.data && j.data.length)
+            ? j.data.map(s=>`<tr><td>${esc(s.name||'-')}</td><td dir="ltr">${esc(s.email||'-')}</td><td>${s.role==='admin'?'أمين الخدمة':'خادم'}</td><td>${s.role==='servant'&&s.uid!==me?`<button class="btn btn-sm btn-outline-danger" data-uid="${esc(s.uid||'')}">حذف</button>`:''}</td></tr>`).join('')
+            : empty(4,'لا توجد حسابات');
+        $('servantsBody').innerHTML = servantsHtml;
+    }
   } catch(e) { fail(e); }
 }
 
@@ -144,7 +190,7 @@ if($('addServant')) $('addServant').onsubmit=async e=>{e.preventDefault();try{sh
 if($('promoteBtn'))$('promoteBtn').onclick=async()=>{const from=$('promo_from').value,to=$('promo_to').value;if(from===to)return show('اختر فرقتين مختلفتين','warning');if(!confirm(`ترحيل جميع ${from} إلى ${to}؟`))return;try{show((await act({action:'promote_students',fromLevel:from,toLevel:to})).message);await Promise.all([loadStudents(),dashboard()])}catch(er){fail(er)}};
 
 if($('refreshBtn'))$('refreshBtn').onclick=()=>Promise.all([dashboard(),loadStudents(),loadSheets(),loadProjects(),loadServants()]).catch(fail);
-if($('loadStudents'))$('loadStudents').onclick=()=>loadStudents().catch(fail);
+if($('loadStudentsBtn'))$('loadStudentsBtn').onclick=()=>loadStudents().catch(fail);
 if($('exportBtn')) $('exportBtn').onclick=()=>XLSX.writeFile(XLSX.utils.table_to_book($('spiritualTable'),{sheet:'المتابعة'}),'Church_Service_Report.xlsx');
 if($('logoutBtn'))$('logoutBtn').onclick=()=>ChurchAuth.logout();
 
