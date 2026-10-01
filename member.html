@@ -1,0 +1,14 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ملف المخدوم — خدمتي برو الذكي</title><link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet"><style>body{font-family:Tajawal,sans-serif;background:#f4f7fb}.wrap{max-width:1000px;margin:auto;padding:20px}.hero{background:linear-gradient(135deg,#123b78,#2874d8);color:#fff;border-radius:22px;padding:24px}.box{background:#fff;border-radius:18px;border:1px solid #e5eaf1;padding:18px;height:100%}.metric{font-size:28px;font-weight:800;color:#123b78}</style></head><body><div class="wrap"><div class="hero"><div class="small opacity-75">الملف الموحد للمخدوم</div><h1 id="name" class="h3 fw-bold">مينا جرجس</h1><div>الكود: <span id="code"></span> • <span id="level"></span></div></div><div class="row g-3 mt-2"><div class="col-md-3"><div class="box"><div>⭐ النقاط</div><div class="metric" id="points">0</div></div></div><div class="col-md-3"><div class="box"><div>📖 قراءات الكتاب</div><div class="metric" id="reads">0</div></div></div><div class="col-md-3"><div class="box"><div>🕊️ نوتات روحية</div><div class="metric" id="spiritual">0</div></div></div><div class="col-md-3"><div class="box"><div>🚀 مشروعات</div><div class="metric" id="projects">0</div></div></div><div class="col-12"><div class="box"><h2 class="h5 fw-bold">الروابط الموحدة</h2><div class="d-flex gap-2 flex-wrap"><a class="btn btn-primary" href="student.html">واجهة المخدوم</a><a class="btn btn-outline-primary" href="bible.html">الكتاب المقدس</a><a class="btn btn-outline-danger" href="spiritual_note.html">النوتة الروحية</a><a class="btn btn-outline-secondary" href="projects.html">المشروعات</a><a class="btn btn-dark" href="index.html">الرئيسية</a></div></div></div></div></div><script src="auth-client.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+const get=p=>ChurchAuth.fetch(p).then(r=>r.json());
+ChurchAuth.ready.then(async s=>{
+  if(!s)return;
+  $('name').textContent=s.name||'';$('code').textContent=s.code||'';$('level').textContent=s.level||'';$('points').textContent=s.points||0;
+  try{
+    const [h,p]=await Promise.all([get('/api/harvest'),get('/api/projects')]);
+    if(h.success){$('points').textContent=h.data.points;$('reads').textContent=h.data.bibleCount;$('spiritual').textContent=h.data.spiritualCount}
+    if(p.success)$('projects').textContent=p.data.filter(x=>x.joined).length;
+  }catch(e){}
+});
+</script></body></html>

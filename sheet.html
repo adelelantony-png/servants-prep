@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسليم الشيت</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+<script src="auth-client.js"></script>
+</head>
+<body class="bg-light" style="font-family: 'Tajawal', sans-serif;">
+
+<div class="container py-4" style="max-width: 650px;">
+    <div class="card shadow-sm border-0 rounded-4 p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold mb-0 text-primary">شيت: <span id="ui-subject-title"></span></h5>
+            <a href="sheets_list.html" class="btn btn-outline-secondary btn-sm">رجوع</a>
+        </div>
+        <p class="text-muted small">الطالب: <span id="ui-student-name"></span></p>
+
+        <div id="system-msg" class="alert d-none fw-bold text-center" role="alert"></div>
+
+        <form id="sheet-form">
+            <div class="mb-3">
+                <label class="form-label fw-bold">السؤال الأول: ما هو مفهوم التجسد والفداء وأهميته في العقيدة الأرثوذكسية؟</label>
+                <textarea class="form-control" id="q1" rows="4" required placeholder="اكتب إجابتك هنا بالتفصيل..."></textarea>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold">السؤال الثاني: اذكر شاهدين من الكتاب المقدس يدعمان هذا المفهوم.</label>
+                <textarea class="form-control" id="q2" rows="3" required placeholder="اكتب الشواهد والآيات..."></textarea>
+            </div>
+
+            <button type="submit" id="submit-btn" class="btn btn-primary w-100 py-2 fw-bold">تأكيد وتسليم الإجابات</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const studentCode = localStorage.getItem('student_code');
+    const studentName = localStorage.getItem('student_name');
+    if (!studentCode) window.location.href = 'login.html';
+
+    // استخراج اسم المادة من الرابط (مثال: ?subject=العقيدة)
+    const urlParams = new URLSearchParams(window.location.search);
+    const subjectTitle = urlParams.get('subject') || 'مادة غير معروفة';
+
+    document.getElementById('ui-subject-title').textContent = subjectTitle;
+    document.getElementById('ui-student-name').textContent = `${studentName} (${studentCode})`;
+
+    document.getElementById('sheet-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const btn = document.getElementById('submit-btn');
+        const msg = document.getElementById('system-msg');
+        
+        btn.innerHTML = 'جاري التسليم...';
+        btn.disabled = true;
+        msg.classList.add('d-none');
+
+        const payload = {
+            code: studentCode,
+            subject: subjectTitle,
+            q1: document.getElementById('q1').value,
+            q2: document.getElementById('q2').value
+        };
+
+        try {
+            const response = await ChurchAuth.fetch('/api/submit_sheet', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                msg.className = 'alert alert-success fw-bold text-center';
+                msg.textContent = result.message;
+                document.getElementById('sheet-form').reset();
+            } else {
+                throw new Error(result.message);
+            }
+        } catch (error) {
+            msg.className = 'alert alert-danger fw-bold text-center';
+            msg.textContent = error.message || "حدث خطأ أثناء التسليم.";
+        }
+
+        msg.classList.remove('d-none');
+        btn.innerHTML = 'تأكيد وتسليم الإجابات';
+        btn.disabled = false;
+    });
+</script>
+
+</body>
+</html>

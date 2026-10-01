@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // كل الوصول للبيانات يتم عبر الخادم (Firebase Admin) الذي يتجاوز هذه القواعد.
+    // لذلك نمنع أي قراءة أو كتابة مباشرة من المتصفح.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

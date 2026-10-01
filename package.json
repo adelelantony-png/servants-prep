@@ -1,0 +1,16 @@
+{
+  "name": "khedmety-pro",
+  "version": "3.0.0",
+  "private": true,
+  "description": "خدمتي برو — منصة متابعة الخدمة (Vercel + Firebase)",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node tests/run.js",
+    "create-admin": "node scripts/create-user.js admin",
+    "create-servant": "node scripts/create-user.js servant",
+    "seed": "node scripts/seed.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.5.0"
+  }
+}

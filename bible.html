@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قارئ الكتاب المقدس</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background-color: #f8fafc; color: #2d3748; }
+        .reader-card { max-width: 820px; margin: 20px auto; background: #ffffff; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); padding: 25px; border: 1px solid #edf2f7; }
+        .reader-header { border-bottom: 2px solid #edf2f7; padding-bottom: 15px; margin-bottom: 20px; }
+        .filter-box { background-color: #f1f5f9; border-radius: 14px; padding: 15px; margin-bottom: 20px; }
+        .verse-box { font-size: 1.25rem; line-height: 2.3; color: #1a202c; text-align: justify; }
+        .verse-num { display: inline-block; font-size: 0.85rem; font-weight: 700; color: #1e3c72; background-color: #e0e7ff; border-radius: 6px; padding: 2px 7px; margin: 0 5px 0 3px; vertical-align: middle; user-select: none; }
+    </style>
+<script src="auth-client.js"></script>
+</head>
+<body>
+
+<div class="container pb-5">
+    <div class="reader-card">
+        
+        <div class="d-flex justify-content-between align-items-center reader-header">
+            <a href="index.html" class="btn btn-outline-secondary btn-sm fw-bold">
+                <i class="fa-solid fa-arrow-right me-1"></i> العودة للرئيسية
+            </a>
+            <h4 class="fw-bold mb-0 text-primary"><i class="fa-solid fa-book-bible me-2"></i>الكتاب المقدس</h4>
+            <div class="d-flex gap-1">
+                <button class="btn btn-sm btn-outline-primary" onclick="changeFontSize(1)" title="تكبير الخط"><i class="fa-solid fa-plus"></i></button>
+                <button class="btn btn-sm btn-outline-primary" onclick="changeFontSize(-1)" title="تصغير الخط"><i class="fa-solid fa-minus"></i></button>
+            </div>
+        </div>
+
+        <div class="filter-box">
+            <div class="row g-2 align-items-center">
+                <div class="col-md-5">
+                    <label class="form-label small fw-bold text-muted">السفر:</label>
+                    <select id="bookSelect" class="form-select" onchange="onBookChanged()"></select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-bold text-muted">الإصحاح:</label>
+                    <select id="chapterSelect" class="form-select" onchange="renderVerses()"></select>
+                </div>
+                <div class="col-md-3 mt-md-4 pt-md-2">
+                    <button id="btnMarkRead" class="btn btn-success w-100 fw-bold" onclick="markCurrentChapterRead()">
+                        <i class="fa-solid fa-check me-1"></i> تم القراءة
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <button class="btn btn-outline-primary btn-sm fw-bold" onclick="prevChapter()"><i class="fa-solid fa-chevron-right me-1"></i> الإصحاح السابق</button>
+            <h5 id="chapterHeaderTitle" class="fw-bold text-secondary mb-0"></h5>
+            <button class="btn btn-outline-primary btn-sm fw-bold" onclick="nextChapter()">الإصحاح التالي <i class="fa-solid fa-chevron-left ms-1"></i></button>
+        </div>
+
+        <div id="versesArea" class="verse-box p-4 bg-white border rounded-4 shadow-sm min-vh-50">
+            <div class="text-center py-5 text-muted">
+                <div class="spinner-border text-primary mb-3" role="status"></div>
+                <div>جاري تحميل نص الكتاب المقدس...</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+// حماية الصفحة والتأكد من تسجيل الدخول
+const studentCode = localStorage.getItem('student_code');
+if (!studentCode) window.location.href = 'login.html';
+
+let bibleData = [];
+let currentFontSize = 1.25;
+
+const urlParams = new URLSearchParams(window.location.search);
+const targetBookName = urlParams.get('book');
+const targetChapter = parseInt(urlParams.get('chapter')) || 1;
+
+const arabicBookNames = {
+    "Genesis": "التكوين", "Exodus": "الخروج", "Leviticus": "اللاويين", "Numbers": "العدد", "Deuteronomy": "التثنية",
+    "Joshua": "يشوع", "Judges": "القضاة", "Ruth": "راعوث", "1 Samuel": "صموئيل الأول", "2 Samuel": "صموئيل الثاني",
+    "1 Kings": "الملوك الأول", "2 Kings": "الملوك الثاني", "1 Chronicles": "أخبار الأيام الأول", "2 Chronicles": "أخبار الأيام الثاني",
+    "Ezra": "عزرا", "Nehemiah": "نحميا", "Esther": "أستير", "Job": "أيوب", "Psalms": "المزامير",
+    "Proverbs": "الأمثال", "Ecclesiastes": "الجامعة", "Song of Solomon": "نشيد الأنشاد", "Isaiah": "إشعياء",
+    "Jeremiah": "إرميا", "Lamentations": "مراثي إرميا", "Ezekiel": "حزقيال", "Daniel": "دانيال",
+    "Hosea": "هوشع", "Joel": "يوئيل", "Amos": "عاموس", "Obadiah": "عوبديا", "Jonah": "يونان",
+    "Micah": "ميخا", "Nahum": "ناحوم", "Habakkuk": "حبقوق", "Zephaniah": "صفنيا", "Haggai": "حجي",
+    "Zechariah": "زكريا", "Malachi": "ملاخي",
+    "Matthew": "إنجيل متى", "Mark": "إنجيل مرقس", "Luke": "إنجيل لوقا", "John": "إنجيل يوحنا",
+    "Acts": "سفر أعمال الرسل", "Romans": "رومية", "1 Corinthians": "كورنثوس الأولى", "2 Corinthians": "كورنثوس الثانية",
+    "Galatians": "غلاطية", "Ephesians": "أفسس", "Philippians": "فيلبي", "Colossians": "كولوسي",
+    "1 Thessalonians": "تسالونيكي الأولى", "2 Thessalonians": "تسالونيكي الثانية", "1 Timothy": "تيموثاوس الأولى",
+    "2 Timothy": "تيموثاوس الثانية", "Titus": "تيطس", "Philemon": "فليمون", "Hebrews": "العبرانيين",
+    "James": "يعقوب", "1 Peter": "بطرس الأولى", "2 Peter": "بطرس الثانية", "1 John": "يوحنا الأولى",
+    "2 John": "يوحنا الثانية", "3 John": "يوحنا الثالثة", "Jude": "يهوذا", "Revelation": "سفر الرؤيا"
+};
+
+async function loadBibleData() {
+    try {
+        const response = await fetch('bible.json');
+        if (!response.ok) throw new Error('Network response was not ok');
+        bibleData = await response.json();
+        setupBooksDropdown();
+    } catch (err) {
+        document.getElementById('versesArea').innerHTML = `
+            <div class="alert alert-danger text-center">تعذر تحميل نص الكتاب المقدس. تأكد من وجود ملف bible.json.</div>`;
+    }
+}
+
+function setupBooksDropdown() {
+    const bookSelect = document.getElementById('bookSelect');
+    bookSelect.innerHTML = '';
+    let selectedIndex = 0;
+
+    bibleData.forEach((book, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        const arName = arabicBookNames[book.name] || book.name;
+        option.textContent = `${index + 1}. ${arName}`;
+
+        if (targetBookName && (arName === targetBookName || book.name === targetBookName)) {
+            selectedIndex = index;
+        }
+        bookSelect.appendChild(option);
+    });
+
+    bookSelect.selectedIndex = selectedIndex;
+    onBookChanged(true);
+}
+
+function onBookChanged(isInitial = false) {
+    const bookIndex = document.getElementById('bookSelect').value;
+    const book = bibleData[bookIndex];
+    const chapterSelect = document.getElementById('chapterSelect');
+    chapterSelect.innerHTML = '';
+
+    book.chapters.forEach((_, cIdx) => {
+        const option = document.createElement('option');
+        option.value = cIdx;
+        option.textContent = `الإصحاح ${cIdx + 1}`;
+        chapterSelect.appendChild(option);
+    });
+
+    if (isInitial && targetChapter > 0 && targetChapter <= book.chapters.length) {
+        chapterSelect.selectedIndex = targetChapter - 1;
+    } else {
+        chapterSelect.selectedIndex = 0;
+    }
+
+    renderVerses();
+}
+
+function renderVerses() {
+    const bookIndex = document.getElementById('bookSelect').value;
+    const chapIndex = document.getElementById('chapterSelect').value;
+    const book = bibleData[bookIndex];
+    const verses = book.chapters[chapIndex];
+    const arName = arabicBookNames[book.name] || book.name;
+
+    document.getElementById('chapterHeaderTitle').textContent = `${arName} — الإصحاح ${parseInt(chapIndex) + 1}`;
+    
+    // إعادة تعيين زر التسجيل
+    const btnMark = document.getElementById('btnMarkRead');
+    btnMark.className = 'btn btn-success w-100 fw-bold';
+    btnMark.innerHTML = '<i class="fa-solid fa-check me-1"></i> تم القراءة';
+    btnMark.disabled = false;
+
+    let html = '';
+    verses.forEach((vText, vIdx) => {
+        html += `<span class="verse-num">${vIdx + 1}</span>${vText} `;
+    });
+
+    document.getElementById('versesArea').innerHTML = html;
+    window.scrollTo({ top: 120, behavior: 'smooth' });
+}
+
+function nextChapter() {
+    const chapSelect = document.getElementById('chapterSelect');
+    if (chapSelect.selectedIndex < chapSelect.options.length - 1) {
+        chapSelect.selectedIndex++;
+        renderVerses();
+    } else {
+        const bookSelect = document.getElementById('bookSelect');
+        if (bookSelect.selectedIndex < bookSelect.options.length - 1) {
+            bookSelect.selectedIndex++;
+            onBookChanged();
+        }
+    }
+}
+
+function prevChapter() {
+    const chapSelect = document.getElementById('chapterSelect');
+    if (chapSelect.selectedIndex > 0) {
+        chapSelect.selectedIndex--;
+        renderVerses();
+    } else {
+        const bookSelect = document.getElementById('bookSelect');
+        if (bookSelect.selectedIndex > 0) {
+            bookSelect.selectedIndex--;
+            onBookChanged();
+            chapSelect.selectedIndex = chapSelect.options.length - 1;
+            renderVerses();
+        }
+    }
+}
+
+function changeFontSize(delta) {
+    currentFontSize = Math.max(1, Math.min(2.2, currentFontSize + (delta * 0.15)));
+    document.getElementById('versesArea').style.fontSize = `${currentFontSize}rem`;
+}
+
+// دالة تسجيل الخلوة متصلة بالـ Vercel API
+async function markCurrentChapterRead() {
+    const btnMark = document.getElementById('btnMarkRead');
+    btnMark.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري التسجيل...';
+    btnMark.disabled = true;
+
+    const bookIndex = document.getElementById('bookSelect').value;
+    const chapNum = parseInt(document.getElementById('chapterSelect').value) + 1;
+    const book = bibleData[bookIndex];
+    const bookTitle = arabicBookNames[book.name] || book.name;
+
+    try {
+        const response = await ChurchAuth.fetch('/api/update_reading', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                code: studentCode, 
+                book: bookTitle, 
+                chapter: chapNum, 
+                status: 1 
+            })
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+            btnMark.className = 'btn btn-outline-success w-100 fw-bold';
+            btnMark.innerHTML = '<i class="fa-solid fa-check-double me-1"></i> مسجلة بنجاح';
+        } else {
+            throw new Error(result.message);
+        }
+    } catch (error) {
+        alert("حدث خطأ أثناء تسجيل القراءة. تأكد من اتصالك بالإنترنت.");
+        btnMark.className = 'btn btn-success w-100 fw-bold';
+        btnMark.innerHTML = '<i class="fa-solid fa-check me-1"></i> إعادة المحاولة';
+        btnMark.disabled = false;
+    }
+}
+
+window.onload = loadBibleData;
+</script>
+
+</body>
+</html>

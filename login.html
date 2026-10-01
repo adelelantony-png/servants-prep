@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06235c">
+<title>تسجيل الدخول — خدمتي برو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#06235c;--blue:#0b4ca5;--sky:#eaf3ff;--gold:#d99812;--ink:#17233d;--muted:#64748b;--line:#d6e2f1;--bad:#b42318;--badbg:#fdecea}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:Tajawal,Arial,sans-serif;color:var(--ink);background:#f3f7fc;-webkit-text-size-adjust:100%}
+.page{min-height:100vh;min-height:100dvh;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr)}
+.brand{position:relative;background:var(--navy);color:#fff;padding:48px 44px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.brand svg.cross{position:absolute;inset-inline-start:-12%;bottom:-14%;width:88%;height:auto;opacity:.95;pointer-events:none}
+.brand h1{position:relative;margin:0;font-size:44px;font-weight:900;letter-spacing:0}
+.brand p{position:relative;margin:14px 0 0;max-width:19em;font-size:17px;line-height:1.9;color:#cfdcf2}
+.brand .rule{position:relative;width:54px;height:4px;background:var(--gold);margin-top:22px;border-radius:2px}
+.brand small{position:relative;color:#9fb4d8;font-size:13px}
+.formside{display:flex;align-items:center;justify-content:center;padding:32px 22px}
+.card{width:100%;max-width:400px}
+.card h2{margin:0 0 6px;font-size:28px;font-weight:900}
+.card .sub{margin:0 0 26px;color:var(--muted);font-size:15px;line-height:1.8}
+label{display:block;font-weight:800;font-size:14px;margin:0 0 7px}
+.field{margin-bottom:18px}
+input{width:100%;height:52px;border:1.5px solid var(--line);border-radius:12px;background:#fff;padding:0 15px;font:500 17px Tajawal,Arial,sans-serif;color:var(--ink);transition:border-color .15s,box-shadow .15s}
+input::placeholder{color:#9aa8bd}
+input:focus-visible{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px rgba(11,76,165,.16)}
+.pw{position:relative}
+.pw input{padding-inline-end:76px}
+.pw button{position:absolute;inset-inline-end:6px;top:6px;height:40px;padding:0 12px;border:0;border-radius:9px;background:var(--sky);color:var(--blue);font:800 13px Tajawal,Arial,sans-serif;cursor:pointer}
+.pw button:focus-visible,.go:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.go{width:100%;height:54px;border:0;border-radius:12px;background:var(--blue);color:#fff;font:900 18px Tajawal,Arial,sans-serif;cursor:pointer;margin-top:4px}
+.go:hover{background:#093f8a}
+.go[disabled]{opacity:.65;cursor:progress}
+.err{display:none;margin:0 0 18px;padding:12px 14px;border-radius:10px;background:var(--badbg);color:var(--bad);font-weight:700;font-size:14.5px;line-height:1.7}
+.err.show{display:block}
+.help{margin:22px 0 0;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px;line-height:1.9}
+.help b{color:var(--ink)}
+@media (max-width:820px){
+  .page{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .brand{padding:26px 22px 30px;min-height:0}
+  .brand h1{font-size:32px}
+  .brand p{font-size:15px;margin-top:8px}
+  .brand .rule{margin-top:14px}
+  .brand small{display:none}
+  .brand svg.cross{width:150px;inset-inline-start:auto;inset-inline-end:-18px;bottom:-26px;opacity:.9}
+  .formside{align-items:flex-start;padding:26px 20px 40px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <aside class="brand" aria-hidden="false">
+    <svg class="cross" viewBox="0 0 400 520" fill="none" aria-hidden="true">
+      <path d="M170 10h60v150h130v60H230v290h-60V220H40v-60h130z" stroke="#1d4f9c" stroke-width="3"/>
+      <path d="M186 30h28v150h130v28H214v290h-28V208H46v-28h140z" stroke="#d99812" stroke-width="2" opacity=".75"/>
+    </svg>
+    <div>
+      <h1>خدمتي برو</h1>
+      <div class="rule"></div>
+      <p>متابعة القراءة والنوتة الروحية والمقررات والحضور في مكان واحد.</p>
+    </div>
+    <small>للمخدومين والخدام وأمناء الخدمة</small>
+  </aside>
+
+  <main class="formside">
+    <div class="card">
+      <h2>تسجيل الدخول</h2>
+      <p class="sub">اكتب بيانات حسابك للدخول إلى خدمتك.</p>
+      <div id="err" class="err" role="alert" aria-live="assertive"></div>
+      <form id="f" novalidate>
+        <div class="field">
+          <label for="id">الكود أو البريد الإلكتروني</label>
+          <input id="id" name="username" type="text" inputmode="email" dir="ltr" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="مثال: 1001" required>
+        </div>
+        <div class="field">
+          <label for="pw">كلمة المرور</label>
+          <div class="pw">
+            <input id="pw" name="password" type="password" dir="ltr" autocomplete="current-password" placeholder="••••••••" required>
+            <button type="button" id="tg" aria-pressed="false">إظهار</button>
+          </div>
+        </div>
+        <button class="go" id="go" type="submit">دخول</button>
+      </form>
+      <p class="help"><b>المخدوم:</b> يدخل بالكود الذي أعطاه له أمين الخدمة.<br><b>الخادم وأمين الخدمة:</b> يدخلان بالبريد الإلكتروني.<br>نسيت كلمة المرور؟ اطلب من أمين الخدمة إعادة تعيينها.</p>
+    </div>
+  </main>
+</div>
+
+<script src="auth-client.js" data-require="none"></script>
+<script>
+(function(){
+  var f=document.getElementById('f'),id=document.getElementById('id'),pw=document.getElementById('pw'),
+      go=document.getElementById('go'),err=document.getElementById('err'),tg=document.getElementById('tg');
+
+  function showErr(m){err.textContent=m;err.classList.add('show')}
+  function clearErr(){err.textContent='';err.classList.remove('show')}
+
+  tg.addEventListener('click',function(){
+    var show=pw.type==='password';
+    pw.type=show?'text':'password';
+    tg.textContent=show?'إخفاء':'إظهار';
+    tg.setAttribute('aria-pressed',String(show));
+  });
+
+  // إن كانت هناك جلسة صالحة بالفعل ندخل مباشرة
+  fetch('/api/me',{credentials:'same-origin',cache:'no-store'}).then(function(r){
+    if(r.ok) location.replace('index.html');
+  }).catch(function(){});
+
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    clearErr();
+    var u=id.value.trim(),p=pw.value;
+    if(!u||!p){showErr('اكتب الكود أو البريد وكلمة المرور.');(u?pw:id).focus();return}
+    go.disabled=true;go.textContent='جارٍ الدخول…';
+    ChurchAuth.login(u,p).then(function(){
+      location.replace('index.html');
+    }).catch(function(ex){
+      showErr(ex&&ex.message?ex.message:'تعذر الاتصال بالخادم. تأكد من الإنترنت وحاول مرة أخرى.');
+      go.disabled=false;go.textContent='دخول';
+      pw.value='';pw.focus();
+    });
+  });
+})();
+</script>
+</body>
+</html>
