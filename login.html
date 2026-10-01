@@ -90,7 +90,48 @@ input:focus-visible{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px r
     </div>
   </main>
 </div>
+<!-- زر تحديث النسخة والبيانات -->
+<div style="text-align: center; margin-top: 15px;">
+  <button type="button" id="forceUpdateBtn" style="background: transparent; border: 1px solid var(--line, #dce6f2); color: var(--muted, #708098); padding: 8px 14px; border-radius: 999px; font: 700 12px Tajawal, Arial, sans-serif; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+    🔄 تحديث النسخة وسحب البيانات الجديدة
+  </button>
+</div>
 
+<script>
+document.getElementById('forceUpdateBtn').addEventListener('click', async function() {
+  const btn = this;
+  btn.textContent = "⏳ جاري تحديث النسخة ومسح الكاش...";
+  btn.style.opacity = "0.7";
+
+  try {
+    // 1. مسح التخزين المؤقت لمتصفح المستخدم (Local/Session) مع الحفاظ على البيانات الضرورية إن أردت
+    if (window.caches) {
+      const cacheNames = await caches.keys();
+      await Promise.all(cacheNames.map(name => caches.delete(name)));
+    }
+
+    // 2. إلغاء تفعيل أي Service Workers قديمة لمنع الاحتفاظ بنسخ قديمة
+    if ('serviceWorker' in navigator) {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      for (let registration of registrations) {
+        await registration.unregister();
+      }
+    }
+
+    // 3. مسح الـ LocalStorage مؤقتاً أو تخطي الكاش بالتحديث الإجباري
+    // (ملاحظة: لا نقوم بمسح بيانات تسجيل الدخول الحساسة إذا أردت بقاء الجلسة، ولكن لمسح الكاش الكامل نعتمد على Hard Reload)
+    
+    setTimeout(() => {
+      // إعادة تحميل الصفحة من السيرفر مباشرة متخطياً الكاش نهائياً
+      window.location.href = window.location.href.split('?')[0] + '?v=' + new Date().getTime();
+    }, 1000);
+
+  } catch (error) {
+    console.error("خطأ أثناء التحديث:", error);
+    window.location.reload(true);
+  }
+});
+</script>
 <script src="auth-client.js" data-require="none"></script>
 <script>
 (function(){
