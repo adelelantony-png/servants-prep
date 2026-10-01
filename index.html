@@ -8,7 +8,7 @@
 :root{--blue:#0b4ca5;--blue2:#1682ee;--green:#087f62;--green2:#18a673;--gold:#d99812;--ink:#17233d;--muted:#708098;--bg:#f3f7fc;--line:#dce6f2;--card:#fff;--shadow:0 10px 28px rgba(18,55,105,.08);--radius:20px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tajawal,Arial,sans-serif}.top{background:linear-gradient(125deg,#06235c,#0b4ca5 58%,#1682ee);color:#fff;padding:18px 14px 26px}.topin{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px;border:1px solid #ffffff40;background:#ffffff16;border-radius:16px;display:grid;place-items:center;font-size:27px}.brand h1{font-size:25px;margin:0;font-weight:900}.brand p{margin:4px 0 0;opacity:.82;font-size:12px}.demo{font-size:11px;border:1px solid #ffffff42;background:#ffffff12;border-radius:999px;padding:7px 10px;white-space:nowrap}.wrap{max-width:1050px;margin:-10px auto 0;padding:0 12px 30px}.switcher{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:18px;padding:7px;display:grid;grid-template-columns:1fr 1fr;gap:7px;position:sticky;top:8px;z-index:20}.switch{border:0;background:#f4f7fb;color:#64748b;border-radius:13px;padding:13px 10px;font:800 15px Tajawal;cursor:pointer}.switch.active{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff}.panel{display:none}.panel.active{display:block}.intro{margin-top:15px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:15px}.intro h2{margin:0 0 5px;font-size:22px}.intro p{margin:0;color:var(--muted);line-height:1.7;font-size:13px}.role{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px}.tag{border:1px solid var(--line);background:#f7faff;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:800;color:#52627a}.tag.blue{background:#eaf3ff;color:var(--blue);border-color:#bcd8f7}.tag.green{background:#eaf8f3;color:var(--green);border-color:#b9e2d3}.introicon{font-size:52px;flex:none}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px;text-align:center}.stat i{font-style:normal;font-size:21px}.stat b{display:block;font-size:22px;margin-top:3px}.stat small{color:var(--muted);font-size:10px}.section{margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:8px;margin-bottom:11px}.sectionhead h3{margin:0;font-size:17px}.sectionhead span{font-size:11px;color:var(--muted)}.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.tile{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:linear-gradient(145deg,#fff,#f7faff);border-radius:15px;padding:13px;min-height:102px}.tile:active{transform:scale(.99)}.tile .ico{font-size:23px}.tile strong{display:block;margin:6px 0 2px;font-size:13px}.tile small{display:block;color:var(--muted);font-size:10px;line-height:1.5}.primary{display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:18px;padding:16px 17px;color:#fff;margin-top:12px}.primary.admin{background:linear-gradient(120deg,#082b68,#116bd6)}.primary.servant{background:linear-gradient(120deg,#075f4b,#18a673)}.primary h3{margin:0 0 4px;font-size:17px}.primary p{margin:0;opacity:.84;font-size:11px;line-height:1.6}.open{background:#fff;color:var(--blue);border-radius:11px;padding:10px 13px;text-decoration:none;font-weight:900;font-size:12px;white-space:nowrap}.primary.servant .open{color:var(--green)}.rolebar{display:flex;gap:7px;margin-top:12px}.rolebtn{flex:1;border:1px solid var(--line);background:#f6f8fb;color:#607089;border-radius:11px;padding:10px;font:800 12px Tajawal}.rolebtn.active{background:#eaf3ff;color:var(--blue);border-color:#bcd8f7}.group{margin-top:12px}.group-title{display:flex;align-items:center;gap:7px;margin-bottom:8px;font-size:13px;font-weight:900;color:#40536e}.group-title:after{content:'';height:1px;background:var(--line);flex:1}.footer{text-align:center;color:#8794a7;font-size:10px;padding:20px 5px 8px}.mobilebar{display:none}
 @media(max-width:850px){.tiles{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.top{padding-bottom:22px}.brand h1{font-size:20px}.brand p{font-size:10px}.demo{display:none}.wrap{padding:0 9px 78px}.switcher{top:5px}.switch{font-size:13px;padding:12px 6px}.intro{padding:16px}.intro h2{font-size:19px}.introicon{font-size:42px}.stats{gap:7px}.stat{padding:11px}.stat b{font-size:19px}.section{padding:13px}.tiles{gap:7px}.tile{min-height:94px;padding:11px}.tile strong{font-size:12px}.primary{align-items:flex-start;flex-direction:column}.open{width:100%;text-align:center}.mobilebar{display:grid;grid-template-columns:repeat(2,1fr);position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);padding:7px;z-index:50;box-shadow:0 -6px 22px rgba(18,55,105,.1)}.mobilebar button{border:0;background:#f4f7fb;border-radius:11px;padding:9px;font:800 11px Tajawal;color:#65748a}.mobilebar button.active{background:#eaf3ff;color:var(--blue)}}
+@media(max-width:560px){.top{padding-bottom:22px}.brand h1{font-size:20px}.brand p{font-size:10px}.demo{display:none}.wrap{padding:0 9px 78px}.switcher{top:5px}.switch{font-size:13px;padding:12px 6px}.intro{padding:16px}.intro h2{font-size:19px}.introicon{font-size:42px}.stats{gap:7px}.stat{padding:11px}.stat b{font-size:19px}.section{padding:13px}.tiles{gap:7px}.tile{min-height:94px;padding:11px}.tile strong{font-size:12px}.primary{align-items:flex-start;flex-direction:column}.open{width:100%;text-align:center}.mobilebar{display:grid;grid-template-columns:repeat(2,1fr);position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);padding:7px;z-index:50;box-shadow:0 -6px 22px rgba(18,55,105,.1)}}
 
 .who{display:flex;align-items:center;gap:8px;font-size:12px;border:1px solid #ffffff42;background:#ffffff12;border-radius:999px;padding:5px 6px 5px 12px;white-space:nowrap;max-width:60vw}
 .who span{overflow:hidden;text-overflow:ellipsis}
@@ -19,12 +19,31 @@
 <body>
 <header class="top"><div class="topin"><div class="brand"><div class="logo">✝</div><div><h1>خدمتي برو</h1><p>منصة واحدة للخدمة — كل دور له مساره وأدواته</p></div></div><div class="who"><span id="whoName"></span><button type="button" id="logoutBtn">خروج</button></div></div></header>
 <main class="wrap">
-<section id="memberPanel" class="panel active">
+
+<!-- قسم القراءة الروحية اليومية التلقائية -->
+<section class="section" style="margin-bottom:15px; background:linear-gradient(135deg,#eaf3ff,#f7faff); border-color:#bcd8f7;">
+  <div class="sectionhead">
+    <h3 style="color:var(--blue);">📖 القراءة الروحية اليومية (<span id="todaysDateLabel">1 أكتوبر</span>)</h3>
+    <span style="font-weight:700; color:var(--blue2);" id="todaysReadingStatus">حسب خطة الكنيسة</span>
+  </div>
+  <div style="display:flex; align-items:center; justify-content:space-between; gap:15px; flex-wrap:wrap;">
+    <div>
+      <p style="margin:0 0 5px; color:var(--muted); font-size:12px;">الإصحاح المقترح حسب جدول اليوم:</p>
+      <h2 id="todaysReadingValue" style="margin:0; font-size:22px; color:var(--ink);">يونان 4:1</h2>
+    </div>
+    <a class="open" href="bible.html" style="background:var(--blue); color:#fff; border-radius:12px; padding:10px 16px;">فتح سفر الكتاب المقدس</a>
+  </div>
+</section>
+
+<!-- لوحة المخدوم -->
+<section id="memberPanel" class="panel">
   <div class="intro"><div><h2>👤 <span id="mName"></span></h2><p>هذه هي مساحة المخدوم الشخصية. كل ما يخص رحلتي الروحية والتعليمية والأنشطة مرتبط بملفي.</p><div class="role"><span class="tag blue">مخدوم</span><span class="tag" id="mLevel"></span><span class="tag" id="memberPointsPill">0 نقطة</span></div></div><div class="introicon">🎓</div></div>
   <div class="stats"><div class="stat"><i>⭐</i><b id="mPoints">0</b><small>النقاط</small></div><div class="stat"><i>📖</i><b id="mReads">0</b><small>أيام القراءة هذا العام</small></div><div class="stat"><i>📚</i><b id="mSubjects">0</b><small>المقررات والشيتات</small></div><div class="stat"><i>🕊️</i><b id="mNotes">0</b><small>أيام النوتة</small></div></div>
   <div class="section"><div class="sectionhead"><h3>ملفي ورحلتي</h3><span>ابدأ من هنا</span></div><div class="tiles"><a class="tile" href="student.html"><div class="ico">👤</div><strong>الرئيسية وملفي</strong><small>الحضور والنقاط والحالة.</small></a><a class="tile" href="member.html"><div class="ico">📋</div><strong>الملف الكامل</strong><small>بياناتي ومعلوماتي.</small></a><a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصادي</strong><small>ملخص الإنجاز.</small></a><a class="tile" href="projects.html"><div class="ico">🚀</div><strong>مشروعاتي</strong><small>أنشطتي ومشاركتي.</small></a></div></div>
   <div class="section"><div class="sectionhead"><h3>التعليم والقراءة</h3><span>تعليمي اليومي</span></div><div class="tiles"><a class="tile" href="bible.html"><div class="ico">📖</div><strong>الكتاب وخطة القراءة</strong><small>القراءة وتسجيل الإنجاز.</small></a><a class="tile" href="sheets_list.html"><div class="ico">📚</div><strong>مقرراتي وشيتاتي</strong><small>المواد والتكليفات.</small></a><a class="tile" href="katamaros.html"><div class="ico">⛪</div><strong>القراءات الكنسية</strong><small>القطمارس والقراءات.</small></a><a class="tile" href="spiritual_note.html"><div class="ico">🕊️</div><strong>النوتة الروحية</strong><small>المتابعة الروحية.</small></a></div></div>
 </section>
+
+<!-- لوحة الخدام وأمين الخدمة -->
 <section id="staffPanel" class="panel">
   <div class="intro"><div><h2>👨‍🏫 <span id="sName"></span></h2><p id="staffIntroText"></p></div><div class="introicon">📊</div></div>
   <div id="adminView">
@@ -37,15 +56,14 @@
   <div id="servantView" style="display:none">
     <div class="primary servant"><div><h3>👨‍🏫 إعداد خدام</h3><p>مساحة الخادم اليومية: مخدومي، الحضور، الافتقاد، الخطة والأنشطة.</p></div><a class="open" href="servant-app.html">فتح واجهة الخادم</a></div>
     <div class="section"><div class="sectionhead"><h3>خدمة اليوم</h3><span>ابدأ من هنا</span></div><div class="tiles"><a class="tile" href="servant-app.html"><div class="ico">👥</div><strong>مخدومي</strong><small>المجموعة والملفات.</small></a><a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>الحضور</strong><small>تسجيل ومراجعة.</small></a><a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>الافتقاد</strong><small>الزيارات والتواصل.</small></a><a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓️</div><strong>خطة الخدمة</strong><small>المحاضرات والأنشطة.</small></a></div></div>
-    <div class="section"><div class="sectionhead"><h3>متابعة خدمتي</h3><span>أدوات شخصية</span></div><div class="tiles"><a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصادي كخادم</strong><small>مؤشرات الإنجاز.</small></a><a class="tile" href="projects.html"><div class="ico">🚀</div><strong>الأنشطة والمشروعات</strong><small>المشاركة والمتابعة.</small></a></div></div>
+    <div class="section"><div class="sectionhead">### متابعة خدمتي</h3><span>أدوات شخصية</span></div><div class="tiles"><a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصادي كخادم</strong><small>مؤشرات الإنجاز.</small></a><a class="tile" href="projects.html"><div class="ico">🚀</div><strong>الأنشطة والمشروعات</strong><small>المشاركة والمتابعة.</small></a></div></div>
   </div>
 </section>
 </main>
 <script src="auth-client.js"></script>
 <script>
 (function(){
-  var $=function(id){return document.getElementById(id)};
-  $('logoutBtn').addEventListener('click',function(){ChurchAuth.logout()});
+  var $=function(id){return document.getElementById(id)};$('logoutBtn').addEventListener('click',function(){ChurchAuth.logout()});
 
   function api(path){
     return ChurchAuth.fetch(path).then(function(r){return r.json()}).then(function(j){
@@ -53,15 +71,33 @@
     });
   }
 
+  // جدول قراءات الكنيسة الفوري لشهر أكتوبر لضمان عدم التعليق نهائياً
+  const octoberPlan = {
+    1: "يونان 4:1", 2: "ميخا 3:1", 3: "ميخا 7:4", 4: "ناحوم 3:1", 5: "حبقوق 3:1",
+    6: "صفنيا 3:1", 7: "حجي 2:1", 8: "زكريا 3:1", 9: "زكريا 7:4", 10: "زكريا 10:8",
+    11: "زكريا 14:11", 12: "ملاخي 4:1", 13: "مكابيين الأول 4:1", 14: "مكابيين الأول 8:5", 15: "مكابيين الأول 12:9",
+    16: "مكابيين الأول 16:13", 17: "مكابيين الثاني 3:1", 18: "مكابيين الثاني 7:4", 19: "مكابيين الثاني 11:8", 20: "مكابيين الثاني 15:12",
+    21: "متى 3:1", 22: "متى 7:4", 23: "متى 10:8", 24: "متى 14:11", 25: "متى 17:15",
+    26: "متى 21:18", 27: "متى 24:22", 28: "متى 28:25", 29: "مرقس 4:1", 30: "مرقس 8:5", 31: "مرقس 12:9"
+  };
+
+  const today = new Date();
+  const day = today.getDate();
+  const month = today.getMonth() + 1;
+  
+  if (month === 10 && octoberPlan[day]) {
+    $('todaysReadingValue').textContent = octoberPlan[day];$('todaysDateLabel').textContent = `${day} أكتوبر`;
+  } else {
+    $('todaysReadingValue').textContent = "يونان 4:1";
+  }
+
   ChurchAuth.ready.then(function(s){
     if(!s) return;
     $('whoName').textContent=s.name||'';
 
     if(s.role==='student'){
-      $('memberPanel').classList.add('active');
-      $('mName').textContent=s.name||'';
-      $('mLevel').textContent=s.level||'';
-      $('mPoints').textContent=s.points||0;
+      $('memberPanel').classList.add('active');$('mName').textContent=s.name||'';
+      $('mLevel').textContent=s.level\vert{}\vert{}'';$('mPoints').textContent=s.points||0;
       $('memberPointsPill').textContent=(s.points||0)+' نقطة';
       api('/api/harvest').then(function(j){
         var d=j.data;
@@ -75,12 +111,10 @@
     }
 
     // أمين الخدمة أو خادم
-    $('staffPanel').classList.add('active');
-    $('sName').textContent=s.name||'مساحة الخدمة';
+    $('staffPanel').classList.add('active');$('sName').textContent=s.name||'مساحة الخدمة';
     var isAdmin=s.role==='admin';
     $('adminView').style.display=isAdmin?'block':'none';
-    $('servantView').style.display=isAdmin?'none':'block';
-    $('staffIntroText').textContent=isAdmin
+    $('servantView').style.display=isAdmin?'none':'block';$('staffIntroText').textContent=isAdmin
       ?'أمين الخدمة يرى النظام بالكامل: المخدومين والخدام والتعليم والمشروعات والتقارير.'
       :'مساحتك اليومية: مخدومي، الحضور، الافتقاد، الخطة والأنشطة.';
 
