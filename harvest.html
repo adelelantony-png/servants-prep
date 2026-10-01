@@ -17,7 +17,7 @@
 <body>
     <div class="container py-4" style="max-width: 800px;">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <a href="index.html" class="btn btn-outline-secondary btn-sm fw-bold"><i class="fa-solid fa-arrow-right me-1"></i> العودة للرئيسية</a>
+            <a href="index.html?v=4" class="btn btn-outline-secondary btn-sm fw-bold"><i class="fa-solid fa-arrow-right me-1"></i> العودة للرئيسية</a>
             <h4 class="fw-bold mb-0 text-primary">🌾 لوحة الحصاد والإنجازات</h4>
         </div>
 
@@ -26,7 +26,6 @@
             <span class="badge bg-primary fs-6 px-3 py-2" id="hRole">...</span>
         </div>
 
-        <!-- إحصائيات المخدوم -->
         <div class="row g-3" id="studentStats" style="display:none;">
             <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-star text-warning"></i><h3 id="stPoints">0</h3><p>إجمالي النقاط</p></div></div>
             <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-book-bible text-primary"></i><h3 id="stBible">0</h3><p>أيام القراءة</p></div></div>
@@ -34,8 +33,10 @@
             <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-file-lines text-danger"></i><h3 id="stSheets">0</h3><p>الشيتات المنجزة</p></div></div>
         </div>
 
-        <!-- إحصائيات الخادم / الأدمن -->
         <div class="row g-3" id="servantStats" style="display:none;">
+            <div class="col-12 mb-2">
+                <button class="btn btn-success w-100 fw-bold shadow-sm py-2" onclick="registerMyAttendance()">تسجيل حضوري للخدمة اليوم ✔️</button>
+            </div>
             <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-calendar-check text-success"></i><h3 id="svAttend">0</h3><p>حضور الخدمة</p></div></div>
             <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-house-chimney-medical text-danger"></i><h3 id="svVisits">0</h3><p>الافتقادات</p></div></div>
             <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-list-check text-warning"></i><h3 id="svTasks">0</h3><p>التكليفات</p></div></div>
@@ -45,13 +46,20 @@
 
     <script src="auth-client.js"></script>
     <script>
+        let currentS = null;
         ChurchAuth.ready.then(s => {
             if(!s) return window.location.replace('login.html');
-            
+            currentS = s;
             document.getElementById('hName').innerText = s.name;
             let isServant = (s.role === 'admin' || s.role === 'servant');
             document.getElementById('hRole').innerText = isServant ? 'سجل إنجازات الخادم' : 'سجل إنجازات الدارس';
 
+            refreshStats();
+        });
+
+        function refreshStats() {
+            let s = currentS;
+            let isServant = (s.role === 'admin' || s.role === 'servant');
             let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
             let servantsAtt = JSON.parse(localStorage.getItem('my_church_servants_attendance')) || {};
             let masterPlan = JSON.parse(localStorage.getItem('my_church_master_plan')) || [];
@@ -78,18 +86,38 @@
                 });
 
                 let taskCount = masterPlan.filter(p => p.responsible === s.name).length;
-
-                // قراءة النقاط الروحية بدقة سواء كان الخادم في المصفوفة أو كأدمن مستقل
-                let myServantFile = servants.find(x => x.name === s.name || x.code === s.code) || {};
                 let standaloneAdminNotes = JSON.parse(localStorage.getItem('admin_spiritual_notes') || '{}');
-                let spiritualDaysTotal = myServantFile.spiritualDays || standaloneAdminNotes[s.name] || 0;
+                let myServantFile = servants.find(x => x.name === s.name || x.code === s.code) || {};
+                let spiritualDaysTotal = myServantFile.spiritualDays || standaloneAdminNotes['admin_points'] || 0;
 
                 document.getElementById('svAttend').innerText = attCount;
                 document.getElementById('svVisits').innerText = visCount;
                 document.getElementById('svTasks').innerText = taskCount;
                 document.getElementById('svSpiritual').innerText = spiritualDaysTotal;
             }
-        });
+        }
+
+        function registerMyAttendance() {
+            if(!currentS) return;
+            let today = new Date().toISOString().split('T')[0];
+            let servantsAtt = JSON.parse(localStorage.getItem('my_church_servants_attendance')) || {};
+            if(!servantsAtt[today]) servantsAtt[today] = [];
+            
+            let exists = servantsAtt[today].find(x => x.name === currentS.name);
+            if(!exists) {
+                servantsAtt[today].push({
+                    id: currentS.id || Date.now(),
+                    name: currentS.name,
+                    code: currentS.code || 'admin',
+                    time: new Date().toLocaleTimeString('ar-EG')
+                });
+                localStorage.setItem('my_church_servants_attendance', JSON.stringify(servantsAtt));
+                refreshStats();
+                alert("تم تسجيل حضورك للخدمة بنجاح!");
+            } else {
+                alert("حضورك مسجل بالفعل اليوم.");
+            }
+        }
     </script>
 </body>
 </html>
