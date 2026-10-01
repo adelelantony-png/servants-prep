@@ -1,157 +1,99 @@
-ح<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>النوتة الروحية الذكية</title>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>النوتة الروحية</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Tajawal', sans-serif; background-color: #f1f5f9; color: #1e293b; }
-        .main-container { max-width: 650px; margin: 20px auto; padding: 0 15px; }
-        .card-custom { background: #ffffff; border-radius: 20px; padding: 20px; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.04); margin-bottom: 20px; }
-        .header-card { background: linear-gradient(135deg, #b91c1c 0%, #ef4444 100%); color: #ffffff; border-radius: 20px; padding: 20px; box-shadow: 0 8px 20px rgba(239, 68, 68, 0.2); margin-bottom: 20px; }
-        .check-pill { display: flex; align-items: center; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 14px; padding: 12px 16px; cursor: pointer; transition: all 0.2s; margin-bottom: 10px; }
-        .check-pill:hover { background: #f1f5f9; border-color: #cbd5e1; }
-        .check-pill input { width: 22px; height: 22px; margin-left: 12px; cursor: pointer; }
+        body { font-family: 'Tajawal', sans-serif; background-color: #f4f7fb; }
+        .card-custom { background: #fff; border-radius: 16px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); margin-bottom: 15px; border: 1px solid #e2e8f0; }
+        .check-item { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px dashed #e2e8f0; }
+        .check-item:last-child { border-bottom: none; }
+        .form-check-input { width: 26px; height: 26px; cursor: pointer; border-color: #cbd5e1; }
+        .form-check-input:checked { background-color: #0b4ca5; border-color: #0b4ca5; }
     </style>
-<script src="auth-client.js"></script>
 </head>
 <body>
-
-<div class="main-container pb-5">
-
-    <!-- شريط التنقل -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <a href="index.html" class="btn btn-outline-secondary btn-sm fw-bold">
-            <i class="fa-solid fa-arrow-right me-1"></i> الرئيسية
-        </a>
-        <a href="harvest.html" class="btn btn-outline-primary btn-sm fw-bold">
-            <i class="fa-solid fa-chart-pie me-1"></i> صفحة الحصاد
-        </a>
-    </div>
-
-    <!-- الترويسة -->
-    <div class="header-card text-center">
-        <h4 class="fw-bold mb-1"><i class="fa-solid fa-heart-pulse me-2"></i>النوتة الروحية اليومية</h4>
-        <small id="ui-student-info" class="opacity-90 d-block mb-2">جاري التحميل...</small>
-        <div class="bg-white bg-opacity-20 rounded-pill py-1 px-3 d-inline-block small">
-            «أَمَّا أَنَا فَبِكَثْرَةِ رَحْمَتِكَ أَدْخُلُ بَيْتَكَ، أَسْجُدُ فِي هَيْكَلِ قُدْسِكَ بِخَوْفِكَ»
-        </div>
-    </div>
-
-    <!-- رسائل النظام -->
-    <div id="system-msg" class="alert d-none fw-bold text-center" role="alert"></div>
-
-    <!-- 1. صندوق تسجيل الصلوات -->
-    <div class="card card-custom">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h6 class="fw-bold text-danger mb-0"><i class="fa-solid fa-calendar-check me-1"></i> تسجيل وسائط النعمة لليوم</h6>
+    <div class="container py-4" style="max-width: 600px;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="index.html" class="btn btn-outline-secondary btn-sm fw-bold"><i class="fa-solid fa-arrow-right me-1"></i> العودة</a>
+            <h4 class="fw-bold mb-0 text-primary">🕊️ النوتة الروحية</h4>
         </div>
 
-        <form id="spiritual-form">
-            <div class="mb-3">
-                <label class="form-label small fw-bold text-muted">اختر اليوم لتسجيل صلواتك:</label>
-                <input type="date" id="target_date" class="form-control text-center fw-bold" required>
+        <div class="card-custom text-center" style="background: linear-gradient(135deg, #fff, #f7faff);">
+            <h4 class="fw-bold mb-2 text-dark" id="userName">جاري التحميل...</h4>
+            <p class="text-muted small fw-bold mb-0">سجل متابعتك الروحية اليومية لتنمو في القامة الروحية.</p>
+        </div>
+
+        <div class="card-custom">
+            <h5 class="fw-bold text-success mb-3">ممارسات اليوم (<span id="todayDate"></span>)</h5>
+            
+            <div class="check-item">
+                <label class="fw-bold text-dark mb-0 fs-6"><i class="fa-solid fa-hands-praying text-warning me-2 fs-5"></i> صلاة باكر / الأجبية</label>
+                <input type="checkbox" class="form-check-input" id="chkPrayer">
             </div>
-
-            <div class="mb-3">
-                <label class="form-label small fw-bold text-primary mb-2">
-                    <i class="fa-solid fa-hands-praying me-1"></i> صلوات الأجبية اليومية:
-                </label>
-                <label class="check-pill">
-                    <input type="checkbox" id="prayed_baker">
-                    <div><strong class="d-block text-dark"><i class="fa-solid fa-sun text-warning me-1"></i> صلاة باكر</strong><small class="text-muted">مزامير وإنجيل وطلبة باكر الصباحية</small></div>
-                </label>
-                <label class="check-pill">
-                    <input type="checkbox" id="prayed_ghoroub">
-                    <div><strong class="d-block text-dark"><i class="fa-solid fa-cloud-sun text-info me-1"></i> صلاة الغروب</strong><small class="text-muted">الساعة الحادية عشرة</small></div>
-                </label>
-                <label class="check-pill">
-                    <input type="checkbox" id="prayed_noam">
-                    <div><strong class="d-block text-dark"><i class="fa-solid fa-moon text-primary me-1"></i> صلاة النوم</strong><small class="text-muted">الساعة الثانية عشرة</small></div>
-                </label>
+            <div class="check-item">
+                <label class="fw-bold text-dark mb-0 fs-6"><i class="fa-solid fa-book-bible text-primary me-2 fs-5"></i> قراءة إصحاح من الكتاب المقدس</label>
+                <input type="checkbox" class="form-check-input" id="chkBible">
             </div>
-
-            <label class="check-pill">
-                <input type="checkbox" id="fasting">
-                <div><strong class="d-block text-dark"><i class="fa-solid fa-utensils text-danger me-1"></i> الصوم الانقطاعي</strong><small class="text-muted">حسب تقويم الكنيسة أو النذر</small></div>
-            </label>
-
-            <label class="check-pill mb-4">
-                <input type="checkbox" id="attended_mass">
-                <div><strong class="d-block text-dark"><i class="fa-solid fa-church text-success me-1"></i> حضور القداس والتناول</strong><small class="text-muted">المشاركة في سر الإفخارستيا</small></div>
-            </label>
-
-            <button type="submit" id="save-btn" class="btn btn-danger w-100 py-2 fw-bold">
-                <i class="fa-solid fa-floppy-disk me-1"></i> حفظ تسجيل اليوم
-            </button>
-        </form>
+            <div class="check-item">
+                <label class="fw-bold text-dark mb-0 fs-6"><i class="fa-solid fa-church text-danger me-2 fs-5"></i> حضور القداس الإلهي / التناول</label>
+                <input type="checkbox" class="form-check-input" id="chkMass">
+            </div>
+            <div class="check-item">
+                <label class="fw-bold text-dark mb-0 fs-6"><i class="fa-solid fa-heart text-purple me-2 fs-5"></i> عمل رحمة / افتقاد</label>
+                <input type="checkbox" class="form-check-input" id="chkMercy">
+            </div>
+            
+            <button class="btn btn-primary w-100 mt-4 py-3 fw-bold fs-5 shadow-sm" id="btnSaveNote" onclick="saveSpiritualNote()">حفظ النوتة وإضافة النقاط ✔️</button>
+        </div>
     </div>
-
-</div>
-
-<script>
-    const studentCode = localStorage.getItem('student_code');
-    const studentName = localStorage.getItem('student_name');
-
-    if (!studentCode) window.location.href = 'login.html';
-
-    // ضبط الواجهة
-    document.getElementById('ui-student-info').textContent = `${studentName} (كود: ${studentCode})`;
     
-    // ضبط تاريخ اليوم كافتراضي
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('target_date').value = today;
+    <script src="auth-client.js"></script>
+    <script>
+        let currentUserData = null;
+        let isServant = false;
 
-    // إرسال البيانات للـ API
-    document.getElementById('spiritual-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const saveBtn = document.getElementById('save-btn');
-        const sysMsg = document.getElementById('system-msg');
-        
-        saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> جاري الحفظ...';
-        saveBtn.disabled = true;
-        sysMsg.classList.add('d-none');
+        document.getElementById('todayDate').innerText = new Date().toLocaleDateString('ar-EG');
 
-        const payload = {
-            code: studentCode,
-            date: document.getElementById('target_date').value,
-            baker: document.getElementById('prayed_baker').checked,
-            ghoroub: document.getElementById('prayed_ghoroub').checked,
-            noam: document.getElementById('prayed_noam').checked,
-            fasting: document.getElementById('fasting').checked,
-            mass: document.getElementById('attended_mass').checked
-        };
+        ChurchAuth.ready.then(s => {
+            if(!s) return window.location.href = 'login.html';
+            document.getElementById('userName').innerText = s.name;
+            currentUserData = s;
+            isServant = (s.role === 'admin' || s.role === 'servant');
+        });
 
-        try {
-            const response = await ChurchAuth.fetch('/api/spiritual_note', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
+        function saveSpiritualNote() {
+            if(!currentUserData) return;
+            let btn = document.getElementById('btnSaveNote');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري الحفظ...';
 
-            const result = await response.json();
-
-            if (result.success) {
-                sysMsg.className = 'alert alert-success fw-bold text-center';
-                sysMsg.textContent = result.message;
+            // إضافة النقاط للمخدوم، أو زيادة العداد للخادم
+            if(!isServant) {
+                let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
+                let idx = members.findIndex(m => m.id.toString() === currentUserData.id.toString() || m.code === currentUserData.code);
+                if(idx > -1) {
+                    members[idx].spiritualDays = (members[idx].spiritualDays || 0) + 1;
+                    members[idx].points = (parseInt(members[idx].points) || 0) + 5; // بونص 5 نقاط
+                    localStorage.setItem('my_church_class', JSON.stringify(members));
+                }
             } else {
-                throw new Error(result.message);
+                let servants = JSON.parse(localStorage.getItem('my_church_servants')) || [];
+                let idx = servants.findIndex(x => x.id.toString() === currentUserData.id.toString() || x.code === currentUserData.code);
+                if(idx > -1) {
+                    servants[idx].spiritualDays = (servants[idx].spiritualDays || 0) + 1;
+                    localStorage.setItem('my_church_servants', JSON.stringify(servants));
+                }
             }
-        } catch (error) {
-            sysMsg.className = 'alert alert-danger fw-bold text-center';
-            sysMsg.textContent = error.message || "حدث خطأ في الاتصال بالسيرفر.";
+
+            setTimeout(() => {
+                btn.className = 'btn btn-success w-100 mt-4 py-3 fw-bold fs-5 shadow-sm';
+                btn.innerHTML = '<i class="fa-solid fa-check-double"></i> تم حفظ المتابعة بنجاح';
+            }, 500);
         }
-
-        sysMsg.classList.remove('d-none');
-        saveBtn.innerHTML = '<i class="fa-solid fa-floppy-disk me-1"></i> حفظ تسجيل اليوم';
-        saveBtn.disabled = false;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-</script>
-
+    </script>
 </body>
 </html>
