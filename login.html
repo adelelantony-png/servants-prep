@@ -10,14 +10,15 @@
         .login-card { background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(11,76,165,0.1); width: 90%; max-width: 400px; text-align: center; }
         .logo-box { width: 70px; height: 70px; background: linear-gradient(135deg, #0b4ca5, #1682ee); color: #fff; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 35px; margin: 0 auto 15px; }
         .tabs { display: flex; margin-bottom: 20px; background: #f1f5f9; border-radius: 12px; overflow: hidden; }
-        .tab { flex: 1; padding: 12px; cursor: pointer; font-weight: bold; color: #64748b; font-size: 14px; transition: 0.3s; }
-        .tab.active { background: #0b4ca5; color: #fff; }
+        .tab { flex: 1; padding: 12px; cursor: pointer; font-weight: bold; color: #64748b; font-size: 14px; transition: 0.3s; border-bottom: 3px solid transparent; }
+        .tab.active { background: #fff; color: #0b4ca5; border-bottom: 3px solid #0b4ca5; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
         .form-section { display: none; text-align: right; }
         .form-section.active { display: block; }
         label { font-weight: bold; font-size: 13px; color: #475569; margin-bottom: 5px; display: block; }
-        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 12px; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 12px; box-sizing: border-box; font-family: 'Tajawal', sans-serif; font-size: 15px; }
         input:focus { border-color: #0b4ca5; outline: none; box-shadow: 0 0 0 3px rgba(11,76,165,0.1); }
-        .btn { background: linear-gradient(135deg, #0b4ca5, #1682ee); color: #fff; border: none; padding: 14px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 5px; }
+        .btn { background: linear-gradient(135deg, #0b4ca5, #1682ee); color: #fff; border: none; padding: 14px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 5px; transition: 0.2s; }
+        .btn:active { transform: scale(0.97); }
     </style>
 </head>
 <body>
@@ -25,14 +26,14 @@
     <div class="login-card">
         <div class="logo-box">✝</div>
         <h3 style="margin:0 0 5px; color:#0b4ca5;">خدمتي برو</h3>
-        <p style="margin:0 0 20px; font-size:12px; color:#64748b;">منصة واحدة للخدمة الكنسية</p>
+        <p style="margin:0 0 20px; font-size:12px; color:#64748b;">تسجيل الدخول للمنظومة</p>
 
         <div class="tabs">
             <div class="tab active" id="tab-student" onclick="switchTab('student')">👤 دخول مخدوم</div>
             <div class="tab" id="tab-servant" onclick="switchTab('servant')">👑 دخول خادم</div>
         </div>
 
-        <!-- دخول المخدوم -->
+        <!-- فورم دخول المخدوم -->
         <div id="form-student" class="form-section active">
             <label>كود المخدوم (رقم الامتحان):</label>
             <input type="text" id="stCode" placeholder="أدخل الكود الخاص بك" dir="ltr">
@@ -40,10 +41,10 @@
             <label>رقم الهاتف:</label>
             <input type="tel" id="stPhone" placeholder="أدخل رقم هاتفك المسجل" dir="ltr">
             
-            <button class="btn" onclick="loginStudent()">تسجيل الدخول</button>
+            <button class="btn" id="btnStudent" onclick="loginStudent()">تسجيل الدخول</button>
         </div>
 
-        <!-- دخول الخادم -->
+        <!-- فورم دخول الخادم وأمين الخدمة -->
         <div id="form-servant" class="form-section">
             <label>اسم المستخدم أو كود الخادم:</label>
             <input type="text" id="svUser" placeholder="أدخل اسمك أو الكود">
@@ -51,25 +52,25 @@
             <label>كلمة المرور:</label>
             <input type="password" id="svPass" placeholder="••••••••" dir="ltr">
             
-            <button class="btn" onclick="loginServant()">دخول الخدام</button>
+            <button class="btn" id="btnServant" onclick="loginServant()">دخول الخدام</button>
         </div>
     </div>
 
+    <script src="auth-client.js"></script>
     <script>
-        // تنظيف الكاش القديم
+        // تنظيف Service Worker القديم لو موجود عشان ميعملش كاش غلط
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistrations().then(function(regs) {
                 for (let r of regs) r.unregister();
             });
         }
 
-        // فحص الجلسة محلياً بدون الاعتماد على أي ملفات خارجية
-        try {
-            let session = JSON.parse(localStorage.getItem('church_auth_session'));
-            if(session && session.role) {
+        // لو المستخدم مسجل دخول بالفعل، نوجهه للرئيسية فوراً
+        ChurchAuth.ready.then(session => {
+            if (session) {
                 window.location.replace('index.html');
             }
-        } catch(e) {}
+        });
 
         function switchTab(type) {
             document.getElementById('tab-student').classList.remove('active');
@@ -81,47 +82,95 @@
             document.getElementById('form-' + type).classList.add('active');
         }
 
-        function loginStudent() {
+        function createSession(userObj, role) {
+            let session = {
+                id: userObj.id || Date.now(),
+                code: userObj.code,
+                name: userObj.name,
+                role: userObj.role || role,
+                permission: userObj.permission || role,
+                level: userObj.stage || userObj.level || 'غير محدد'
+            };
+            localStorage.setItem('church_auth_session', JSON.stringify(session));
+            window.location.replace('index.html');
+        }
+
+        async function loginStudent() {
             let code = document.getElementById('stCode').value.trim();
             let phone = document.getElementById('stPhone').value.trim();
-            if(!code || !phone) return alert("يرجى إدخال الكود ورقم الهاتف!");
+            let btn = document.getElementById('btnStudent');
 
+            if(!code || !phone) return alert("يرجى إدخال الكود ورقم الهاتف!");
+            btn.innerHTML = 'جاري الدخول...';
+
+            try {
+                // محاولة الاتصال بـ Vercel أولاً (إذا كان لديك API)
+                let res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code: code, phone: phone, type: 'student' })
+                });
+                
+                if (res.ok) {
+                    let data = await res.json();
+                    createSession(data.user || data, 'student');
+                    return;
+                }
+            } catch(e) {
+                console.warn("Vercel API offline. Using local database.");
+            }
+
+            // الاعتماد المحلي (Fallback) من قاعدة البيانات التي تم تغذيتها
             let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
             let student = members.find(m => m.code == code && m.phone == phone);
 
             if(student) {
-                localStorage.setItem('church_auth_session', JSON.stringify({
-                    id: student.id || Date.now(), code: student.code, name: student.name, role: 'student', level: student.stage || 'غير محدد'
-                }));
-                window.location.replace('index.html');
+                createSession(student, 'student');
             } else {
+                btn.innerHTML = 'تسجيل الدخول';
                 alert("بيانات غير صحيحة! تأكد من الكود ورقم الهاتف المسجل بالخدمة.");
             }
         }
 
-        function loginServant() {
+        async function loginServant() {
             let user = document.getElementById('svUser').value.trim();
             let pass = document.getElementById('svPass').value.trim();
-            if(!user || !pass) return alert("يرجى إدخال البيانات كاملة!");
+            let btn = document.getElementById('btnServant');
 
-            // الدخول السريع لأمين الخدمة
+            if(!user || !pass) return alert("يرجى إدخال البيانات كاملة!");
+            btn.innerHTML = 'جاري الدخول...';
+
+            // الباب السري الدائم لأمين الخدمة لضمان الدخول في كل الظروف
             if(user === "admin" && pass === "admin") {
-                localStorage.setItem('church_auth_session', JSON.stringify({
-                    id: 'admin1', code: 'admin', name: 'أمين الخدمة', role: 'admin', permission: 'admin'
-                }));
-                window.location.replace('index.html');
+                createSession({ id: 'admin1', code: 'admin', name: 'أمين الخدمة', role: 'admin', permission: 'admin' }, 'admin');
                 return;
             }
 
+            try {
+                // محاولة الاتصال بـ Vercel أولاً
+                let res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: user, password: pass, type: 'servant' })
+                });
+                
+                if (res.ok) {
+                    let data = await res.json();
+                    createSession(data.user || data, data.role || 'servant');
+                    return;
+                }
+            } catch(e) {
+                console.warn("Vercel API offline. Using local database.");
+            }
+
+            // الاعتماد المحلي (Fallback)
             let servants = JSON.parse(localStorage.getItem('my_church_servants')) || [];
             let servant = servants.find(s => (s.code === user || s.name === user) && s.password === pass);
 
             if(servant) {
-                localStorage.setItem('church_auth_session', JSON.stringify({
-                    id: servant.id || Date.now(), code: servant.code, name: servant.name, role: servant.role || 'servant', permission: servant.permission
-                }));
-                window.location.replace('index.html');
+                createSession(servant, servant.role || 'servant');
             } else {
+                btn.innerHTML = 'دخول الخدام';
                 alert("اسم المستخدم أو كلمة المرور غير صحيحة!");
             }
         }
