@@ -1,115 +1,279 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b4ca5"><title>خدمتي برو — الرئيسية</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-<style>
-:root{--blue:#0b4ca5;--blue2:#1682ee;--green:#087f62;--green2:#18a673;--gold:#d99812;--ink:#17233d;--muted:#708098;--bg:#f3f7fc;--line:#dce6f2;--card:#fff;--shadow:0 10px 28px rgba(18,55,105,.08);--radius:20px}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tajawal,Arial,sans-serif}.top{background:linear-gradient(125deg,#06235c,#0b4ca5 58%,#1682ee);color:#fff;padding:18px 14px 26px}.topin{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px;border:1px solid #ffffff40;background:#ffffff16;border-radius:16px;display:grid;place-items:center;font-size:27px}.brand h1{font-size:25px;margin:0;font-weight:900}.brand p{margin:4px 0 0;opacity:.82;font-size:12px}.wrap{max-width:1050px;margin:-10px auto 0;padding:0 12px 30px}
-.intro{margin-top:15px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:15px}.intro h2{margin:0 0 5px;font-size:22px}.intro p{margin:0;color:var(--muted);line-height:1.7;font-size:13px}.role{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px}.tag{border:1px solid var(--line);background:#f7faff;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:800;color:#52627a}.tag.blue{background:#eaf3ff;color:var(--blue);border-color:#bcd8f7}.tag.green{background:#eaf8f3;color:var(--green);border-color:#b9e2d3}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px;text-align:center}.stat i{font-style:normal;font-size:21px}.stat b{display:block;font-size:22px;margin-top:3px}.stat small{color:var(--muted);font-size:10px}.section{margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:8px;margin-bottom:11px}.sectionhead h3{margin:0;font-size:17px;color:var(--blue)}.sectionhead span{font-size:11px;color:var(--muted);font-weight:bold}.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.tile{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:linear-gradient(145deg,#fff,#f7faff);border-radius:15px;padding:13px;min-height:102px}.tile:active{transform:scale(.99)}.tile .ico{font-size:25px;margin-bottom:6px}.tile strong{display:block;margin:6px 0 2px;font-size:13px;color:#1e293b}.tile small{display:block;color:var(--muted);font-size:11px;line-height:1.5}.who{display:flex;align-items:center;gap:8px;font-size:12px;border:1px solid #ffffff42;background:#ffffff12;border-radius:999px;padding:5px 6px 5px 12px;white-space:nowrap;max-width:60vw}
-.who span{overflow:hidden;text-overflow:ellipsis}.who button{border:0;border-radius:999px;background:#fff;color:#0b4ca5;font:800 12px Tajawal,Arial,sans-serif;padding:6px 12px;cursor:pointer}
-@media(max-width:850px){.tiles{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.top{padding-bottom:22px}.brand h1{font-size:20px}.brand p{font-size:10px}.wrap{padding:0 9px 78px}.intro{padding:16px}.intro h2{font-size:19px}.stats{gap:7px}.stat{padding:11px}.stat b{font-size:19px}.section{padding:13px}.tiles{gap:7px}.tile{min-height:94px;padding:11px}.tile strong{font-size:12px}}
-</style>
+    <script>
+    (function() {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for (let registration of registrations) registration.unregister();
+            });
+        }
+        if (window.caches) {
+            caches.keys().then(function(names) {
+                for (let name of names) caches.delete(name);
+            });
+        }
+    })();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قارئ الكتاب المقدس</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background-color: #f8fafc; color: #2d3748; }
+        .reader-card { max-width: 820px; margin: 20px auto; background: #ffffff; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); padding: 25px; border: 1px solid #edf2f7; }
+        .reader-header { border-bottom: 2px solid #edf2f7; padding-bottom: 15px; margin-bottom: 20px; }
+        .filter-box { background-color: #f1f5f9; border-radius: 14px; padding: 15px; margin-bottom: 20px; }
+        .verse-box { font-size: 1.25rem; line-height: 2.3; color: #1a202c; text-align: justify; }
+        .verse-num { display: inline-block; font-size: 0.85rem; font-weight: 700; color: #1e3c72; background-color: #e0e7ff; border-radius: 6px; padding: 2px 7px; margin: 0 5px 0 3px; vertical-align: middle; user-select: none; }
+    </style>
+    <script src="auth-client.js"></script>
 </head>
 <body>
-<header class="top">
-  <div class="topin">
-    <div class="brand">
-      <div class="logo">✝</div>
-      <div><h1>خدمتي برو</h1><p>منصة واحدة للخدمة — كل دور له مساره وأدواته</p></div>
+
+<div class="container pb-5">
+    <div class="reader-card">
+        
+        <div class="d-flex justify-content-between align-items-center reader-header">
+            <a href="index.html" class="btn btn-outline-secondary btn-sm fw-bold">
+                <i class="fa-solid fa-arrow-right me-1"></i> العودة للرئيسية
+            </a>
+            <h4 class="fw-bold mb-0 text-primary"><i class="fa-solid fa-book-bible me-2"></i>الكتاب المقدس</h4>
+            <div class="d-flex gap-1">
+                <button class="btn btn-sm btn-outline-primary" onclick="changeFontSize(1)" title="تكبير الخط"><i class="fa-solid fa-plus"></i></button>
+                <button class="btn btn-sm btn-outline-primary" onclick="changeFontSize(-1)" title="تصغير الخط"><i class="fa-solid fa-minus"></i></button>
+            </div>
+        </div>
+
+        <div class="filter-box">
+            <div class="row g-2 align-items-center">
+                <div class="col-md-5">
+                    <label class="form-label small fw-bold text-muted">السفر:</label>
+                    <select id="bookSelect" class="form-select" onchange="onBookChanged()"></select>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label small fw-bold text-muted">الإصحاح:</label>
+                    <select id="chapterSelect" class="form-select" onchange="renderVerses()"></select>
+                </div>
+                <div class="col-md-3 mt-md-4 pt-md-2">
+                    <button id="btnMarkRead" class="btn btn-success w-100 fw-bold" onclick="markCurrentChapterRead()">
+                        <i class="fa-solid fa-check me-1"></i> تم القراءة
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <button class="btn btn-outline-primary btn-sm fw-bold" onclick="prevChapter()"><i class="fa-solid fa-chevron-right me-1"></i> الإصحاح السابق</button>
+            <h5 id="chapterHeaderTitle" class="fw-bold text-secondary mb-0"></h5>
+            <button class="btn btn-outline-primary btn-sm fw-bold" onclick="nextChapter()">الإصحاح التالي <i class="fa-solid fa-chevron-left ms-1"></i></button>
+        </div>
+
+        <div id="versesArea" class="verse-box p-4 bg-white border rounded-4 shadow-sm min-vh-50">
+            <div class="text-center py-5 text-muted">
+                <div class="spinner-border text-primary mb-3" role="status"></div>
+                <div>جاري تحميل نص الكتاب المقدس...</div>
+            </div>
+        </div>
+
     </div>
-    <div class="who"><span id="whoName">أمين الخدمة</span><button type="button" id="logoutBtn" onclick="localStorage.clear(); location.replace('login.html');">خروج</button></div>
-  </div>
-</header>
-<main class="wrap">
-
-<!-- صندوق القراءة اليومية -->
-<section class="section" style="margin-bottom:15px; background:linear-gradient(135deg,#eaf3ff,#f7faff); border-color:#bcd8f7;">
-  <div class="sectionhead">
-    <h3 style="color:var(--blue);">📖 القراءة الروحية اليومية</h3>
-    <span style="font-weight:700; color:var(--blue2);">خطة الكنيسة</span>
-  </div>
-  <div style="display:flex; align-items:center; justify-content:space-between; gap:15px; flex-wrap:wrap;">
-    <div>
-      <p style="margin:0 0 5px; color:var(--muted); font-size:12px;">الإصحاح المقترح حسب جدول اليوم:</p>
-      <h2 style="margin:0; font-size:22px; color:var(--ink);">يونان 4:1</h2>
-    </div>
-    <a class="tile" href="bible.html?book=يونان&chapter=1" style="background:var(--blue); color:#fff; border-radius:12px; padding:10px 16px; text-decoration:none; font-weight:bold;">فتح إصحاح اليوم مباشرة</a>
-  </div>
-</section>
-
-<!-- لوحة التحكم الرئيسية والمسطحة (تظهر مباشرة دائماً لمنع أي شاشة بيضاء) -->
-<section class="section" style="display: block;">
-  <div class="intro">
-      <div>
-          <h2>👑 لوحة التحكم المركزية</h2>
-          <p>جميع أدوات إدارة الخدمة، المناهج، الحضور، والحياة الروحية متاحة أمامك مباشرة.</p>
-          <div class="role"><span class="tag green">أمين الخدمة / خادم</span></div>
-      </div>
-      <div style="font-size:45px;">📊</div>
-  </div>
-
-  <div class="stats">
-      <div class="stat"><i>👥</i><b id="aStudents">0</b><small>المخدومون</small></div>
-      <div class="stat"><i>👨‍🏫</i><b id="aServants">0</b><small>الخدام</small></div>
-      <div class="stat"><i>⭐</i><b id="aPoints">0</b><small>إجمالي النقاط</small></div>
-      <div class="stat"><i>📖</i><b id="aReaders">0</b><small>قراء نشطون</small></div>
-  </div>
-
-  <div class="section"><div class="sectionhead"><h3>الخدمة الميدانية</h3><span>الحضور والتواصل</span></div>
-      <div class="tiles">
-          <a class="tile" href="admin-dashboard.html?task=members"><div class="ico">👥</div><strong>إدارة المخدومين</strong><small>ملفات وبحث وباركود.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>تسجيل الحضور</strong><small>الماسح الذكي للكارنيهات.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>سجل الخدام والافتقاد</strong><small>حضور وافتقاد الخدام.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=broadcast"><div class="ico">📲</div><strong>واتساب جماعي</strong><small>مراسلة الغائبين.</small></a>
-      </div>
-  </div>
-
-  <div class="section"><div class="sectionhead"><h3 style="color:#d35400;">التعليم والأنشطة</h3><span style="color:#e67e22;">المناهج والخطة</span></div>
-      <div class="tiles">
-          <a class="tile" href="admin_subjects.html"><div class="ico">📚</div><strong>المناهج والتقييم</strong><small>الشيتات والمقررات.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓️</div><strong>خطة السنة</strong><small>الأجندة والفعاليات.</small></a>
-          <a class="tile" href="projects.html"><div class="ico">🚀</div><strong>المشروعات والأنشطة</strong><small>إدارة المشروعات.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=graduation"><div class="ico">🎓</div><strong>التخرج والترقية</strong><small>ترحيل الدفعات.</small></a>
-      </div>
-  </div>
-
-  <div class="section"><div class="sectionhead"><h3 style="color:#8e44ad;">التقارير والنظام</h3><span style="color:#9b59b6;">الإحصائيات والأمان</span></div>
-      <div class="tiles">
-          <a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصاد الخدمة</strong><small>المؤشرات والنمو الشامل.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=servants"><div class="ico">⚙️</div><strong>إدارة الخدام</strong><small>حسابات وصلاحيات.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=reports"><div class="ico">📁</div><strong>النسخ الاحتياطي</strong><small>تصدير واستيراد كامل.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=audit"><div class="ico">🛡️</div><strong>سجل العمليات</strong><small>تدقيق أمني لحظي.</small></a>
-      </div>
-  </div>
-
-  <!-- قسم الحياة الروحية -->
-  <div class="section" style="background:linear-gradient(145deg, #fdfefe, #f4fbf7); border-color:#d5f5e3;">
-    <div class="sectionhead"><h3 style="color:#1e8449;">حياتي الروحية (للتشجيع والقدوة)</h3><span style="color:#27ae60;">غذاء الخادم</span></div>
-    <div class="tiles">
-      <a class="tile" href="bible.html"><div class="ico">📖</div><strong>الكتاب المقدس</strong><small>قراءة وتأمل يومي.</small></a>
-      <a class="tile" href="spiritual_note.html"><div class="ico">🕊️</div><strong>النوتة الروحية</strong><small>الأجبية، الأصوام، الأسرار.</small></a>
-      <a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصادي الشخصي</strong><small>متابعة نموي الروحي.</small></a>
-      <a class="tile" href="katamaros.html"><div class="ico">⛪</div><strong>القطمارس</strong><small>قراءات الكنيسة اليومية.</small></a>
-    </div>
-  </div>
-</section>
-</main>
+</div>
 
 <script>
-try {
-  let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
-  let servants = JSON.parse(localStorage.getItem('my_church_servants')) || [];
-  let totalPts = members.reduce((sum, m) => sum + (parseInt(m.points) || 0), 0);
-  let totalReaders = members.filter(m => (m.readCount || 0) > 0).length;
+let currentUserId = null;
+ChurchAuth.ready.then(function(s){
+    if(!s) {
+        window.location.href = 'login.html';
+    } else {
+        currentUserId = (s.code || s.uid || s.id).toString();
+    }
+});
 
-  document.getElementById('aStudents').innerText = members.length;
-  document.getElementById('aServants').innerText = servants.length;
-  document.getElementById('aPoints').innerText = totalPts;
-  document.getElementById('aReaders').innerText = totalReaders;
-} catch(e) {}
+let bibleData = [];
+let currentFontSize = 1.25;
+
+const urlParams = new URLSearchParams(window.location.search);
+const targetBookName = urlParams.get('book');
+const targetChapter = parseInt(urlParams.get('chapter')) || 1;
+
+const arabicBookNames = {
+    "Genesis": "التكوين", "Exodus": "الخروج", "Leviticus": "اللاويين", "Numbers": "العدد", "Deuteronomy": "التثنية",
+    "Joshua": "يشوع", "Judges": "القضاة", "Ruth": "راعوث", "1 Samuel": "صموئيل الأول", "2 Samuel": "صموئيل الثاني",
+    "1 Kings": "الملوك الأول", "2 Kings": "الملوك الثاني", "1 Chronicles": "أخبار الأيام الأول", "2 Chronicles": "أخبار الأيام الثاني",
+    "Ezra": "عزرا", "Nehemiah": "نحميا", "Esther": "أستير", "Job": "أيوب", "Psalms": "المزامير",
+    "Proverbs": "الأمثال", "Ecclesiastes": "الجامعة", "Song of Solomon": "نشيد الأنشاد", "Isaiah": "إشعياء",
+    "Jeremiah": "إرميا", "Lamentations": "مراثي إرميا", "Ezekiel": "حزقيال", "Daniel": "دانيال",
+    "Hosea": "هوشع", "Joel": "يوئيل", "Amos": "عاموس", "Obadiah": "عوبديا", "Jonah": "يونان",
+    "Micah": "ميخا", "Nahum": "ناحوم", "Habakkuk": "حبقوق", "Zephaniah": "صفنيا", "Haggai": "حجي",
+    "Zechariah": "زكريا", "Malachi": "ملاخي",
+    "Matthew": "متى", "Mark": "مرقس", "Luke": "لوقا", "John": "يوحنا",
+    "Acts": "أعمال الرسل", "Romans": "رومية", "1 Corinthians": "كورنثوس الأولى", "2 Corinthians": "كورنثوس الثانية",
+    "Galatians": "غلاطية", "Ephesians": "أفسس", "Philippians": "فيلبي", "Colossians": "كولوسي",
+    "1 Thessalonians": "تسالونيكي الأولى", "2 Thessalonians": "تسالونيكي الثانية", "1 Timothy": "تيموثاوس الأولى",
+    "2 Timothy": "تيموثاوس الثانية", "Titus": "تيطس", "Philemon": "فليمون", "Hebrews": "العبرانيين",
+    "James": "يعقوب", "1 Peter": "بطرس الأولى", "2 Peter": "بطرس الثانية", "1 John": "يوحنا الأولى",
+    "2 John": "يوحنا الثانية", "3 John": "يوحنا الثالثة", "Jude": "يهوذا", "Revelation": "الرؤيا"
+};
+
+async function loadBibleData() {
+    try {
+        const response = await fetch('bible.json');
+        if (!response.ok) throw new Error('Network response was not ok');
+        bibleData = await response.json();
+        setupBooksDropdown();
+    } catch (err) {
+        document.getElementById('versesArea').innerHTML = `
+            <div class="alert alert-danger text-center">تعذر تحميل نص الكتاب المقدس. تأكد من وجود ملف bible.json بجوار الملفات.</div>`;
+    }
+}
+
+function setupBooksDropdown() {
+    const bookSelect = document.getElementById('bookSelect');
+    bookSelect.innerHTML = '';
+    let selectedIndex = 0;
+
+    bibleData.forEach((book, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        const arName = arabicBookNames[book.name] || book.name;
+        option.textContent = `${index + 1}. ${arName}`;
+
+        if (targetBookName && (arName.includes(targetBookName) || book.name.includes(targetBookName))) {
+            selectedIndex = index;
+        }
+        bookSelect.appendChild(option);
+    });
+
+    bookSelect.selectedIndex = selectedIndex;
+    onBookChanged(true);
+}
+
+function onBookChanged(isInitial = false) {
+    const bookIndex = document.getElementById('bookSelect').value;
+    const book = bibleData[bookIndex];
+    const chapterSelect = document.getElementById('chapterSelect');
+    chapterSelect.innerHTML = '';
+
+    book.chapters.forEach((_, cIdx) => {
+        const option = document.createElement('option');
+        option.value = cIdx;
+        option.textContent = `الإصحاح ${cIdx + 1}`;
+        chapterSelect.appendChild(option);
+    });
+
+    if (isInitial && targetChapter > 0 && targetChapter <= book.chapters.length) {
+        chapterSelect.selectedIndex = targetChapter - 1;
+    } else {
+        chapterSelect.selectedIndex = 0;
+    }
+
+    renderVerses();
+}
+
+function renderVerses() {
+    const bookIndex = document.getElementById('bookSelect').value;
+    const chapIndex = document.getElementById('chapterSelect').value;
+    const book = bibleData[bookIndex];
+    const verses = book.chapters[chapIndex];
+    const arName = arabicBookNames[book.name] || book.name;
+
+    document.getElementById('chapterHeaderTitle').textContent = `${arName} — الإصحاح ${parseInt(chapIndex) + 1}`;
+    
+    const btnMark = document.getElementById('btnMarkRead');
+    btnMark.className = 'btn btn-success w-100 fw-bold';
+    btnMark.innerHTML = '<i class="fa-solid fa-check me-1"></i> تم القراءة';
+    btnMark.disabled = false;
+
+    let html = '';
+    verses.forEach((vText, vIdx) => {
+        html += `<span class="verse-num">${vIdx + 1}</span>${vText} `;
+    });
+
+    document.getElementById('versesArea').innerHTML = html;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function nextChapter() {
+    const chapSelect = document.getElementById('chapterSelect');
+    if (chapSelect.selectedIndex < chapSelect.options.length - 1) {
+        chapSelect.selectedIndex++;
+        renderVerses();
+    } else {
+        const bookSelect = document.getElementById('bookSelect');
+        if (bookSelect.selectedIndex < bookSelect.options.length - 1) {
+            bookSelect.selectedIndex++;
+            onBookChanged();
+        }
+    }
+}
+
+function prevChapter() {
+    const chapSelect = document.getElementById('chapterSelect');
+    if (chapSelect.selectedIndex > 0) {
+        chapSelect.selectedIndex--;
+        renderVerses();
+    } else {
+        const bookSelect = document.getElementById('bookSelect');
+        if (bookSelect.selectedIndex > 0) {
+            bookSelect.selectedIndex--;
+            onBookChanged();
+            const newChapSelect = document.getElementById('chapterSelect');
+            newChapSelect.selectedIndex = newChapSelect.options.length - 1;
+            renderVerses();
+        }
+    }
+}
+
+function changeFontSize(delta) {
+    currentFontSize = Math.max(1, Math.min(2.2, currentFontSize + (delta * 0.15)));
+    document.getElementById('versesArea').style.fontSize = `${currentFontSize}rem`;
+}
+
+// دالة التسجيل عبر الجسر الذكي مع التزامن التلقائي لنوتة الصلاة
+function markCurrentChapterRead() {
+    if(!currentUserId) {
+        alert("يرجى تسجيل الدخول أولاً لتتمكن من تسجيل قراءاتك!");
+        return;
+    }
+
+    const btnMark = document.getElementById('btnMarkRead');
+    btnMark.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري التسجيل...';
+    btnMark.disabled = true;
+
+    try {
+        let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
+        let memberIndex = members.findIndex(m => m.code === currentUserId || m.id.toString() === currentUserId);
+
+        if (memberIndex !== -1) {
+            members[memberIndex].readCount = (members[memberIndex].readCount || 0) + 1;
+            members[memberIndex].points = (parseInt(members[memberIndex].points) || 0) + 1;
+            localStorage.setItem('my_church_class', JSON.stringify(members));
+        }
+
+        // التزامن التلقائي مع النوتة الروحية (تفعيل خيار قراءة الكتاب المقدس في نوتة اليوم)
+        let todayKey = new Date().toISOString().split('T')[0];
+        let bibleLogs = JSON.parse(localStorage.getItem('church_bible_reads') || '{}');
+        bibleLogs[todayKey] = true;
+        localStorage.setItem('church_bible_reads', JSON.stringify(bibleLogs));
+
+        setTimeout(() => {
+            btnMark.className = 'btn btn-outline-success w-100 fw-bold';
+            btnMark.innerHTML = '<i class="fa-solid fa-check-double me-1"></i> مسجلة بنجاح وتسميع بالنوتة';
+        }, 500);
+
+    } catch (error) {
+        console.error(error);
+        alert("تعذر حفظ القراءة: " + error.message);
+        btnMark.className = 'btn btn-success w-100 fw-bold';
+        btnMark.innerHTML = '<i class="fa-solid fa-check me-1"></i> إعادة المحاولة';
+        btnMark.disabled = false;
+    }
+}
+
+window.onload = loadBibleData;
 </script>
-</body></html>
+
+</body>
+</html>
