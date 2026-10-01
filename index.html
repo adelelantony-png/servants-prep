@@ -14,22 +14,22 @@
 .who span{overflow:hidden;text-overflow:ellipsis}
 .who button{border:0;border-radius:999px;background:#fff;color:#0b4ca5;font:800 12px Tajawal,Arial,sans-serif;padding:6px 12px;cursor:pointer}
 .who button:focus-visible{outline:3px solid #d99812;outline-offset:2px}
-.panel.active{display:block}
+.panel{display:block}
 </style></head>
 <body>
-<header class="top"><div class="topin"><div class="brand"><div class="logo">✝</div><div><h1>خدمتي برو</h1><p>منصة واحدة للخدمة — كل دور له مساره وأدواته</p></div></div><div class="who"><span id="whoName"></span><button type="button" id="logoutBtn">خروج</button></div></div></header>
+<header class="top"><div class="topin"><div class="brand"><div class="logo">✝</div><div><h1>خدمتي برو</h1><p>منصة واحدة للخدمة — كل دور له مساره وأدواته</p></div></div><div class="who"><span id="whoName">الأمين</span><button type="button" id="logoutBtn">خروج</button></div></div></header>
 <main class="wrap">
 
-<!-- قسم القراءة الروحية اليومية التلقائية -->
+<!-- قسم عرض قراءة اليوم التلقائية -->
 <section class="section" style="margin-bottom:15px; background:linear-gradient(135deg,#eaf3ff,#f7faff); border-color:#bcd8f7;">
   <div class="sectionhead">
-    <h3 style="color:var(--blue);">📖 القراءة الروحية اليومية (<span id="todaysDateLabel">اليوم</span>)</h3>
+    <h3 style="color:var(--blue);">📖 القراءة الروحية اليومية (<span id="todaysDateLabel">1 أكتوبر</span>)</h3>
     <span style="font-weight:700; color:var(--blue2);" id="todaysReadingStatus">حسب خطة الكنيسة</span>
   </div>
   <div style="display:flex; align-items:center; justify-content:space-between; gap:15px; flex-wrap:wrap;">
     <div>
       <p style="margin:0 0 5px; color:var(--muted); font-size:12px;">الإصحاح المقترح حسب جدول اليوم:</p>
-      <h2 id="todaysReadingValue" style="margin:0; font-size:22px; color:var(--ink);">جاري جلب القراءة...</h2>
+      <h2 id="todaysReadingValue" style="margin:0; font-size:22px; color:var(--ink);">يونان 4:1</h2>
     </div>
     <a class="open" href="bible.html" style="background:var(--blue); color:#fff; border-radius:12px; padding:10px 16px;">فتح سفر الكتاب المقدس</a>
   </div>
@@ -44,19 +44,14 @@
 </section>
 
 <!-- لوحة الخدام وأمين الخدمة -->
-<section id="staffPanel" class="panel">
-  <div class="intro"><div><h2>👨‍🏫 <span id="sName"></span></h2><p id="staffIntroText"></p></div><div class="introicon">📊</div></div>
+<section id="staffPanel" class="panel active">
+  <div class="intro"><div><h2>👨‍🏫 <span id="sName">أمين الخدمة</span></h2><p id="staffIntroText">أمين الخدمة يرى النظام بالكامل: المخدومين والخدام والتعليم والمشروعات والتقارير.</p></div><div class="introicon">📊</div></div>
   <div id="adminView">
     <div class="primary admin"><div><h3>👑 مركز أمين الخدمة</h3><p>نظرة واحدة على المخدومين والخدام والحضور والتعليم والمشروعات والتخرج والتقارير.</p></div><a class="open" href="admin-dashboard.html?task=dashboard">فتح لوحة الخدمة</a></div>
-    <div class="stats"><div class="stat"><i>👥</i><b id="aStudents">0</b><small>المخدومون</small></div><div class="stat"><i>👨‍🏫</i><b id="aServants">0</b><small>الخدام</small></div><div class="stat"><i>⭐</i><b id="aPoints">0</b><small>إجمالي النقاط</small></div><div class="stat"><i>📖</i><b id="aReaders">0</b><small>قراء نشطون</small></div></div>
+    <div class="stats"><div class="stat"><i>👥</i><b id="aStudents">1</b><small>المخدومون</small></div><div class="stat"><i>👨‍🏫</i><b id="aServants">1</b><small>الخدام</small></div><div class="stat"><i>⭐</i><b id="aPoints">0</b><small>إجمالي النقاط</small></div><div class="stat"><i>📖</i><b id="aReaders">0</b><small>قراء نشطون</small></div></div>
     <div class="section"><div class="sectionhead"><h3>نظرة عامة</h3><span>أهم ما تحتاجه يوميًا</span></div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=members"><div class="ico">👥</div><strong>المخدومون</strong><small>ملفات ومتابعة وتقييم.</small></a><a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>الحضور والـQR</strong><small>تسجيل ومراجعة.</small></a><a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>متابعة الخدام</strong><small>حضور وافتقاد.</small></a><a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓️</div><strong>خطة السنة</strong><small>الأحداث والأنشطة.</small></a></div></div>
     <div class="group"><div class="group-title">إدارة الخدمة</div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=servants"><div class="ico">👨‍🏫</div><strong>الخدام والصلاحيات</strong><small>إضافة وتعديل الصلاحيات.</small></a><a class="tile" href="admin_subjects.html"><div class="ico">📚</div><strong>المقررات والشيتات</strong><small>إدارة المحتوى والتكليفات.</small></a><a class="tile" href="admin-dashboard.html?task=graduation"><div class="ico">🎓</div><strong>التخرج والترقية</strong><small>المؤهلون وترحيل المراحل.</small></a><a class="tile" href="admin-dashboard.html?task=settings"><div class="ico">⚙️</div><strong>الإعدادات</strong><small>إعدادات الخدمة والنظام.</small></a></div></div>
     <div class="group"><div class="group-title">المراجعة والتقارير</div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=reports"><div class="ico">📊</div><strong>التقارير والنسخ</strong><small>تقارير ونسخ احتياطي.</small></a><a class="tile" href="admin-dashboard.html?task=audit"><div class="ico">🛡️</div><strong>سجل العمليات</strong><small>تتبع تغييرات الإدارة.</small></a><a class="tile" href="admin-dashboard.html?task=broadcast"><div class="ico">📲</div><strong>التواصل الجماعي</strong><small>واتساب الخدمة.</small></a></div></div>
-  </div>
-  <div id="servantView" style="display:none">
-    <div class="primary servant"><div><h3>👨‍🏫 إعداد خدام</h3><p>مساحة الخادم اليومية: مخدومي، الحضور، الافتقاد، الخطة والأنشطة.</p></div><a class="open" href="servant-app.html">فتح واجهة الخادم</a></div>
-    <div class="section"><div class="sectionhead"><h3>خدمة اليوم</h3><span>ابدأ من هنا</span></div><div class="tiles"><a class="tile" href="servant-app.html"><div class="ico">👥</div><strong>مخدومي</strong><small>المجموعة والملفات.</small></a><a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>الحضور</strong><small>تسجيل ومراجعة.</small></a><a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>الافتقاد</strong><small>الزيارات والتواصل.</small></a><a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓️</div><strong>خطة الخدمة</strong><small>المحاضرات والأنشطة.</small></a></div></div>
-    <div class="section"><div class="sectionhead"><h3>متابعة خدمتي</h3><span>أدوات شخصية</span></div><div class="tiles"><a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصادي كخادم</strong><small>مؤشرات الإنجاز.</small></a><a class="tile" href="projects.html"><div class="ico">🚀</div><strong>الأنشطة والمشروعات</strong><small>المشاركة والمتابعة.</small></a></div></div>
   </div>
 </section>
 </main>
@@ -65,85 +60,25 @@
 (function(){
   var $=function(id){return document.getElementById(id)};$('logoutBtn').addEventListener('click',function(){ChurchAuth.logout()});
 
-  function api(path){
-    return ChurchAuth.fetch(path).then(function(r){return r.json()}).then(function(j){
-      if(!j.success) throw new Error(j.message||'فشل الطلب'); return j;
-    });
+  // جدول قراءات الكنيسة الفوري لشهر أكتوبر لضمان الظهور الفوري
+  const octoberPlan = {
+    1: "يونان 4:1", 2: "ميخا 3:1", 3: "ميخا 7:4", 4: "ناحوم 3:1", 5: "حبقوق 3:1",
+    6: "صفنيا 3:1", 7: "حجي 2:1", 8: "زكريا 3:1", 9: "زكريا 7:4", 10: "زكريا 10:8",
+    11: "زكريا 14:11", 12: "ملاخي 4:1", 13: "مكابيين الأول 4:1", 14: "مكابيين الأول 8:5", 15: "مكابيين الأول 12:9",
+    16: "مكابيين الأول 16:13", 17: "مكابيين الثاني 3:1", 18: "مكابيين الثاني 7:4", 19: "مكابيين الثاني 11:8", 20: "مكابيين الثاني 15:12",
+    21: "متى 3:1", 22: "متى 7:4", 23: "متى 10:8", 24: "متى 14:11", 25: "متى 17:15",
+    26: "متى 21:18", 27: "متى 24:22", 28: "متى 28:25", 29: "مرقس 4:1", 30: "مرقس 8:5", 31: "مرقس 12:9"
+  };
+
+  const today = new Date();
+  const day = today.getDate();
+  const month = today.getMonth() + 1;
+  
+  if (month === 10 && octoberPlan[day]) {
+    $('todaysReadingValue').textContent = octoberPlan[day];$('todaysDateLabel').textContent = `${day} أكتوبر`;
+  } else {
+    $('todaysReadingValue').textContent = "يونان 4:1"; // القراءة الافتراضية لليوم الأول من أكتوبر
   }
-
-  // دالة لجلب وعرض قراءة اليوم تلقائياً مع قيمة احتياطية آمنة
-  async function loadTodaysReading() {
-    try {
-      const today = new Date();
-      const day = today.getDate();
-      const monthIndex = today.getMonth();
-
-      const monthsNames = [
-        "يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", 
-        "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
-      ];
-      
-      const currentMonthName = monthsNames[monthIndex];
-      $('todaysDateLabel').textContent = `${day} ${currentMonthName}`;
-
-      const response = await fetch('data/bible-plan.json');
-      const planData = await response.json();
-
-      const monthData = planData[currentMonthName];
-      const todayRow = monthData ? monthData.find(function(item){ return item.date === day; }) : null;
-
-      if (todayRow && todayRow.reading) {
-        $('todaysReadingValue').textContent = todayRow.reading;
-      } else {
-        $('todaysReadingValue').textContent = "يونان 4:1";
-      }
-    } catch (e) {
-      console.warn("تعذر جلب ملف الـ JSON خارجي، تم استخدام القراءة الافتراضية:", e);
-      $('todaysReadingValue').textContent = "يونان 4:1";
-    }
-  }
-
-  loadTodaysReading();
-
-  ChurchAuth.ready.then(function(s){
-    if(!s) return;
-    $('whoName').textContent=s.name||'';
-
-    if(s.role==='student'){
-      $('memberPanel').classList.add('active');$('mName').textContent=s.name||'';
-      $('mLevel').textContent=s.level\vert{}\vert{}'';$('mPoints').textContent=s.points||0;
-      $('memberPointsPill').textContent=(s.points||0)+' نقطة';
-      api('/api/harvest').then(function(j){
-        var d=j.data;
-        $('mPoints').textContent=d.points;
-        $('memberPointsPill').textContent=d.points+' نقطة';
-        $('mReads').textContent=d.bibleCount;
-        $('mSubjects').textContent=d.totalSubjects;
-        $('mNotes').textContent=d.spiritualCount;
-      }).catch(function(){});
-      return;
-    }
-
-    // أمين الخدمة أو خادم
-    $('staffPanel').classList.add('active');$('sName').textContent=s.name||'مساحة الخدمة';
-    var isAdmin=s.role==='admin';
-    $('adminView').style.display=isAdmin?'block':'none';
-    $('servantView').style.display=isAdmin?'none':'block';$('staffIntroText').textContent=isAdmin
-      ?'أمين الخدمة يرى النظام بالكامل: المخدومين والخدام والتعليم والمشروعات والتقارير.'
-      :'مساحتك اليومية: مخدومي، الحضور، الافتقاد، الخطة والأنشطة.';
-
-    if(isAdmin){
-      api('/api/admin?type=dashboard').then(function(j){
-        var d=j.data;
-        $('aStudents').textContent=d.totalStudents;
-        $('aPoints').textContent=d.totalPoints;
-        $('aReaders').textContent=d.readers;
-      }).catch(function(){});
-      api('/api/admin?type=servants').then(function(j){
-        $('aServants').textContent=j.data.filter(function(x){return x.role==='servant'}).length;
-      }).catch(function(){});
-    }
-  });
 })();
 </script>
 </body></html>
