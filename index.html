@@ -2,12 +2,21 @@
 <html lang="ar" dir="rtl">
 <head>
 <script>
-// سكربت التحديث الإجباري لتنظيف المتصفحات من أي ملفات معلقة
+// سكربت التحديث الإجباري لتنظيف المتصفحات من أي ملفات معلقة (Service Worker Killer)
 (function() {
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.getRegistrations().then(function(registrations) {
             for (let registration of registrations) registration.unregister();
         });
+    }
+    if (window.caches) {
+        caches.keys().then(function(names) {
+            for (let name of names) caches.delete(name);
+        });
+    }
+    if (!window.location.search.includes('v=')) {
+        var cleanUrl = window.location.href.split('?')[0];
+        window.location.replace(cleanUrl + '?v=' + new Date().getTime());
     }
 })();
 </script>
@@ -54,28 +63,30 @@
   </div>
 </section>
 
-<!-- لوحة المخدوم (تظهر برمجياً بعيداً عن كلاسات CSS) -->
+<!-- لوحة المخدوم (تظهر برمجياً) -->
 <section id="memberPanel" style="display: none;">
   <div class="intro"><div><h2>👤 <span id="mName"></span></h2><p>هذه هي مساحة المخدوم الشخصية. كل ما يخص رحلتي الروحية والتعليمية والأنشطة مرتبط بملفي.</p><div class="role"><span class="tag blue">مخدوم</span><span class="tag" id="mLevel"></span><span class="tag" id="memberPointsPill">0 نقطة</span></div></div><div class="introicon">🎓</div></div>
   <div class="stats"><div class="stat"><i>⭐</i><b id="mPoints">0</b><small>النقاط</small></div><div class="stat"><i>📖</i><b id="mReads">0</b><small>أيام القراءة هذا العام</small></div><div class="stat"><i>📚</i><b id="mSubjects">0</b><small>المقررات والشيتات</small></div><div class="stat"><i>🕊️</i><b id="mNotes">0</b><small>أيام النوتة</small></div></div>
-  <div class="section"><div class="sectionhead"><h3>ملفي ورحلتي</h3><span>ابدأ من هنا</span></div><div class="tiles"><a class="tile" href="student.html"><div class="ico">👤</div><strong>الرئيسية وملفي</strong><small>الحضور والنقاط والحالة.</small></a><a class="tile" href="member.html"><div class="ico">📋</div><strong>الملف الكامل</strong><small>بياناتي ومعلوماتي.</small></a><a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصادي</strong><small>ملخص الإنجاز.</small></a><a class="tile" href="projects.html"><div class="ico">🚀</div><strong>مشروعاتي</strong><small>أنشطتي ومشاركتي.</small></a></div></div>
+  <div class="section"><div class="sectionhead"><h3>ملفي ورحلتي</h3><span>ابدأ من هنا</span></div><div class="tiles"><a class="tile" href="barcode.html"><div class="ico">🪪</div><strong>الرئيسية والباركود</strong><small>الحضور والنقاط والحالة.</small></a><a class="tile" href="student.html"><div class="ico">📋</div><strong>الملف الكامل</strong><small>بياناتي ومعلوماتي.</small></a><a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصادي</strong><small>ملخص الإنجاز.</small></a><a class="tile" href="projects.html"><div class="ico">🚀</div><strong>مشروعاتي</strong><small>أنشطتي ومشاركتي.</small></a></div></div>
   <div class="section"><div class="sectionhead"><h3>التعليم والقراءة</h3><span>تعليمي اليومي</span></div><div class="tiles"><a class="tile" href="bible.html"><div class="ico">📖</div><strong>الكتاب وخطة القراءة</strong><small>القراءة وتسجيل الإنجاز.</small></a><a class="tile" href="sheets_list.html"><div class="ico">📚</div><strong>مقرراتي وشيتاتي</strong><small>المواد والتكليفات.</small></a><a class="tile" href="katamaros.html"><div class="ico">⛪</div><strong>القراءات الكنسية</strong><small>القطمارس والقراءات.</small></a><a class="tile" href="spiritual_note.html"><div class="ico">🕊️</div><strong>النوتة الروحية</strong><small>المتابعة الروحية.</small></a></div></div>
 </section>
 
-<!-- لوحة الخدام وأمين الخدمة -->
+<!-- لوحة الخدام وأمين الخدمة (تظهر برمجياً) -->
 <section id="staffPanel" style="display: none;">
   <div class="intro"><div><h2>👨‍🏫 <span id="sName"></span></h2><p id="staffIntroText"></p></div><div class="introicon">📊</div></div>
+  
   <div id="adminView" style="display: none;">
-    <div class="primary admin"><div><h3>👑 مركز أمين الخدمة</h3><p>نظرة واحدة على المخدومين والخدام والحضور والتعليم والمشروعات والتخرج والتقارير.</p></div><a class="open" href="admin-dashboard.html?task=dashboard">فتح لوحة الخدمة</a></div>
+    <div class="primary admin"><div><h3>👑 مركز أمين الخدمة</h3><p>نظرة واحدة على المخدومين والخدام والحضور والتعليم والمشروعات والتخرج والتقارير.</p></div><a class="open" href="admin-dashboard.html?task=dashboard">فتح لوحة الخدمة الذكية</a></div>
     <div class="stats"><div class="stat"><i>👥</i><b id="aStudents">0</b><small>المخدومون</small></div><div class="stat"><i>👨‍🏫</i><b id="aServants">0</b><small>الخدام</small></div><div class="stat"><i>⭐</i><b id="aPoints">0</b><small>إجمالي النقاط</small></div><div class="stat"><i>📖</i><b id="aReaders">0</b><small>قراء نشطون</small></div></div>
-    <div class="section"><div class="sectionhead"><h3>نظرة عامة</h3><span>أهم ما تحتاجه يوميًا</span></div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=members"><div class="ico">👥</div><strong>المخدومون</strong><small>ملفات ومتابعة وتقييم.</small></a><a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>الحضور والـQR</strong><small>تسجيل ومراجعة.</small></a><a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>متابعة الخدام</strong><small>حضور وافتقاد.</small></a><a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓</div><strong>خطة السنة</strong><small>الأحداث والأنشطة.</small></a></div></div>
+    <div class="section"><div class="sectionhead"><h3>نظرة عامة</h3><span>أهم ما تحتاجه يوميًا</span></div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=members"><div class="ico">👥</div><strong>إضافة مخدومين</strong><small>ملفات وتوليد باركود.</small></a><a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>الحضور والـQR</strong><small>تسجيل ومراجعة.</small></a><a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>متابعة الخدام</strong><small>حضور وافتقاد.</small></a><a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓</div><strong>خطة السنة</strong><small>الأحداث والأنشطة.</small></a></div></div>
     <div class="group"><div class="group-title">إدارة الخدمة</div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=servants"><div class="ico">👨‍🏫</div><strong>الخدام والصلاحيات</strong><small>إضافة وتعديل الصلاحيات.</small></a><a class="tile" href="admin_subjects.html"><div class="ico">📚</div><strong>المقررات والشيتات</strong><small>إدارة المحتوى والتكليفات.</small></a><a class="tile" href="admin-dashboard.html?task=graduation"><div class="ico">🎓</div><strong>التخرج والترقية</strong><small>المؤهلون وترحيل المراحل.</small></a><a class="tile" href="admin-dashboard.html?task=settings"><div class="ico">⚙️</div><strong>الإعدادات</strong><small>إعدادات الخدمة والنظام.</small></a></div></div>
     <div class="group"><div class="group-title">المراجعة والتقارير</div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=reports"><div class="ico">📊</div><strong>التقارير والنسخ</strong><small>تقارير ونسخ احتياطي.</small></a><a class="tile" href="admin-dashboard.html?task=audit"><div class="ico">🛡️</div><strong>سجل العمليات</strong><small>تتبع تغييرات الإدارة.</small></a><a class="tile" href="admin-dashboard.html?task=broadcast"><div class="ico">📲</div><strong>التواصل الجماعي</strong><small>واتساب الخدمة.</small></a></div></div>
   </div>
+  
   <div id="servantView" style="display:none">
-    <div class="primary servant"><div><h3>👨‍🏫 إعداد خدام</h3><p>مساحة الخادم اليومية: مخدومي، الحضور، الافتقاد، الخطة والأنشطة.</p></div><a class="open" href="servant-app.html">فتح واجهة الخادم</a></div>
-    <div class="section"><div class="sectionhead"><h3>خدمة اليوم</h3><span>ابدأ من هنا</span></div><div class="tiles"><a class="tile" href="servant-app.html"><div class="ico">👥</div><strong>مخدومي</strong><small>المجموعة والملفات.</small></a><a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>الحضور</strong><small>تسجيل ومراجعة.</small></a><a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>الافتقاد</strong><small>الزيارات والتواصل.</small></a><a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓️</div><strong>خطة الخدمة</strong><small>المحاضرات والأنشطة.</small></a></div></div>
-    <div class="section"><div class="sectionhead"><h3>متابعة خدمتي</h3><span>أدوات شخصية</span></div><div class="tiles"><a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصادي كخادم</strong><small>مؤشرات الإنجاز.</small></a><a class="tile" href="projects.html"><div class="ico">🚀</div><strong>الأنشطة والمشروعات</strong><small>المشاركة والمتابعة.</small></a></div></div>
+    <div class="primary servant"><div><h3>👨‍‍🏫 لوحة الخادم اليومية</h3><p>مساحة الخادم: مخدومي، الحضور، الافتقاد، الخطة والأنشطة.</p></div><a class="open" href="admin-dashboard.html?task=attendance">فتح واجهة الخادم</a></div>
+    <div class="section"><div class="sectionhead"><h3>خدمة اليوم</h3><span>ابدأ من هنا</span></div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=members"><div class="ico">👥</div><strong>مخدومي</strong><small>المجموعة والملفات.</small></a><a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>الحضور بالكاميرا</strong><small>تسجيل ومراجعة.</small></a><a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>الافتقاد</strong><small>الزيارات والتواصل.</small></a><a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓️</div><strong>خطة الخدمة</strong><small>المحاضرات والأنشطة.</small></a></div></div>
+    <div class="section"><div class="sectionhead"><h3>متابعة خدمتي</h3><span>أدوات شخصية</span></div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=broadcast"><div class="ico">📲</div><strong>رسائل جماعية</strong><small>مراسلة الغائبين.</small></a><a class="tile" href="projects.html"><div class="ico">🚀</div><strong>الأنشطة والمشروعات</strong><small>المشاركة والمتابعة.</small></a></div></div>
   </div>
 </section>
 </main>
