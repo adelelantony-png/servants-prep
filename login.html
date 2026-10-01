@@ -1,182 +1,119 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<script>
-(function() {
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(regs) {
-            for (let r of regs) r.unregister();
-        });
-    }
-})();
-</script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b4ca5"><title>خدمتي برو — الرئيسية</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-<style>
-:root{--blue:#0b4ca5;--blue2:#1682ee;--green:#087f62;--green2:#18a673;--gold:#d99812;--ink:#17233d;--muted:#708098;--bg:#f3f7fc;--line:#dce6f2;--shadow:0 10px 28px rgba(18,55,105,.08);--radius:20px}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tajawal,Arial,sans-serif}.top{background:linear-gradient(125deg,#06235c,#0b4ca5 58%,#1682ee);color:#fff;padding:18px 14px 26px}.topin{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px;border:1px solid #ffffff40;background:#ffffff16;border-radius:16px;display:grid;place-items:center;font-size:27px}.brand h1{font-size:25px;margin:0;font-weight:900}.brand p{margin:4px 0 0;opacity:.82;font-size:12px}.wrap{max-width:1050px;margin:-10px auto 0;padding:0 12px 30px}
-.intro{margin-top:15px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:15px}.intro h2{margin:0 0 5px;font-size:22px}.intro p{margin:0;color:var(--muted);line-height:1.7;font-size:13px}.role{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px}.tag{border:1px solid var(--line);background:#f7faff;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:800;color:#52627a}.tag.blue{background:#eaf3ff;color:var(--blue);border-color:#bcd8f7}.tag.green{background:#eaf8f3;color:var(--green);border-color:#b9e2d3}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px;text-align:center}.stat i{font-style:normal;font-size:21px}.stat b{display:block;font-size:22px;margin-top:3px}.stat small{color:var(--muted);font-size:10px}.section{margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:8px;margin-bottom:11px}.sectionhead h3{margin:0;font-size:17px;color:var(--blue)}.sectionhead span{font-size:11px;color:var(--muted);font-weight:bold}.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.tile{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:linear-gradient(145deg,#fff,#f7faff);border-radius:15px;padding:13px;min-height:102px;transition:0.2s}.tile:active{transform:scale(.95)}.tile .ico{font-size:25px;margin-bottom:6px}.tile strong{display:block;margin:6px 0 2px;font-size:13px;color:#1e293b}.tile small{display:block;color:var(--muted);font-size:11px;line-height:1.5}.who{display:flex;align-items:center;gap:8px;font-size:12px;border:1px solid #ffffff42;background:#ffffff12;border-radius:999px;padding:5px 6px 5px 12px;white-space:nowrap;max-width:60vw}.who button{border:0;border-radius:999px;background:#fff;color:#0b4ca5;font:800 12px Tajawal,Arial,sans-serif;padding:6px 12px;cursor:pointer}
-@media(max-width:850px){.tiles{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.top{padding-bottom:22px}.brand h1{font-size:20px}.brand p{font-size:10px}.wrap{padding:0 9px 78px}.intro{padding:16px}.intro h2{font-size:19px}.stats{gap:7px}.stat{padding:11px}.stat b{font-size:19px}.section{padding:13px}.tiles{gap:7px}.tile{min-height:94px;padding:11px}.tile strong{font-size:12px}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - خدمتي برو</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background: #f3f7fc; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+        .login-card { background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(11,76,165,0.1); width: 90%; max-width: 400px; text-align: center; }
+        .logo-box { width: 70px; height: 70px; background: linear-gradient(135deg, #0b4ca5, #1682ee); color: #fff; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 35px; margin: 0 auto 15px; }
+        .tabs { display: flex; margin-bottom: 20px; background: #f1f5f9; border-radius: 12px; overflow: hidden; }
+        .tab { flex: 1; padding: 12px; cursor: pointer; font-weight: bold; color: #64748b; font-size: 14px; transition: 0.3s; }
+        .tab.active { background: #0b4ca5; color: #fff; }
+        .form-section { display: none; text-align: right; }
+        .form-section.active { display: block; }
+        label { font-weight: bold; font-size: 13px; color: #475569; margin-bottom: 5px; display: block; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 12px; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+        input:focus { border-color: #0b4ca5; outline: none; box-shadow: 0 0 0 3px rgba(11,76,165,0.1); }
+        .btn { background: linear-gradient(135deg, #0b4ca5, #1682ee); color: #fff; border: none; padding: 14px; width: 100%; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; margin-top: 5px; }
+    </style>
 </head>
 <body>
-<header class="top">
-  <div class="topin">
-    <div class="brand"><div class="logo">✝</div><div><h1>خدمتي برو</h1><p>منصة واحدة للخدمة — كل دور له مساره</p></div></div>
-    <div class="who"><span id="whoName">جاري التحميل...</span><button type="button" onclick="localStorage.clear(); sessionStorage.clear(); location.replace('login.html?v=4');">خروج</button></div>
-  </div>
-</header>
-<main class="wrap">
 
-<section class="section" style="margin-bottom:15px; background:linear-gradient(135deg,#eaf3ff,#f7faff); border-color:#bcd8f7;">
-  <div class="sectionhead">
-    <h3 style="color:var(--blue);">📖 القراءة الروحية اليومية</h3>
-    <span style="font-weight:700; color:var(--blue2);">خطة الكنيسة</span>
-  </div>
-  <div style="display:flex; align-items:center; justify-content:space-between; gap:15px; flex-wrap:wrap;">
-    <div>
-      <p style="margin:0 0 5px; color:var(--muted); font-size:12px;">الإصحاح المقترح حسب جدول اليوم:</p>
-      <h2 id="todaysReadingValue" style="margin:0; font-size:22px; color:var(--ink);">يونان 4:1</h2>
+    <div class="login-card">
+        <div class="logo-box">✝</div>
+        <h3 style="margin:0 0 5px; color:#0b4ca5;">خدمتي برو</h3>
+        <p style="margin:0 0 20px; font-size:12px; color:#64748b;">منصة واحدة للخدمة الكنسية</p>
+
+        <div class="tabs">
+            <div class="tab active" id="tab-student" onclick="switchTab('student')">👤 دخول مخدوم</div>
+            <div class="tab" id="tab-servant" onclick="switchTab('servant')">👑 دخول خادم</div>
+        </div>
+
+        <!-- دخول المخدوم -->
+        <div id="form-student" class="form-section active">
+            <label>كود المخدوم (رقم الامتحان):</label>
+            <input type="text" id="stCode" placeholder="أدخل الكود الخاص بك" dir="ltr">
+            
+            <label>رقم الهاتف:</label>
+            <input type="tel" id="stPhone" placeholder="أدخل رقم هاتفك المسجل" dir="ltr">
+            
+            <button class="btn" onclick="loginStudent()">تسجيل الدخول</button>
+        </div>
+
+        <!-- دخول الخادم -->
+        <div id="form-servant" class="form-section">
+            <label>اسم المستخدم أو كود الخادم:</label>
+            <input type="text" id="svUser" placeholder="أدخل اسمك أو الكود">
+            
+            <label>كلمة المرور:</label>
+            <input type="password" id="svPass" placeholder="••••••••" dir="ltr">
+            
+            <button class="btn" onclick="loginServant()">دخول الخدام</button>
+        </div>
     </div>
-    <a id="openReadingBtn" href="bible.html?book=يونان&chapter=1&v=4" style="background:var(--blue); color:#fff; border-radius:12px; padding:10px 16px; text-decoration:none; font-weight:bold; font-size:12px;">فتح إصحاح اليوم مباشرة</a>
-  </div>
-</section>
 
-<!-- اللوحات ظاهرة برمجياً لتجنب الشاشة البيضاء -->
-<div id="staffPanel" style="display: block;">
-  <div class="intro">
-      <div>
-          <h2><span id="staffIcon">👑</span> <span id="sName">أمين الخدمة</span></h2>
-          <p id="staffIntroText">إدارة الخدمة ومتابعة المخدومين والحياة الروحية.</p>
-          <div class="role"><span class="tag green" id="staffRoleBadge">أمين خدمة (أدمن)</span></div>
-      </div>
-      <div style="font-size:45px;">📊</div>
-  </div>
-
-  <div class="stats">
-      <div class="stat"><i>👥</i><b id="aStudents">0</b><small>المخدومون</small></div>
-      <div class="stat"><i>👨‍🏫</i><b id="aServants">0</b><small>الخدام</small></div>
-      <div class="stat"><i>⭐</i><b id="aPoints">0</b><small>إجمالي النقاط</small></div>
-      <div class="stat"><i>📖</i><b id="aReaders">0</b><small>قراء نشطون</small></div>
-  </div>
-
-  <div class="section"><div class="sectionhead"><h3>الخدمة الميدانية</h3><span>الحضور والتواصل</span></div>
-      <div class="tiles">
-          <a class="tile" href="admin-dashboard.html?task=members&v=4"><div class="ico">👥</div><strong>إدارة المخدومين</strong><small>ملفات وبحث وباركود.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=attendance&v=4"><div class="ico">📷</div><strong>تسجيل الحضور</strong><small>الماسح الذكي للكارنيهات.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=visits&v=4"><div class="ico">🤝</div><strong>سجل الخدام والافتقاد</strong><small>حضور وافتقاد الخدام.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=broadcast&v=4"><div class="ico">📲</div><strong>واتساب جماعي</strong><small>مراسلة الغائبين.</small></a>
-      </div>
-  </div>
-
-  <div class="section"><div class="sectionhead"><h3 style="color:#d35400;">التعليم والأنشطة</h3><span style="color:#e67e22;">المناهج والخطة</span></div>
-      <div class="tiles">
-          <a class="tile" href="admin_subjects.html?v=4"><div class="ico">📚</div><strong>المناهج والتقييم</strong><small>الشيتات والمقررات.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=plan&v=4"><div class="ico">🗓️</div><strong>خطة السنة</strong><small>الأجندة والفعاليات.</small></a>
-          <a class="tile" href="projects.html?v=4"><div class="ico">🚀</div><strong>المشروعات والأنشطة</strong><small>إدارة المشروعات.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=graduation&v=4"><div class="ico">🎓</div><strong>التخرج والترقية</strong><small>ترحيل الدفعات.</small></a>
-      </div>
-  </div>
-
-  <div class="section"><div class="sectionhead"><h3 style="color:#8e44ad;">التقارير والنظام</h3><span style="color:#9b59b6;">الإحصائيات والأمان</span></div>
-      <div class="tiles">
-          <a class="tile" href="harvest.html?v=4"><div class="ico">🌾</div><strong>حصاد الخدمة</strong><small>المؤشرات والنمو الشامل.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=servants&v=4"><div class="ico">⚙️</div><strong>إدارة الخدام</strong><small>حسابات وصلاحيات.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=reports&v=4"><div class="ico">📁</div><strong>النسخ الاحتياطي</strong><small>تصدير واستيراد كامل.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=audit&v=4"><div class="ico">🛡️</div><strong>سجل العمليات</strong><small>تدقيق أمني لحظي.</small></a>
-      </div>
-  </div>
-
-  <div class="section" style="background:linear-gradient(145deg, #fdfefe, #f4fbf7); border-color:#d5f5e3;">
-    <div class="sectionhead"><h3 style="color:#1e8449;">حياتي الروحية (للتشجيع والقدوة)</h3><span style="color:#27ae60;">غذاء الخادم</span></div>
-    <div class="tiles">
-      <a class="tile" href="bible.html?v=4"><div class="ico">📖</div><strong>الكتاب المقدس</strong><small>قراءة وتأمل يومي.</small></a>
-      <a class="tile" href="spiritual_note.html?v=4"><div class="ico">🕊️️</div><strong>النوتة الروحية</strong><small>الأجبية، الأصوام، الأسرار.</small></a>
-      <a class="tile" href="harvest.html?v=4"><div class="ico">🌾</div><strong>حصادي الشخصي</strong><small>متابعة نموي الروحي.</small></a>
-      <a class="tile" href="katamaros.html?v=4"><div class="ico">⛪</div><strong>القطمارس</strong><small>قراءات الكنيسة اليومية.</small></a>
-    </div>
-  </div>
-</div>
-
-<div id="memberPanel" style="display: none;">
-  <div class="intro">
-      <div>
-          <h2>👤 <span id="mName">مخدوم</span></h2>
-          <p>مساحتك الروحية والتعليمية والشخصية.</p>
-          <div class="role"><span class="tag blue">مخدوم</span><span class="tag" id="mLevel">سنة أولى</span><span class="tag" id="memberPointsPill" style="background:#fff3cd; color:#856404;">0 نقطة</span></div>
-      </div>
-      <div style="font-size:45px;">🎓</div>
-  </div>
-  <div class="stats">
-      <div class="stat"><i>⭐</i><b id="mPoints">0</b><small>النقاط</small></div>
-      <div class="stat"><i>📖</i><b id="mReads">0</b><small>أيام القراءة</small></div>
-      <div class="stat"><i>🕊️</i><b id="mNotes">0</b><small>أيام النوتة</small></div>
-      <div class="stat"><i>📚</i><b id="mSubjects">0</b><small>شيتات منجزة</small></div>
-  </div>
-  <div class="section"><div class="sectionhead"><h3>ملفي وحصادي</h3><span>أدواتي الشخصية</span></div>
-      <div class="tiles">
-          <a class="tile" href="barcode.html?v=4"><div class="ico">🪪</div><strong>الباركود الشخصي</strong><small>الحضور الإلكتروني.</small></a>
-          <a class="tile" href="student.html?v=4"><div class="ico">📋</div><strong>الملف الكامل</strong><small>بياناتي ومعلوماتي.</small></a>
-          <a class="tile" href="harvest.html?v=4"><div class="ico">🌾</div><strong>حصادي الروحي</strong><small>إنجازاتي ونقاطي.</small></a>
-          <a class="tile" href="projects.html?v=4"><div class="ico">🚀</div><strong>الأنشطة</strong><small>المشروعات والمشاركة.</small></a>
-      </div>
-  </div>
-  <div class="section"><div class="sectionhead"><h3 style="color:#1e8449;">الصلوات والتعليم</h3><span style="color:#27ae60;">غذاء الروح</span></div>
-      <div class="tiles">
-          <a class="tile" href="bible.html?v=4"><div class="ico">📖</div><strong>الكتاب المقدس</strong><small>العهد القديم والجديد.</small></a>
-          <a class="tile" href="spiritual_note.html?v=4"><div class="ico">🕊️</div><strong>النوتة الروحية</strong><small>الأجبية، الأصوام، الأسرار.</small></a>
-          <a class="tile" href="sheets_list.html?v=4"><div class="ico">📚</div><strong>مقرراتي وشيتاتي</strong><small>التكليفات الدراسية.</small></a>
-          <a class="tile" href="katamaros.html?v=4"><div class="ico">⛪</div><strong>القطمارس</strong><small>قراءات القداس.</small></a>
-      </div>
-  </div>
-</div>
-</main>
-
-<script src="auth-client.js"></script>
-<script>
-(function(){
-  try {
-    let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
-    let servants = JSON.parse(localStorage.getItem('my_church_servants')) || [];
-    let totalPts = members.reduce((sum, m) => sum + (parseInt(m.points) || 0), 0);
-    let totalReaders = members.filter(m => (m.readCount || 0) > 0).length;
-
-    document.getElementById('aStudents').innerText = members.length;
-    document.getElementById('aServants').innerText = servants.length;
-    document.getElementById('aPoints').innerText = totalPts;
-    document.getElementById('aReaders').innerText = totalReaders;
-  } catch(e) {}
-
-  ChurchAuth.ready.then(s => {
-    if(!s) return location.replace('login.html?v=4');
-    document.getElementById('whoName').textContent = s.name || '';
-    if (s.role === 'student') {
-        document.getElementById('staffPanel').style.display = 'none';
-        document.getElementById('memberPanel').style.display = 'block';
-        document.getElementById('mName').textContent = s.name;
-        
-        let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
-        let me = members.find(m => m.id.toString() === s.id.toString() || m.code === s.code) || {};
-        
-        document.getElementById('mPoints').textContent = me.points || 0;
-        document.getElementById('memberPointsPill').textContent = (me.points || 0) + ' نقطة';
-        document.getElementById('mReads').textContent = me.readCount || 0;
-        document.getElementById('mSubjects').textContent = me.sheetsCount || 0;
-        document.getElementById('mNotes').textContent = me.spiritualDays || 0;
-    } else {
-        document.getElementById('sName').textContent = s.name;
-        if (s.role !== 'admin' && s.permission !== 'admin') {
-            document.getElementById('staffIcon').innerText = '👨‍🏫';
-            document.getElementById('staffRoleBadge').innerText = 'خادم ميداني';
-            document.getElementById('staffIntroText').textContent = 'مساحتك الميدانية لإدارة المخدومين والاهتمام بحياتك الروحية.';
-            let adminOnlyTiles = document.querySelectorAll('a[href*="task=servants"], a[href*="task=reports"], a[href*="task=audit"], a[href*="task=settings"], a[href*="task=graduation"]');
-            adminOnlyTiles.forEach(tile => tile.style.display = 'none');
+    <script>
+        // لو مسجل دخول مسبقاً، يطير فوراً على الرئيسية بدون رقص
+        if(localStorage.getItem('church_auth_session')) {
+            window.location.replace('index.html');
         }
-    }
-  }).catch(e => console.warn(e));
-})();
-</script>
-</body></html>
+
+        function switchTab(type) {
+            document.getElementById('tab-student').classList.remove('active');
+            document.getElementById('tab-servant').classList.remove('active');
+            document.getElementById('form-student').classList.remove('active');
+            document.getElementById('form-servant').classList.remove('active');
+
+            document.getElementById('tab-' + type).classList.add('active');
+            document.getElementById('form-' + type).classList.add('active');
+        }
+
+        function loginStudent() {
+            let code = document.getElementById('stCode').value.trim();
+            let phone = document.getElementById('stPhone').value.trim();
+            if(!code || !phone) return alert("يرجى إدخال الكود ورقم الهاتف!");
+
+            let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
+            let student = members.find(m => m.code == code && m.phone == phone);
+
+            if(student) {
+                localStorage.setItem('church_auth_session', JSON.stringify({
+                    id: student.id || Date.now(), code: student.code, name: student.name, role: 'student', level: student.stage || 'غير محدد'
+                }));
+                window.location.replace('index.html');
+            } else {
+                alert("بيانات غير صحيحة! تأكد من الكود ورقم الهاتف المسجل بالخدمة.");
+            }
+        }
+
+        function loginServant() {
+            let user = document.getElementById('svUser').value.trim();
+            let pass = document.getElementById('svPass').value.trim();
+            if(!user || !pass) return alert("يرجى إدخال البيانات كاملة!");
+
+            if(user === "admin" && pass === "admin") {
+                localStorage.setItem('church_auth_session', JSON.stringify({
+                    id: 'admin1', code: 'admin', name: 'أمين الخدمة', role: 'admin', permission: 'admin'
+                }));
+                window.location.replace('index.html');
+                return;
+            }
+
+            let servants = JSON.parse(localStorage.getItem('my_church_servants')) || [];
+            let servant = servants.find(s => (s.code === user || s.name === user) && s.password === pass);
+
+            if(servant) {
+                localStorage.setItem('church_auth_session', JSON.stringify({
+                    id: servant.id || Date.now(), code: servant.code, name: servant.name, role: servant.role || 'servant', permission: servant.permission
+                }));
+                window.location.replace('index.html');
+            } else {
+                alert("اسم المستخدم أو كلمة المرور غير صحيحة!");
+            }
+        }
+    </script>
+</body>
+</html>
