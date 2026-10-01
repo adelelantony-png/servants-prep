@@ -34,15 +34,15 @@
       <div class="logo">✝</div>
       <div><h1>خدمتي برو</h1><p>منصة واحدة للخدمة — كل دور له مساره وأدواته</p></div>
     </div>
-    <div class="who"><span id="whoName">جاري التحميل...</span><button type="button" onclick="localStorage.clear(); sessionStorage.clear(); location.replace('login.html');">خروج</button></div>
+    <div class="who"><span id="whoName">جاري التحميل...</span><button type="button" onclick="localStorage.clear(); sessionStorage.clear(); location.replace('login.html?v=3');">خروج</button></div>
   </div>
 </header>
 <main class="wrap">
 
-<!-- صندوق القراءة اليومية (يظهر دائماً) -->
+<!-- صندوق القراءة اليومية -->
 <section class="section" style="margin-bottom:15px; background:linear-gradient(135deg,#eaf3ff,#f7faff); border-color:#bcd8f7;">
   <div class="sectionhead">
-    <h3 style="color:var(--blue);">📖 القراءة الروحية اليومية (<span id="todaysDateLabel">اليوم</span>)</h3>
+    <h3 style="color:var(--blue);">📖 القراءة الروحية اليومية</h3>
     <span style="font-weight:700; color:var(--blue2);">خطة الكنيسة</span>
   </div>
   <div style="display:flex; align-items:center; justify-content:space-between; gap:15px; flex-wrap:wrap;">
@@ -50,14 +50,12 @@
       <p style="margin:0 0 5px; color:var(--muted); font-size:12px;">الإصحاح المقترح حسب جدول اليوم:</p>
       <h2 id="todaysReadingValue" style="margin:0; font-size:22px; color:var(--ink);">يونان 4:1</h2>
     </div>
-    <a id="openReadingBtn" href="bible.html?book=يونان&chapter=1" style="background:var(--blue); color:#fff; border-radius:12px; padding:10px 16px; text-decoration:none; font-weight:bold; font-size:12px;">فتح إصحاح اليوم مباشرة</a>
+    <a id="openReadingBtn" href="bible.html?book=يونان&chapter=1&v=3" style="background:var(--blue); color:#fff; border-radius:12px; padding:10px 16px; text-decoration:none; font-weight:bold; font-size:12px;">فتح إصحاح اليوم مباشرة</a>
   </div>
 </section>
 
-<!-- ========================================== -->
-<!-- 1. لوحة الخدام وأمين الخدمة (تظهر بشكل افتراضي لعدم التعليق) -->
-<!-- ========================================== -->
-<section id="staffPanel">
+<!-- لوحة الخدام وأمين الخدمة -->
+<section id="staffPanel" style="display: block;">
   <div class="intro">
       <div>
           <h2><span id="staffIcon">👑</span> <span id="sName">أمين الخدمة</span></h2>
@@ -76,43 +74,136 @@
 
   <div class="section"><div class="sectionhead"><h3>الخدمة الميدانية</h3><span>الحضور والتواصل</span></div>
       <div class="tiles">
-          <a class="tile" href="admin-dashboard.html?task=members"><div class="ico">👥</div><strong>إدارة المخدومين</strong><small>ملفات وبحث وباركود.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>تسجيل الحضور</strong><small>الماسح الذكي للكارنيهات.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>سجل الخدام والافتقاد</strong><small>حضور وافتقاد الخدام.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=broadcast"><div class="ico">📲</div><strong>واتساب جماعي</strong><small>مراسلة الغائبين.</small></a>
+          <a class="tile" href="admin-dashboard.html?task=members&v=3"><div class="ico">👥</div><strong>إدارة المخدومين</strong><small>ملفات وبحث وباركود.</small></a>
+          <a class="tile" href="admin-dashboard.html?task=attendance&v=3"><div class="ico">📷</div><strong>تسجيل الحضور</strong><small>الماسح الذكي للكارنيهات.</small></a>
+          <a class="tile" href="admin-dashboard.html?task=visits&v=3"><div class="ico">🤝</div><strong>سجل الخدام والافتقاد</strong><small>حضور وافتقاد الخدام.</small></a>
+          <a class="tile" href="admin-dashboard.html?task=broadcast&v=3"><div class="ico">📲</div><strong>واتساب جماعي</strong><small>مراسلة الغائبين.</small></a>
       </div>
   </div>
 
   <div class="section"><div class="sectionhead"><h3 style="color:#d35400;">التعليم والأنشطة</h3><span style="color:#e67e22;">المناهج والخطة</span></div>
       <div class="tiles">
-          <a class="tile" href="admin_subjects.html"><div class="ico">📚</div><strong>المناهج والتقييم</strong><small>الشيتات والمقررات.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓️</div><strong>خطة السنة</strong><small>الأجندة والفعاليات.</small></a>
-          <a class="tile" href="projects.html"><div class="ico">🚀</div><strong>المشروعات والأنشطة</strong><small>إدارة المشروعات.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=graduation"><div class="ico">🎓</div><strong>التخرج والترقية</strong><small>ترحيل الدفعات.</small></a>
+          <a class="tile" href="admin_subjects.html?v=3"><div class="ico">📚</div><strong>المناهج والتقييم</strong><small>الشيتات والمقررات.</small></a>
+          <a class="tile" href="admin-dashboard.html?task=plan&v=3"><div class="ico">🗓️</div><strong>خطة السنة</strong><small>الأجندة والفعاليات.</small></a>
+          <a class="tile" href="projects.html?v=3"><div class="ico">🚀</div><strong>المشروعات والأنشطة</strong><small>إدارة المشروعات.</small></a>
+          <a class="tile" href="admin-dashboard.html?task=graduation&v=3"><div class="ico">🎓</div><strong>التخرج والترقية</strong><small>ترحيل الدفعات.</small></a>
       </div>
   </div>
 
   <div class="section"><div class="sectionhead"><h3 style="color:#8e44ad;">التقارير والنظام</h3><span style="color:#9b59b6;">الإحصائيات والأمان</span></div>
       <div class="tiles">
-          <a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصاد الخدمة</strong><small>المؤشرات والنمو الشامل.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=servants"><div class="ico">⚙️</div><strong>إدارة الخدام</strong><small>حسابات وصلاحيات.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=reports"><div class="ico">📁</div><strong>النسخ الاحتياطي</strong><small>تصدير واستيراد كامل.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=audit"><div class="ico">🛡️</div><strong>سجل العمليات</strong><small>تدقيق أمني لحظي.</small></a>
+          <a class="tile" href="harvest.html?v=3"><div class="ico">🌾</div><strong>حصاد الخدمة</strong><small>المؤشرات والنمو الشامل.</small></a>
+          <a class="tile" href="admin-dashboard.html?task=servants&v=3"><div class="ico">⚙️</div><strong>إدارة الخدام</strong><small>حسابات وصلاحيات.</small></a>
+          <a class="tile" href="admin-dashboard.html?task=reports&v=3"><div class="ico">📁</div><strong>النسخ الاحتياطي</strong><small>تصدير واستيراد كامل.</small></a>
+          <a class="tile" href="admin-dashboard.html?task=audit&v=3"><div class="ico">🛡️</div><strong>سجل العمليات</strong><small>تدقيق أمني لحظي.</small></a>
       </div>
   </div>
 
   <div class="section" style="background:linear-gradient(145deg, #fdfefe, #f4fbf7); border-color:#d5f5e3;">
     <div class="sectionhead"><h3 style="color:#1e8449;">حياتي الروحية (للتشجيع والقدوة)</h3><span style="color:#27ae60;">غذاء الخادم</span></div>
     <div class="tiles">
-      <a class="tile" href="bible.html"><div class="ico">📖</div><strong>الكتاب المقدس</strong><small>قراءة وتأمل يومي.</small></a>
-      <a class="tile" href="spiritual_note.html"><div class="ico">🕊️</div><strong>النوتة الروحية</strong><small>الأجبية، الأصوام، الأسرار.</small></a>
-      <a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصادي الشخصي</strong><small>متابعة نموي الروحي.</small></a>
-      <a class="tile" href="katamaros.html"><div class="ico">⛪</div><strong>القطمارس</strong><small>قراءات الكنيسة اليومية.</small></a>
+      <a class="tile" href="bible.html?v=3"><div class="ico">📖</div><strong>الكتاب المقدس</strong><small>قراءة وتأمل يومي.</small></a>
+      <a class="tile" href="spiritual_note.html?v=3"><div class="ico">🕊️</div><strong>النوتة الروحية</strong><small>الأجبية، الأصوام، الأسرار.</small></a>
+      <a class="tile" href="harvest.html?v=3"><div class="ico">🌾</div><strong>حصادي الشخصي</strong><small>متابعة نموي الروحي.</small></a>
+      <a class="tile" href="katamaros.html?v=3"><div class="ico">⛪</div><strong>القطمارس</strong><small>قراءات الكنيسة اليومية.</small></a>
     </div>
   </div>
 </section>
 
-<!-- ========================================== -->
+<!-- لوحة المخدوم -->
+<section id="memberPanel" style="display: none;">
+  <div class="intro">
+      <div>
+          <h2>👤 <span id="mName">مخدوم</span></h2>
+          <p>مساحتك الروحية والتعليمية والشخصية.</p>
+          <div class="role"><span class="tag blue">مخدوم</span><span class="tag" id="mLevel">سنة أولى</span><span class="tag" id="memberPointsPill" style="background:#fff3cd; color:#856404;">0 نقطة</span></div>
+      </div>
+      <div style="font-size:45px;">🎓</div>
+  </div>
+  <div class="stats">
+      <div class="stat"><i>⭐</i><b id="mPoints">0</b><small>النقاط</small></div>
+      <div class="stat"><i>📖</i><b id="mReads">0</b><small>أيام القراءة</small></div>
+      <div class="stat"><i>🕊️</i><b id="mNotes">0</b><small>أيام النوتة</small></div>
+      <div class="stat"><i>📚</i><b id="mSubjects">0</b><small>شيتات منجزة</small></div>
+  </div>
+  <div class="section"><div class="sectionhead"><h3>ملفي وحصادي</h3><span>أدواتي الشخصية</span></div>
+      <div class="tiles">
+          <a class="tile" href="barcode.html?v=3"><div class="ico">🪪</div><strong>الباركود الشخصي</strong><small>الحضور الإلكتروني.</small></a>
+          <a class="tile" href="student.html?v=3"><div class="ico">📋</div><strong>الملف الكامل</strong><small>بياناتي ومعلوماتي.</small></a>
+          <a class="tile" href="harvest.html?v=3"><div class="ico">🌾</div><strong>حصادي الروحي</strong><small>إنجازاتي ونقاطي.</small></a>
+          <a class="tile" href="projects.html?v=3"><div class="ico">🚀</div><strong>الأنشطة</strong><small>المشروعات والمشاركة.</small></a>
+      </div>
+  </div>
+  <div class="section"><div class="sectionhead"><h3 style="color:#1e8449;">الصلوات والتعليم</h3><span style="color:#27ae60;">غذاء الروح</span></div>
+      <div class="tiles">
+          <a class="tile" href="bible.html?v=3"><div class="ico">📖</div><strong>الكتاب المقدس</strong><small>العهد القديم والجديد.</small></a>
+          <a class="tile" href="spiritual_note.html?v=3"><div class="ico">🕊️</div><strong>النوتة الروحية</strong><small>الأجبية، الأصوام، الأسرار.</small></a>
+          <a class="tile" href="sheets_list.html?v=3"><div class="ico">📚</div><strong>مقرراتي وشيتاتي</strong><small>التكليفات الدراسية.</small></a>
+          <a class="tile" href="katamaros.html?v=3"><div class="ico">⛪</div><strong>القطمارس</strong><small>قراءات القداس.</small></a>
+      </div>
+  </div>
+</section>
+</main>
+
+<script src="auth-client.js"></script>
+<script>
+(function(){
+  const today = new Date();
+  const day = today.getDate();
+  const month = today.getMonth() + 1;
+  const plan = {
+    1: "يونان 4:1", 2: "ميخا 3:1", 3: "ميخا 7:4", 4: "ناحوم 3:1", 5: "حبقوق 3:1",
+    6: "صفنيا 3:1", 7: "حجي 2:1", 8: "زكريا 3:1", 9: "زكريا 7:4", 10: "زكريا 10:8",
+    11: "زكريا 14:11", 12: "ملاخي 4:1", 13: "مكابيين الأول 4:1", 14: "مكابيين الأول 8:5"
+  };
+  let reading = (month === 10 && plan[day]) ? plan[day] : "يونان 4:1";
+  let book = reading.split(' ')[0] || 'يونان';
+  
+  if(document.getElementById('todaysReadingValue')) document.getElementById('todaysReadingValue').textContent = reading;
+  if(document.getElementById('openReadingBtn')) document.getElementById('openReadingBtn').href = `bible.html?book=${encodeURIComponent(book)}&chapter=1&v=3`;
+
+  try {
+    let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
+    let servants = JSON.parse(localStorage.getItem('my_church_servants')) || [];
+    let totalPts = members.reduce((sum, m) => sum + (parseInt(m.points) || 0), 0);
+    let totalReaders = members.filter(m => (m.readCount || 0) > 0).length;
+
+    document.getElementById('aStudents').innerText = members.length;
+    document.getElementById('aServants').innerText = servants.length;
+    document.getElementById('aPoints').innerText = totalPts;
+    document.getElementById('aReaders').innerText = totalReaders;
+  } catch(e) {}
+
+  ChurchAuth.ready.then(s => {
+    if(!s) { window.location.replace('login.html?v=3'); return; }
+    document.getElementById('whoName').textContent = s.name || '';
+    if (s.role === 'student') {
+        document.getElementById('staffPanel').style.display = 'none';
+        document.getElementById('memberPanel').style.display = 'block';
+        document.getElementById('mName').textContent = s.name;
+        
+        let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
+        let me = members.find(m => m.id.toString() === s.id.toString() || m.code === s.code) || {};
+        
+        document.getElementById('mPoints').textContent = me.points || 0;
+        document.getElementById('memberPointsPill').textContent = (me.points || 0) + ' نقطة';
+        document.getElementById('mReads').textContent = me.readCount || 0;
+        document.getElementById('mSubjects').textContent = me.sheetsCount || 0;
+        document.getElementById('mNotes').textContent = me.spiritualDays || 0;
+    } else {
+        document.getElementById('sName').textContent = s.name;
+        if (s.role !== 'admin' && s.permission !== 'admin') {
+            document.getElementById('staffIcon').innerText = '👨‍🏫';
+            document.getElementById('staffRoleBadge').innerText = 'خادم ميداني';
+            document.getElementById('staffIntroText').textContent = 'مساحتك الميدانية لإدارة المخدومين والاهتمام بحياتك الروحية.';
+            let adminOnlyTiles = document.querySelectorAll('a[href*="task=servants"], a[href*="task=reports"], a[href*="task=audit"], a[href*="task=settings"], a[href*="task=graduation"]');
+            adminOnlyTiles.forEach(tile => tile.style.display = 'none');
+        }
+    }
+  }).catch(e => console.warn(e));
+})();
+</script>
+</body></html>============================ -->
 <!-- 2. لوحة المخدوم (تظل مخفية حتى نتحقق من هويته) -->
 <!-- ========================================== -->
 <section id="memberPanel" style="display: none;">
