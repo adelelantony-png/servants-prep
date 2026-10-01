@@ -2,98 +2,85 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>النوتة الروحية</title>
+    <title>حصادي وإنجازاتي</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: 'Tajawal', sans-serif; background-color: #f4f7fb; }
-        .card-custom { background: #fff; border-radius: 16px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); margin-bottom: 15px; border: 1px solid #e2e8f0; }
-        .check-item { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px dashed #e2e8f0; }
-        .check-item:last-child { border-bottom: none; }
-        .form-check-input { width: 26px; height: 26px; cursor: pointer; border-color: #cbd5e1; }
-        .form-check-input:checked { background-color: #0b4ca5; border-color: #0b4ca5; }
+        .stat-box { background: #fff; border-radius: 16px; padding: 20px; text-align: center; border: 1px solid #e2e8f0; box-shadow: 0 4px 10px rgba(0,0,0,0.03); height: 100%; }
+        .stat-box i { font-size: 2.5rem; margin-bottom: 12px; }
+        .stat-box h3 { font-weight: 800; font-size: 2.2rem; margin: 0; color: #1e293b; }
+        .stat-box p { color: #64748b; margin: 5px 0 0 0; font-size: 0.95rem; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="container py-4" style="max-width: 600px;">
+    <div class="container py-4" style="max-width: 800px;">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <a href="index.html" class="btn btn-outline-secondary btn-sm fw-bold"><i class="fa-solid fa-arrow-right me-1"></i> العودة</a>
-            <h4 class="fw-bold mb-0 text-primary">🕊️ النوتة الروحية</h4>
+            <a href="index.html" class="btn btn-outline-secondary btn-sm fw-bold"><i class="fa-solid fa-arrow-right me-1"></i> العودة للرئيسية</a>
+            <h4 class="fw-bold mb-0 text-primary">🌾 لوحة الحصاد والإنجازات</h4>
         </div>
 
-        <div class="card-custom text-center" style="background: linear-gradient(135deg, #fff, #f7faff);">
-            <h4 class="fw-bold mb-2 text-dark" id="userName">جاري التحميل...</h4>
-            <p class="text-muted small fw-bold mb-0">سجل متابعتك الروحية اليومية لتنمو في القامة الروحية.</p>
+        <div class="alert border-0 shadow-sm rounded-4 mb-4 text-center" style="background: linear-gradient(135deg, #eaf3ff, #f7faff); border: 1px solid #bcd8f7 !important;">
+            <h4 class="fw-bold mb-2 text-primary" id="hName">جاري التحميل...</h4>
+            <span class="badge bg-primary fs-6 px-3 py-2" id="hRole">...</span>
         </div>
 
-        <div class="card-custom">
-            <h5 class="fw-bold text-success mb-3">ممارسات اليوم (<span id="todayDate"></span>)</h5>
-            
-            <div class="check-item">
-                <label class="fw-bold text-dark mb-0 fs-6"><i class="fa-solid fa-hands-praying text-warning me-2 fs-5"></i> صلاة باكر / الأجبية</label>
-                <input type="checkbox" class="form-check-input" id="chkPrayer">
-            </div>
-            <div class="check-item">
-                <label class="fw-bold text-dark mb-0 fs-6"><i class="fa-solid fa-book-bible text-primary me-2 fs-5"></i> قراءة إصحاح من الكتاب المقدس</label>
-                <input type="checkbox" class="form-check-input" id="chkBible">
-            </div>
-            <div class="check-item">
-                <label class="fw-bold text-dark mb-0 fs-6"><i class="fa-solid fa-church text-danger me-2 fs-5"></i> حضور القداس الإلهي / التناول</label>
-                <input type="checkbox" class="form-check-input" id="chkMass">
-            </div>
-            <div class="check-item">
-                <label class="fw-bold text-dark mb-0 fs-6"><i class="fa-solid fa-heart text-purple me-2 fs-5"></i> عمل رحمة / افتقاد</label>
-                <input type="checkbox" class="form-check-input" id="chkMercy">
-            </div>
-            
-            <button class="btn btn-primary w-100 mt-4 py-3 fw-bold fs-5 shadow-sm" id="btnSaveNote" onclick="saveSpiritualNote()">حفظ النوتة وإضافة النقاط ✔️</button>
+        <div class="row g-3" id="studentStats" style="display:none;">
+            <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-star text-warning"></i><h3 id="stPoints">0</h3><p>إجمالي النقاط</p></div></div>
+            <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-book-bible text-primary"></i><h3 id="stBible">0</h3><p>أيام القراءة</p></div></div>
+            <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-dove text-success"></i><h3 id="stNotes">0</h3><p>النوتة الروحية</p></div></div>
+            <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-file-lines text-danger"></i><h3 id="stSheets">0</h3><p>الشيتات المنجزة</p></div></div>
+        </div>
+
+        <div class="row g-3" id="servantStats" style="display:none;">
+            <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-calendar-check text-success"></i><h3 id="svAttend">0</h3><p>حضور الخدمة</p></div></div>
+            <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-house-chimney-medical text-danger"></i><h3 id="svVisits">0</h3><p>الافتقادات</p></div></div>
+            <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-list-check text-warning"></i><h3 id="svTasks">0</h3><p>التكليفات</p></div></div>
+            <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-dove text-primary"></i><h3 id="svSpiritual">0</h3><p>أيام النوتة</p></div></div>
         </div>
     </div>
-    
+
     <script src="auth-client.js"></script>
     <script>
-        let currentUserData = null;
-        let isServant = false;
-
-        document.getElementById('todayDate').innerText = new Date().toLocaleDateString('ar-EG');
-
         ChurchAuth.ready.then(s => {
             if(!s) return window.location.href = 'login.html';
-            document.getElementById('userName').innerText = s.name;
-            currentUserData = s;
-            isServant = (s.role === 'admin' || s.role === 'servant');
-        });
+            
+            document.getElementById('hName').innerText = s.name;
+            let isServant = (s.role === 'admin' || s.role === 'servant');
+            document.getElementById('hRole').innerText = isServant ? 'سجل إنجازات الخادم' : 'سجل إنجازات الدارس';
 
-        function saveSpiritualNote() {
-            if(!currentUserData) return;
-            let btn = document.getElementById('btnSaveNote');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري الحفظ...';
+            let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
+            let servantsAtt = JSON.parse(localStorage.getItem('my_church_servants_attendance')) || {};
+            let masterPlan = JSON.parse(localStorage.getItem('my_church_master_plan')) || [];
+            let servants = JSON.parse(localStorage.getItem('my_church_servants')) || [];
 
-            // إضافة النقاط للمخدوم، أو زيادة العداد للخادم
             if(!isServant) {
-                let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
-                let idx = members.findIndex(m => m.id.toString() === currentUserData.id.toString() || m.code === currentUserData.code);
-                if(idx > -1) {
-                    members[idx].spiritualDays = (members[idx].spiritualDays || 0) + 1;
-                    members[idx].points = (parseInt(members[idx].points) || 0) + 5; // بونص 5 نقاط
-                    localStorage.setItem('my_church_class', JSON.stringify(members));
-                }
+                document.getElementById('studentStats').style.display = 'flex';
+                let me = members.find(m => m.id.toString() === s.id.toString() || m.code === s.code) || {};
+                document.getElementById('stPoints').innerText = me.points || 0;
+                document.getElementById('stBible').innerText = me.readCount || 0;
+                document.getElementById('stNotes').innerText = me.spiritualDays || 0;
+                document.getElementById('stSheets').innerText = me.sheetsCount || 0;
             } else {
-                let servants = JSON.parse(localStorage.getItem('my_church_servants')) || [];
-                let idx = servants.findIndex(x => x.id.toString() === currentUserData.id.toString() || x.code === currentUserData.code);
-                if(idx > -1) {
-                    servants[idx].spiritualDays = (servants[idx].spiritualDays || 0) + 1;
-                    localStorage.setItem('my_church_servants', JSON.stringify(servants));
-                }
-            }
+                document.getElementById('servantStats').style.display = 'flex';
+                let attCount = 0;
+                Object.values(servantsAtt).forEach(dayList => {
+                    if(dayList.some(x => x.id.toString() === s.id.toString() || x.code === s.code)) attCount++;
+                });
+                let visCount = 0;
+                members.forEach(m => {
+                    if(m.visitations) visCount += m.visitations.filter(v => v.by === s.name || (s.role==='admin' && v.by==='admin')).length;
+                });
+                let taskCount = masterPlan.filter(p => p.responsible === s.name).length;
+                let myServantFile = servants.find(x => x.id.toString() === s.id.toString() || x.code === s.code) || {};
 
-            setTimeout(() => {
-                btn.className = 'btn btn-success w-100 mt-4 py-3 fw-bold fs-5 shadow-sm';
-                btn.innerHTML = '<i class="fa-solid fa-check-double"></i> تم حفظ المتابعة بنجاح';
-            }, 500);
-        }
+                document.getElementById('svAttend').innerText = attCount;
+                document.getElementById('svVisits').innerText = visCount;
+                document.getElementById('svTasks').innerText = taskCount;
+                document.getElementById('svSpiritual').innerText = myServantFile.spiritualDays || 0;
+            }
+        });
     </script>
 </body>
 </html>
