@@ -15,7 +15,7 @@
         .verse-box { font-size: 1.25rem; line-height: 2.3; color: #1a202c; text-align: justify; }
         .verse-num { display: inline-block; font-size: 0.85rem; font-weight: 700; color: #1e3c72; background-color: #e0e7ff; border-radius: 6px; padding: 2px 7px; margin: 0 5px 0 3px; vertical-align: middle; user-select: none; }
     </style>
-<script src="auth-client.js"></script>
+    <script src="auth-client.js"></script>
 </head>
 <body>
 
@@ -68,13 +68,13 @@
 </div>
 
 <script>
-// حماية الصفحة والتأكد من تسجيل الدخول
 const studentCode = localStorage.getItem('student_code');
 if (!studentCode) window.location.href = 'login.html';
 
 let bibleData = [];
 let currentFontSize = 1.25;
 
+// التقاط السفر والإصحاح من الرابط إن وُجدا
 const urlParams = new URLSearchParams(window.location.search);
 const targetBookName = urlParams.get('book');
 const targetChapter = parseInt(urlParams.get('chapter')) || 1;
@@ -121,13 +121,16 @@ function setupBooksDropdown() {
         const arName = arabicBookNames[book.name] || book.name;
         option.textContent = `${index + 1}. ${arName}`;
 
-        if (targetBookName && (arName === targetBookName || book.name === targetBookName)) {
+        // إذا كان السفر المبعوث في الرابط يطابق السفر الحالي، نجعله المحدد
+        if (targetBookName && (arName.includes(targetBookName) || book.name.includes(targetBookName))) {
             selectedIndex = index;
         }
         bookSelect.appendChild(option);
     });
 
     bookSelect.selectedIndex = selectedIndex;
+    
+    // إرسال true ليقوم باختيار الإصحاح المستهدف
     onBookChanged(true);
 }
 
@@ -144,6 +147,7 @@ function onBookChanged(isInitial = false) {
         chapterSelect.appendChild(option);
     });
 
+    // إذا كانت هذه هي أول مرة (عبر الرابط) قم بتحديد الإصحاح المطلوب
     if (isInitial && targetChapter > 0 && targetChapter <= book.chapters.length) {
         chapterSelect.selectedIndex = targetChapter - 1;
     } else {
@@ -174,7 +178,7 @@ function renderVerses() {
     });
 
     document.getElementById('versesArea').innerHTML = html;
-    window.scrollTo({ top: 120, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function nextChapter() {
@@ -201,7 +205,8 @@ function prevChapter() {
         if (bookSelect.selectedIndex > 0) {
             bookSelect.selectedIndex--;
             onBookChanged();
-            chapSelect.selectedIndex = chapSelect.options.length - 1;
+            const newChapSelect = document.getElementById('chapterSelect');
+            newChapSelect.selectedIndex = newChapSelect.options.length - 1;
             renderVerses();
         }
     }
@@ -212,7 +217,7 @@ function changeFontSize(delta) {
     document.getElementById('versesArea').style.fontSize = `${currentFontSize}rem`;
 }
 
-// دالة تسجيل الخلوة متصلة بالـ Vercel API
+// دالة تسجيل الخلوة
 async function markCurrentChapterRead() {
     const btnMark = document.getElementById('btnMarkRead');
     btnMark.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري التسجيل...';
