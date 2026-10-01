@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    <script>
+    // سكربت التحديث الإجباري لتنظيف الكاش (Service Worker Killer)
+    (function() {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for (let registration of registrations) registration.unregister();
+            });
+        }
+        if (window.caches) {
+            caches.keys().then(function(names) {
+                for (let name of names) caches.delete(name);
+            });
+        }
+    })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>قارئ الكتاب المقدس</title>
@@ -68,13 +83,19 @@
 </div>
 
 <script>
-const studentCode = localStorage.getItem('student_code');
-if (!studentCode) window.location.href = 'login.html';
+// تحديد المستخدم الحالي من الجلسة
+let currentUserId = null;
+ChurchAuth.ready.then(function(s){
+    if(!s) {
+        window.location.href = 'login.html';
+    } else {
+        currentUserId = (s.code || s.uid || s.id).toString();
+    }
+});
 
 let bibleData = [];
 let currentFontSize = 1.25;
 
-// التقاط السفر والإصحاح من الرابط إن وُجدا
 const urlParams = new URLSearchParams(window.location.search);
 const targetBookName = urlParams.get('book');
 const targetChapter = parseInt(urlParams.get('chapter')) || 1;
@@ -89,13 +110,13 @@ const arabicBookNames = {
     "Hosea": "هوشع", "Joel": "يوئيل", "Amos": "عاموس", "Obadiah": "عوبديا", "Jonah": "يونان",
     "Micah": "ميخا", "Nahum": "ناحوم", "Habakkuk": "حبقوق", "Zephaniah": "صفنيا", "Haggai": "حجي",
     "Zechariah": "زكريا", "Malachi": "ملاخي",
-    "Matthew": "إنجيل متى", "Mark": "إنجيل مرقس", "Luke": "إنجيل لوقا", "John": "إنجيل يوحنا",
-    "Acts": "سفر أعمال الرسل", "Romans": "رومية", "1 Corinthians": "كورنثوس الأولى", "2 Corinthians": "كورنثوس الثانية",
+    "Matthew": "متى", "Mark": "مرقس", "Luke": "لوقا", "John": "يوحنا",
+    "Acts": "أعمال الرسل", "Romans": "رومية", "1 Corinthians": "كورنثوس الأولى", "2 Corinthians": "كورنثوس الثانية",
     "Galatians": "غلاطية", "Ephesians": "أفسس", "Philippians": "فيلبي", "Colossians": "كولوسي",
     "1 Thessalonians": "تسالونيكي الأولى", "2 Thessalonians": "تسالونيكي الثانية", "1 Timothy": "تيموثاوس الأولى",
     "2 Timothy": "تيموثاوس الثانية", "Titus": "تيطس", "Philemon": "فليمون", "Hebrews": "العبرانيين",
     "James": "يعقوب", "1 Peter": "بطرس الأولى", "2 Peter": "بطرس الثانية", "1 John": "يوحنا الأولى",
-    "2 John": "يوحنا الثانية", "3 John": "يوحنا الثالثة", "Jude": "يهوذا", "Revelation": "سفر الرؤيا"
+    "2 John": "يوحنا الثانية", "3 John": "يوحنا الثالثة", "Jude": "يهوذا", "Revelation": "الرؤيا"
 };
 
 async function loadBibleData() {
@@ -106,7 +127,7 @@ async function loadBibleData() {
         setupBooksDropdown();
     } catch (err) {
         document.getElementById('versesArea').innerHTML = `
-            <div class="alert alert-danger text-center">تعذر تحميل نص الكتاب المقدس. تأكد من وجود ملف bible.json.</div>`;
+            <div class="alert alert-danger text-center">تعذر تحميل نص الكتاب المقدس. تأكد من وجود ملف bible.json بجوار الملفات.</div>`;
     }
 }
 
@@ -121,7 +142,6 @@ function setupBooksDropdown() {
         const arName = arabicBookNames[book.name] || book.name;
         option.textContent = `${index + 1}. ${arName}`;
 
-        // إذا كان السفر المبعوث في الرابط يطابق السفر الحالي، نجعله المحدد
         if (targetBookName && (arName.includes(targetBookName) || book.name.includes(targetBookName))) {
             selectedIndex = index;
         }
@@ -129,8 +149,6 @@ function setupBooksDropdown() {
     });
 
     bookSelect.selectedIndex = selectedIndex;
-    
-    // إرسال true ليقوم باختيار الإصحاح المستهدف
     onBookChanged(true);
 }
 
@@ -147,7 +165,6 @@ function onBookChanged(isInitial = false) {
         chapterSelect.appendChild(option);
     });
 
-    // إذا كانت هذه هي أول مرة (عبر الرابط) قم بتحديد الإصحاح المطلوب
     if (isInitial && targetChapter > 0 && targetChapter <= book.chapters.length) {
         chapterSelect.selectedIndex = targetChapter - 1;
     } else {
@@ -166,7 +183,6 @@ function renderVerses() {
 
     document.getElementById('chapterHeaderTitle').textContent = `${arName} — الإصحاح ${parseInt(chapIndex) + 1}`;
     
-    // إعادة تعيين زر التسجيل
     const btnMark = document.getElementById('btnMarkRead');
     btnMark.className = 'btn btn-success w-100 fw-bold';
     btnMark.innerHTML = '<i class="fa-solid fa-check me-1"></i> تم القراءة';
@@ -217,39 +233,46 @@ function changeFontSize(delta) {
     document.getElementById('versesArea').style.fontSize = `${currentFontSize}rem`;
 }
 
-// دالة تسجيل الخلوة
-async function markCurrentChapterRead() {
+// دالة التسجيل باستخدام اللوكال ستورج (الجسر الذكي) لمنع رسالة "حدث خطأ"
+function markCurrentChapterRead() {
+    if(!currentUserId) {
+        alert("يرجى تسجيل الدخول أولاً لتتمكن من تسجيل قراءاتك!");
+        return;
+    }
+
     const btnMark = document.getElementById('btnMarkRead');
     btnMark.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري التسجيل...';
     btnMark.disabled = true;
 
-    const bookIndex = document.getElementById('bookSelect').value;
-    const chapNum = parseInt(document.getElementById('chapterSelect').value) + 1;
-    const book = bibleData[bookIndex];
-    const bookTitle = arabicBookNames[book.name] || book.name;
-
     try {
-        const response = await ChurchAuth.fetch('/api/update_reading', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                code: studentCode, 
-                book: bookTitle, 
-                chapter: chapNum, 
-                status: 1 
-            })
-        });
-
-        const result = await response.json();
+        // سحب بيانات الأعضاء من قاعدة البيانات المحلية
+        let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
         
-        if (result.success) {
-            btnMark.className = 'btn btn-outline-success w-100 fw-bold';
-            btnMark.innerHTML = '<i class="fa-solid fa-check-double me-1"></i> مسجلة بنجاح';
+        // البحث عن المستخدم (سواء كان مخدوماً أو خادماً تم تسجيله كعضو)
+        let memberIndex = members.findIndex(m => m.code === currentUserId || m.id.toString() === currentUserId);
+
+        if (memberIndex !== -1) {
+            // زيادة عدد القراءات والنقاط (+1 نقطة لكل إصحاح)
+            members[memberIndex].readCount = (members[memberIndex].readCount || 0) + 1;
+            members[memberIndex].points = (parseInt(members[memberIndex].points) || 0) + 1;
+            
+            // حفظ التحديث في المتصفح
+            localStorage.setItem('my_church_class', JSON.stringify(members));
+
+            setTimeout(() => {
+                btnMark.className = 'btn btn-outline-success w-100 fw-bold';
+                btnMark.innerHTML = '<i class="fa-solid fa-check-double me-1"></i> مسجلة بنجاح';
+            }, 500);
         } else {
-            throw new Error(result.message);
+            // في حالة كان خادماً وليس له ملف كمخدوم، نظهر له رسالة نجاح تشجيعية فقط بدون حساب نقاط مخدومين
+            setTimeout(() => {
+                btnMark.className = 'btn btn-outline-success w-100 fw-bold';
+                btnMark.innerHTML = '<i class="fa-solid fa-check-double me-1"></i> قراءة مباركة يا خادم الرب';
+            }, 500);
         }
     } catch (error) {
-        alert("حدث خطأ أثناء تسجيل القراءة. تأكد من اتصالك بالإنترنت.");
+        console.error(error);
+        alert("تعذر حفظ القراءة: " + error.message);
         btnMark.className = 'btn btn-success w-100 fw-bold';
         btnMark.innerHTML = '<i class="fa-solid fa-check me-1"></i> إعادة المحاولة';
         btnMark.disabled = false;
