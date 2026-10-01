@@ -1,331 +1,315 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خدمتي برو الذكي — واجهة المخدوم</title>
-    
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1e3c72">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        body { font-family: 'Tajawal', sans-serif; background-color: #f1f5f9; color: #1e293b; }
-        .main-card { max-width: 620px; margin: 20px auto; padding: 0 15px; }
-        .student-badge-card {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: #ffffff;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 8px 20px rgba(30, 60, 114, 0.15);
-            margin-bottom: 20px;
-        }
-        .section-box { background: #ffffff; border-radius: 18px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 20px; border: 1px solid #e2e8f0; }
-        .service-card { display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 15px 10px; text-decoration: none; color: #334155; transition: all 0.2s ease; height: 100%; }
-        .service-card:hover { transform: translateY(-3px); background-color: #ffffff; border-color: #cbd5e1; color: #1e3c72; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .service-icon { font-size: 1.8rem; margin-bottom: 8px; }
-        
-        .network-status-badge { font-size: 0.8rem; padding: 4px 10px; border-radius: 50px; display: inline-flex; align-items: center; gap: 6px; font-weight: 700; transition: all 0.3s ease; }
-        .status-online { background-color: #dcfce7; color: #15803d; border: 1px solid #86efac; }
-        .status-offline { background-color: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
-        .status-indicator-dot { width: 8px; height: 8px; border-radius: 50%; }
-        .dot-online { background-color: #22c55e; box-shadow: 0 0 6px #22c55e; }
-        .dot-offline { background-color: #ef4444; }
-    </style>
+<script>
+// سكربت التحديث الإجباري لتنظيف المتصفحات (Service Worker Killer)
+(function() {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for (let registration of registrations) registration.unregister();
+        });
+    }
+    if (window.caches) {
+        caches.keys().then(function(names) {
+            for (let name of names) caches.delete(name);
+        });
+    }
+    if (!window.location.search.includes('v=')) {
+        var cleanUrl = window.location.href.split('?')[0];
+        window.location.replace(cleanUrl + '?v=' + new Date().getTime());
+    }
+})();
+</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b4ca5"><title>خدمتي برو — الرئيسية</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0b4ca5;--blue2:#1682ee;--green:#087f62;--green2:#18a673;--gold:#d99812;--ink:#17233d;--muted:#708098;--bg:#f3f7fc;--line:#dce6f2;--card:#fff;--shadow:0 10px 28px rgba(18,55,105,.08);--radius:20px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tajawal,Arial,sans-serif}.top{background:linear-gradient(125deg,#06235c,#0b4ca5 58%,#1682ee);color:#fff;padding:18px 14px 26px}.topin{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px;border:1px solid #ffffff40;background:#ffffff16;border-radius:16px;display:grid;place-items:center;font-size:27px}.brand h1{font-size:25px;margin:0;font-weight:900}.brand p{margin:4px 0 0;opacity:.82;font-size:12px}.demo{font-size:11px;border:1px solid #ffffff42;background:#ffffff12;border-radius:999px;padding:7px 10px;white-space:nowrap}.wrap{max-width:1050px;margin:-10px auto 0;padding:0 12px 30px}.switcher{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:18px;padding:7px;display:grid;grid-template-columns:1fr 1fr;gap:7px;position:sticky;top:8px;z-index:20}.switch{border:0;background:#f4f7fb;color:#64748b;border-radius:13px;padding:13px 10px;font:800 15px Tajawal;cursor:pointer}.switch.active{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff}
+.intro{margin-top:15px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:15px}.intro h2{margin:0 0 5px;font-size:22px}.intro p{margin:0;color:var(--muted);line-height:1.7;font-size:13px}.role{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px}.tag{border:1px solid var(--line);background:#f7faff;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:800;color:#52627a}.tag.blue{background:#eaf3ff;color:var(--blue);border-color:#bcd8f7}.tag.green{background:#eaf8f3;color:var(--green);border-color:#b9e2d3}.introicon{font-size:52px;flex:none}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px;text-align:center}.stat i{font-style:normal;font-size:21px}.stat b{display:block;font-size:22px;margin-top:3px}.stat small{color:var(--muted);font-size:10px}.section{margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:8px;margin-bottom:11px}.sectionhead h3{margin:0;font-size:17px;color:var(--blue);}.sectionhead span{font-size:11px;color:var(--muted);font-weight:bold;}.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.tile{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:linear-gradient(145deg,#fff,#f7faff);border-radius:15px;padding:13px;min-height:102px}.tile:active{transform:scale(.99)}.tile .ico{font-size:25px;margin-bottom:6px;}.tile strong{display:block;margin:6px 0 2px;font-size:13px;color:#1e293b;}.tile small{display:block;color:var(--muted);font-size:11px;line-height:1.5}.primary{display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:18px;padding:16px 17px;color:#fff;margin-top:12px}.primary.admin{background:linear-gradient(120deg,#082b68,#116bd6)}.primary.servant{background:linear-gradient(120deg,#075f4b,#18a673)}.primary h3{margin:0 0 4px;font-size:17px}.primary p{margin:0;opacity:.84;font-size:11px;line-height:1.6}.open{background:#fff;color:var(--blue);border-radius:11px;padding:10px 13px;text-decoration:none;font-weight:900;font-size:12px;white-space:nowrap}.primary.servant .open{color:var(--green)}.who{display:flex;align-items:center;gap:8px;font-size:12px;border:1px solid #ffffff42;background:#ffffff12;border-radius:999px;padding:5px 6px 5px 12px;white-space:nowrap;max-width:60vw}.who span{overflow:hidden;text-overflow:ellipsis}.who button{border:0;border-radius:999px;background:#fff;color:#0b4ca5;font:800 12px Tajawal,Arial,sans-serif;padding:6px 12px;cursor:pointer}.who button:focus-visible{outline:3px solid #d99812;outline-offset:2px}
+@media(max-width:850px){.tiles{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.top{padding-bottom:22px}.brand h1{font-size:20px}.brand p{font-size:10px}.demo{display:none}.wrap{padding:0 9px 78px}.switcher{top:5px}.switch{font-size:13px;padding:12px 6px}.intro{padding:16px}.intro h2{font-size:19px}.introicon{font-size:42px}.stats{gap:7px}.stat{padding:11px}.stat b{font-size:19px}.section{padding:13px}.tiles{gap:7px}.tile{min-height:94px;padding:11px}.tile strong{font-size:12px}.primary{align-items:flex-start;flex-direction:column}.open{width:100%;text-align:center}}
+</style>
 </head>
 <body>
+<header class="top">
+  <div class="topin">
+    <div class="brand">
+      <div class="logo">✝</div>
+      <div><h1>خدمتي برو</h1><p>منصة واحدة للخدمة — كل دور له مساره وأدواته</p></div>
+    </div>
+    <div class="who"><span id="whoName"></span><button type="button" id="logoutBtn">خروج</button></div>
+  </div>
+</header>
+<main class="wrap">
 
-<div class="main-card pb-5">
+<!-- صندوق القراءة الروحية اليومية التلقائي -->
+<section class="section" style="margin-bottom:15px; background:linear-gradient(135deg,#eaf3ff,#f7faff); border-color:#bcd8f7;">
+  <div class="sectionhead">
+    <h3 style="color:var(--blue);">📖 القراءة الروحية اليومية (<span id="todaysDateLabel">اليوم</span>)</h3>
+    <span style="font-weight:700; color:var(--blue2);">حسب خطة الكنيسة</span>
+  </div>
+  <div style="display:flex; align-items:center; justify-content:space-between; gap:15px; flex-wrap:wrap;">
+    <div>
+      <p style="margin:0 0 5px; color:var(--muted); font-size:12px;">الإصحاح المقترح حسب جدول اليوم:</p>
+      <h2 id="todaysReadingValue" style="margin:0; font-size:22px; color:var(--ink);">جاري التحميل...</h2>
+    </div>
+    <a id="openReadingBtn" class="open" href="bible.html" style="background:var(--blue); color:#fff; border-radius:12px; padding:10px 16px; border:1px solid var(--blue);">فتح إصحاح اليوم مباشرة</a>
+  </div>
+</section>
 
-    <!-- شريط الحالة + زر التحديث -->
-    <div class="d-flex justify-content-between align-items-center mb-3 px-1">
-        <div id="connectionStatus" class="network-status-badge status-online">
-            <span class="status-indicator-dot dot-online" id="statusDot"></span>
-            <span id="statusText">متصل بالإنترنت</span>
-        </div>
-        
-        <div class="d-flex gap-1">
-            <button id="btnCheckUpdate" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold bg-white" onclick="forceAppUpdate()" title="الحصول على أحدث إصدار ومسح الذاكرة">
-                <i class="fa-solid fa-arrows-rotate me-1"></i> طلب التحديث
-            </button>
+<!-- ========================================== -->
+<!-- 1. لوحة المخدوم (الدارس) -->
+<!-- ========================================== -->
+<section id="memberPanel" style="display: none;">
+  <div class="intro">
+      <div>
+          <h2>👤 <span id="mName"></span></h2>
+          <p>هذه هي مساحتك الشخصية. تابع مسارك التعليمي، سجل حضورك، واهتم بقانونك الروحي.</p>
+          <div class="role"><span class="tag blue">مخدوم</span><span class="tag" id="mLevel"></span><span class="tag" id="memberPointsPill" style="background:#fff3cd; color:#856404; border-color:#ffeeba;">0 نقطة</span></div>
+      </div>
+      <div class="introicon">🎓</div>
+  </div>
+  
+  <div class="stats">
+      <div class="stat"><i>⭐</i><b id="mPoints">0</b><small>النقاط</small></div>
+      <div class="stat"><i>📖</i><b id="mReads">0</b><small>أيام القراءة</small></div>
+      <div class="stat"><i>🕊️</i><b id="mNotes">0</b><small>أيام النوتة</small></div>
+      <div class="stat"><i>📚</i><b id="mSubjects">0</b><small>شيتات منجزة</small></div>
+  </div>
+
+  <div class="section"><div class="sectionhead"><h3>ملفي ورحلتي</h3><span>بياناتي الشخصية</span></div>
+      <div class="tiles">
+          <a class="tile" href="barcode.html"><div class="ico">🪪</div><strong>الباركود الخاص بي</strong><small>أظهره لتسجيل الحضور.</small></a>
+          <a class="tile" href="student.html"><div class="ico">📋</div><strong>الملف الكامل</strong><small>البيانات والتقييم.</small></a>
+          <a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصادي</strong><small>ملخص إنجازاتي.</small></a>
+          <a class="tile" href="projects.html"><div class="ico">🚀</div><strong>الأنشطة</strong><small>المشروعات والخدمة.</small></a>
+      </div>
+  </div>
+  
+  <div class="section"><div class="sectionhead"><h3 style="color:#1e8449;">التعليم والقراءة</h3><span style="color:#27ae60;">غذاء الروح والعقل</span></div>
+      <div class="tiles">
+          <a class="tile" href="bible.html"><div class="ico">📖</div><strong>الكتاب المقدس</strong><small>خطة القراءة اليومية.</small></a>
+          <a class="tile" href="spiritual_note.html"><div class="ico">🕊️</div><strong>النوتة الروحية</strong><small>المتابعة الروحية والأسرار.</small></a>
+          <a class="tile" href="sheets_list.html"><div class="ico">📚</div><strong>مقرراتي وشيتاتي</strong><small>المواد والتكليفات.</small></a>
+          <a class="tile" href="katamaros.html"><div class="ico">⛪</div><strong>القطمارس</strong><small>قراءات الكنيسة.</small></a>
+      </div>
+  </div>
+</section>
+
+<!-- ========================================== -->
+<!-- 2. لوحة الخدام وأمين الخدمة -->
+<!-- ========================================== -->
+<section id="staffPanel" style="display: none;">
+  <div class="intro">
+      <div>
+          <h2><span id="staffIcon">👨‍🏫</span> <span id="sName"></span></h2>
+          <p id="staffIntroText">مساحتك اليومية لإدارة الخدمة ومتابعة المخدومين والاهتمام بحياتك الروحية.</p>
+          <div class="role"><span class="tag green" id="staffRoleBadge">خادم مسجل</span></div>
+      </div>
+      <div class="introicon" id="staffBigIcon">📊</div>
+  </div>
+
+  <!-- واجهة أمين الخدمة (Admin) الشاملة والمسطحة -->
+  <div id="adminView" style="display: none;">
+    <div class="stats">
+        <div class="stat"><i>👥</i><b id="aStudents">0</b><small>المخدومون</small></div>
+        <div class="stat"><i>👨‍🏫</i><b id="aServants">0</b><small>الخدام</small></div>
+        <div class="stat"><i>⭐</i><b id="aPoints">0</b><small>إجمالي النقاط</small></div>
+        <div class="stat"><i>📖</i><b id="aReaders">0</b><small>قراء نشطون</small></div>
+    </div>
+
+    <div class="section"><div class="sectionhead"><h3>الخدمة الميدانية</h3><span>الحضور والمتابعة</span></div>
+        <div class="tiles">
+            <a class="tile" href="admin-dashboard.html?task=members"><div class="ico">👥</div><strong>إدارة المخدومين</strong><small>ملفات وبحث وباركود.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>تسجيل الحضور</strong><small>كاميرا وباركود.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>سجل الخدام</strong><small>حضور وافتقاد.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=broadcast"><div class="ico">📲</div><strong>واتساب جماعي</strong><small>مراسلة الغائبين.</small></a>
         </div>
     </div>
 
-    <div id="alertsContainer"></div>
-
-    <!-- كارت بيانات المخدوم -->
-    <div class="student-badge-card">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-            <div>
-                <span id="ui-level" class="badge bg-light text-primary px-3 py-1 fw-bold">الفرقة</span>
-                <span id="ui-admin-badge" class="badge bg-warning text-dark px-2 py-1 fw-bold ms-1 d-none">حساب خادم (أدمن)</span>
-            </div>
-            <div class="d-flex gap-1"><button type="button" onclick="ChurchAuth.logout()" class="btn btn-sm btn-outline-light py-0 px-2 fw-bold">خروج</button><a href="index.html" class="btn btn-sm btn-outline-light py-0 px-2 fw-bold"><i class="fa-solid fa-house me-1"></i> الرئيسية</a></div>
-        </div>
-        <h4 id="ui-name" class="fw-bold mb-1">جاري التحميل...</h4>
-        <small class="opacity-75 d-block mb-3">كود المخدوم: <span id="ui-code"></span></small>
-        <div class="d-flex justify-content-between border-top border-white border-opacity-25 pt-2 small">
-            <span id="ui-date"></span>
-            <span>نقاط التفاعل: <strong id="ui-points">0</strong></span>
+    <div class="section"><div class="sectionhead"><h3 style="color:#d35400;">التعليم والأنشطة</h3><span style="color:#e67e22;">المناهج والخطة</span></div>
+        <div class="tiles">
+            <a class="tile" href="admin_subjects.html"><div class="ico">📚</div><strong>المقررات والشيتات</strong><small>إدارة المناهج والتقييم.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓</div><strong>خطة السنة</strong><small>الأحداث والمحاضرات.</small></a>
+            <a class="tile" href="projects.html"><div class="ico">🚀</div><strong>الأنشطة والمشروعات</strong><small>إدارة المشروعات.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=graduation"><div class="ico">🎓</div><strong>التخرج والترقية</strong><small>ترحيل الدفعات.</small></a>
         </div>
     </div>
 
-    <!-- بطاقة قراءة الكتاب المقدس التفاعلية -->
-    <div class="section-box border border-primary border-opacity-25">
-        <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
-            <h6 class="fw-bold text-primary mb-0"><i class="fa-solid fa-book-bible me-1"></i> متابعة خطة الكتاب المقدس</h6>
-            <span id="readingStatusBadge" class="badge bg-warning text-dark px-3 py-1">مطلوب إنجازها</span>
-        </div>
-
-        <div class="p-3 my-2 rounded-3 text-center" style="background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);">
-            <small class="text-muted fw-bold d-block mb-1" id="readingDateDisplay">المقرر ليوم: جاري التحميل...</small>
-            <h3 class="fw-bold text-primary mb-0" id="currentReadingText">...</h3>
-        </div>
-
-        <div class="row g-2 mt-3">
-            <div class="col-7">
-                <a id="btnOpenBible" href="bible.html" class="btn btn-primary w-100 fw-bold">
-                    <i class="fa-solid fa-book-open me-1"></i> ابدأ القراءة الآن
-                </a>
-            </div>
-            <div class="col-5">
-                <button id="btnMarkDone" class="btn btn-success w-100 fw-bold" onclick="submitCurrentDayReading()">تسجيل الإنجاز</button>
-            </div>
+    <div class="section"><div class="sectionhead"><h3 style="color:#8e44ad;">النظام والتقارير</h3><span style="color:#9b59b6;">لوحة التحكم</span></div>
+        <div class="tiles">
+            <a class="tile" href="admin-dashboard.html?task=servants"><div class="ico">⚙️</div><strong>إدارة الخدام</strong><small>الصلاحيات والحسابات.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=reports"><div class="ico">📁</div><strong>النسخ الاحتياطي</strong><small>تقارير ونسخ.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=audit"><div class="ico">🛡️</div><strong>سجل العمليات</strong><small>مراقبة وتدقيق.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=settings"><div class="ico">🔒</div><strong>إعدادات النظام</strong><small>الخدمة والسحابة.</small></a>
         </div>
     </div>
-
-    <!-- شبكة الخدمات -->
-    <div class="section-box">
-        <h6 class="fw-bold text-secondary mb-3"><i class="fa-solid fa-graduation-cap text-primary me-2"></i>خدماتك الشخصية</h6>
-        <div class="row g-2" id="services-grid">
-            <div class="col-4"><a href="sheets_list.html" class="service-card"><i class="fa-solid fa-file-arrow-down text-primary service-icon"></i><span class="small fw-bold">تحميل الشيتات</span></a></div>
-            <div class="col-4"><a href="harvest.html" class="service-card"><i class="fa-solid fa-chart-pie text-success service-icon"></i><span class="small fw-bold">حصادي الشخصي</span></a></div>
-            <div class="col-4"><a href="barcode.html" class="service-card"><i class="fa-solid fa-barcode text-dark service-icon"></i><span class="small fw-bold">باركود الحضور</span></a></div>
-            
-            <div class="col-6"><a href="projects.html" class="service-card" style="border-color:#c4b5fd;background:#faf5ff;"><i class="fa-solid fa-rocket text-purple service-icon"></i><span class="small fw-bold" style="color:#6d28d9;">مشروعاتي</span></a></div>
-            <div class="col-6"><a href="member.html" class="service-card" style="border-color:#bae6fd;background:#f0f9ff;"><i class="fa-solid fa-id-card text-primary service-icon"></i><span class="small fw-bold text-primary">ملفي الكامل</span></a></div>
-            <div class="col-12" id="note-card-wrapper"><a href="spiritual_note.html" class="service-card" style="border-color: #fecaca; background: #fffbfb;"><i class="fa-solid fa-heart-pulse text-danger service-icon"></i><span class="small fw-bold text-danger">تسجيل النوتة الروحية</span></a></div>
-            
-            <div class="col-6 d-none" id="admin-panel-btn"><a href="admin_subjects.html" class="service-card bg-warning bg-opacity-10 border-warning"><i class="fa-solid fa-gear text-dark service-icon"></i><span class="small fw-bold text-dark">الإدارة العامة</span></a></div>
-        </div>
+  </div>
+  
+  <!-- واجهة الخادم (Servant) الميدانية والمسطحة -->
+  <div id="servantView" style="display:none">
+    <div class="stats">
+        <div class="stat"><i>👥</i><b id="svStudents">0</b><small>المخدومون</small></div>
+        <div class="stat"><i>🤝</i><b id="svVisits">0</b><small>افتقادات الخدام</small></div>
+        <div class="stat"><i>📖</i><b id="svReaders">0</b><small>قراء نشطون</small></div>
+        <div class="stat"><i>⭐</i><b id="svPoints">0</b><small>إجمالي النقاط</small></div>
     </div>
 
-</div>
+    <div class="section"><div class="sectionhead"><h3>الخدمة الميدانية</h3><span>المهام الأساسية</span></div>
+        <div class="tiles">
+            <a class="tile" href="admin-dashboard.html?task=members"><div class="ico">👥</div><strong>المخدومون</strong><small>بحث ومتابعة الأفراد.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>تسجيل الحضور</strong><small>كاميرا وباركود.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>الافتقاد</strong><small>الزيارات وسجل الخدام.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=broadcast"><div class="ico">📲</div><strong>رسائل جماعية</strong><small>مراسلة الغائبين.</small></a>
+        </div>
+    </div>
+    
+    <div class="section"><div class="sectionhead"><h3 style="color:#d35400;">الأنشطة والخطة</h3><span style="color:#e67e22;">متابعة الخدمة</span></div>
+        <div class="tiles">
+            <a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓️</div><strong>خطة الخدمة</strong><small>المحاضرات والتكليفات.</small></a>
+            <a class="tile" href="projects.html"><div class="ico">🚀</div><strong>المشروعات</strong><small>المشاركة والتنظيم.</small></a>
+            <a class="tile" href="admin_subjects.html"><div class="ico">📚</div><strong>المقررات (للاطلاع)</strong><small>متابعة شيتات المخدومين.</small></a>
+        </div>
+    </div>
+  </div>
+
+  <!-- قسم الحياة الروحية المشترك للخادم وأمين الخدمة -->
+  <div class="section" style="background:linear-gradient(145deg, #fdfefe, #f4fbf7); border-color:#d5f5e3;">
+    <div class="sectionhead"><h3 style="color:#1e8449;">حياتي الروحية (للتشجيع)</h3><span style="color:#27ae60;">غذاء الروح والحصاد</span></div>
+    <div class="tiles">
+      <a class="tile" href="bible.html"><div class="ico">📖</div><strong>الكتاب المقدس</strong><small>قراءة وتأمل يومي.</small></a>
+      <a class="tile" href="spiritual_note.html"><div class="ico">🕊️</div><strong>النوتة الروحية</strong><small>قانوني الروحي الشخصي.</small></a>
+      <a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصادي כخادم</strong><small>إنجازاتي ومواظبتي.</small></a>
+      <a class="tile" href="katamaros.html"><div class="ico">⛪</div><strong>القطمارس</strong><small>قراءات الكنيسة اليومية.</small></a>
+    </div>
+  </div>
+
+</section>
+</main>
 
 <script src="auth-client.js"></script>
 <script>
-    // نظام اصطياد الأخطاء
-    window.onerror = function(message, source, lineno, colno, error) {
-        showErrorToCopy(`[Browser Error]: ${message} at ${source}:${lineno}`);
-        return true; 
-    };
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var logoutBtn = $('logoutBtn');
+  if(logoutBtn) logoutBtn.addEventListener('click',function(){ChurchAuth.logout()});
 
-    window.addEventListener('unhandledrejection', function(event) {
-        showErrorToCopy(`[Promise Error]: ${event.reason}`);
-    });
+  // تحديد قراءة اليوم وتحديث رابط الكتاب المقدس
+  (function(){
+    try {
+      const today = new Date();
+      const day = today.getDate();
+      const month = today.getMonth() + 1;
+      
+      const octoberPlan = {
+        1: "يونان 4:1", 2: "ميخا 3:1", 3: "ميخا 7:4", 4: "ناحوم 3:1", 5: "حبقوق 3:1",
+        6: "صفنيا 3:1", 7: "حجي 2:1", 8: "زكريا 3:1", 9: "زكريا 7:4", 10: "زكريا 10:8",
+        11: "زكريا 14:11", 12: "ملاخي 4:1", 13: "مكابيين الأول 4:1", 14: "مكابيين الأول 8:5",
+        15: "مكابيين الأول 12:9", 16: "مكابيين الأول 16:13", 17: "مكابيين الثاني 3:1", 18: "مكابيين الثاني 7:4",
+        19: "مكابيين الثاني 11:8", 20: "مكابيين الثاني 15:12", 21: "متى 3:1", 22: "متى 7:4",
+        23: "متى 10:8", 24: "متى 14:11", 25: "متى 17:15", 26: "متى 21:18", 27: "متى 24:22",
+        28: "متى 28:25", 29: "مرقس 4:1", 30: "مرقس 8:5", 31: "مرقس 12:9"
+      };
+      
+      let reading = "يونان 4:1";
+      if(month === 10 && octoberPlan[day]) reading = octoberPlan[day];
+      
+      if($('todaysDateLabel'))$('todaysDateLabel').textContent = day + ' أكتوبر';
+      if($('todaysReadingValue'))$('todaysReadingValue').textContent = reading;
 
-    function showErrorToCopy(errorDetails) {
-        const container = document.getElementById('alertsContainer');
-        const alertDiv = document.createElement('div');
-        alertDiv.className = 'alert alert-danger alert-dismissible fade show fw-bold shadow-sm rounded-4 mb-3 border-danger';
-        const safeText = String(errorDetails).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      if($('openReadingBtn')) {
+         let bookName = reading.replace(/[0-9: ]+$/, '').trim(); 
+         let nums = reading.match(/\d+/g);
+         let chapterNum = (nums && nums.length > 0) ? Math.min(...nums.map(Number)) : 1;
+         $('openReadingBtn').href = `bible.html?book=${encodeURIComponent(bookName)}&chapter=${chapterNum}`;
+      }
+    } catch(e) { console.error(e); }
+  })();
+
+  // الجسر الذكي لحساب الإحصائيات مباشرة من قاعدة البيانات المحلية (Local Storage)
+  function loadLiveStats(sRole) {
+      let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
+      let servants = JSON.parse(localStorage.getItem('my_church_servants')) || [];
+      let sheets = JSON.parse(localStorage.getItem('my_church_sheets')) || [];
+      
+      let totalPts = members.reduce((sum, m) => sum + (parseInt(m.points) || 0), 0);
+      let totalReaders = members.filter(m => (m.readCount || 0) > 0).length;
+      let totalVisits = 0;
+      members.forEach(m => { if(m.visitations) totalVisits += m.visitations.length; });
+
+      if(sRole === 'admin') {
+          if($('aStudents'))$('aStudents').innerText = members.length;
+          if($('aServants'))$('aServants').innerText = servants.length;
+          if($('aPoints'))$('aPoints').innerText = totalPts;
+          if($('aReaders'))$('aReaders').innerText = totalReaders;
+      } else if (sRole === 'servant') {
+          if($('svStudents'))$('svStudents').innerText = members.length;
+          if($('svVisits'))$('svVisits').innerText = totalVisits;
+          if($('svReaders'))$('svReaders').innerText = totalReaders;
+          if($('svPoints'))$('svPoints').innerText = totalPts;
+      }
+  }
+
+  // تفعيل اللوحات وتوجيه المستخدم
+  ChurchAuth.ready.then(function(s){
+    try {
+      if(!s) {
+          window.location.replace('login.html');
+          return;
+      }
+      
+      if($('whoName'))$('whoName').textContent = s.name || '';
+
+      var memberPanel = $('memberPanel');
+      var staffPanel = $('staffPanel');
+
+      if(s.role === 'student'){
+        if(memberPanel) memberPanel.style.display = 'block';
+        if(staffPanel) staffPanel.style.display = 'none';
         
-        alertDiv.innerHTML = `
-            <div class="d-flex flex-column">
-                <div class="mb-2 text-dark"><i class="fa-solid fa-triangle-exclamation text-danger me-2"></i> حدث خطأ تقني!</div>
-                <div class="bg-white text-danger p-2 rounded mb-2 border" style="font-size: 0.8rem; overflow-x: auto; white-space: pre-wrap; direction: ltr; text-align: left;">${safeText}</div>
-                <button type="button" class="btn btn-sm btn-dark align-self-start" onclick="copyErrorText(this)">
-                    <i class="fa-solid fa-copy me-1"></i> نسخ تفاصيل الخطأ
-                </button>
-            </div>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        `;
-        container.prepend(alertDiv);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function copyErrorText(btnElem) {
-        const textToCopy = btnElem.previousElementSibling.innerText;
-        navigator.clipboard.writeText(textToCopy).then(() => {
-            btnElem.innerHTML = '<i class="fa-solid fa-check me-1"></i> تم النسخ بنجاح';
-            setTimeout(() => { btnElem.innerHTML = '<i class="fa-solid fa-copy me-1"></i> نسخ تفاصيل الخطأ'; }, 2500);
-        });
-    }
-
-    // زر التحديث الشامل
-    async function forceAppUpdate() {
-        const btn = document.getElementById('btnCheckUpdate');
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري المسح...';
-        btn.disabled = true;
-
-        try {
-            if ('caches' in window) {
-                const cacheNames = await caches.keys();
-                await Promise.all(cacheNames.map(name => caches.delete(name)));
-            }
-            if ('serviceWorker' in navigator) {
-                const registrations = await navigator.serviceWorker.getRegistrations();
-                for (let registration of registrations) { await registration.unregister(); }
-            }
-            showToast('تم مسح الذاكرة المؤقتة بنجاح!', 'success');
-            setTimeout(() => {
-                window.location.href = window.location.pathname + '?v=' + new Date().getTime();
-            }, 1000);
-        } catch (e) {
-            showErrorToCopy("[Update Error]: " + e.message);
-            btn.innerHTML = '<i class="fa-solid fa-rotate-right me-1"></i> فشل، حاول مجدداً';
-            btn.disabled = false;
-        }
-    }
-
-    function showToast(message, type = 'primary') {
-        const container = document.getElementById('alertsContainer');
-        const toast = document.createElement('div');
-        toast.className = `alert alert-${type} alert-dismissible fade show fw-bold shadow-sm rounded-4 mb-2`;
-        toast.innerHTML = `<i class="fa-solid fa-info-circle me-2"></i> ${message} <button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
-        container.appendChild(toast);
-        setTimeout(() => toast.remove(), 5000);
-    }
-
-    function updateNetworkStatus() {
-        const statusBox = document.getElementById('connectionStatus');
-        if (navigator.onLine) {
-            statusBox.className = 'network-status-badge status-online';
-            statusBox.innerHTML = '<span class="status-indicator-dot dot-online"></span> متصل بالإنترنت';
+        if($('mName'))$('mName').textContent = s.name || '';
+        if($('mLevel'))$('mLevel').textContent = s.level || 'سنة أولى';
+        
+        let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
+        let me = members.find(m => m.id.toString() === s.id.toString() || m.code === s.code) || {};
+        
+        if($('mPoints'))$('mPoints').textContent = me.points || 0;
+        if($('memberPointsPill'))$('memberPointsPill').textContent = (me.points || 0) + ' نقطة';
+        if($('mReads'))$('mReads').textContent = me.readCount || 0;
+        if($('mSubjects'))$('mSubjects').textContent = me.sheetsCount || 0;
+        if($('mNotes'))$('mNotes').textContent = me.spiritualDays || 0;
+        
+      } else {
+        // أمين الخدمة أو خادم
+        if(memberPanel) memberPanel.style.display = 'none';
+        if(staffPanel) staffPanel.style.display = 'block';
+        
+        if($('sName'))$('sName').textContent = s.name || 'الخادم';
+        
+        var isAdmin = (s.role === 'admin' || s.permission === 'admin');
+        
+        if($('adminView'))$('adminView').style.display = isAdmin ? 'block' : 'none';
+        if($('servantView'))$('servantView').style.display = isAdmin ? 'none' : 'block';
+        
+        if(isAdmin) {
+            if($('staffIcon'))$('staffIcon').innerText = '👑';
+            if($('staffRoleBadge')) { $('staffRoleBadge').innerText = 'أمين خدمة (أدمن)'; $('staffRoleBadge').className = 'tag blue'; }
+            if($('staffIntroText'))$('staffIntroText').textContent = 'نظرة شاملة على جميع أدوات الإدارة، المناهج، التقارير، والخدام.';
+            loadLiveStats('admin');
         } else {
-            statusBox.className = 'network-status-badge status-offline';
-            statusBox.innerHTML = '<span class="status-indicator-dot dot-offline"></span> وضع عدم الاتصال';
+            if($('staffIcon'))$('staffIcon').innerText = '👨‍🏫';
+            if($('staffRoleBadge')) {$('staffRoleBadge').innerText = 'خادم ميداني'; }
+            if($('staffIntroText'))$('staffIntroText').textContent = 'مساحتك الميدانية لإدارة المخدومين والاهتمام بالخدمة وحياتك الروحية.';
+            loadLiveStats('servant');
         }
+      }
+    } catch(err) {
+      console.error("خطأ في تشغيل واجهة المستخدم:", err);
     }
-    window.addEventListener('online', updateNetworkStatus);
-    window.addEventListener('offline', updateNetworkStatus);
-
-    const studentCode = localStorage.getItem('student_code');
-    const userRole = localStorage.getItem('user_role');
-
-    if (!studentCode) window.location.href = 'login.html';
-
-    document.addEventListener('DOMContentLoaded', () => {
-        updateNetworkStatus();
-        document.getElementById('ui-name').textContent = localStorage.getItem('student_name') || 'مخدوم';
-        document.getElementById('ui-code').textContent = studentCode;
-        document.getElementById('ui-level').textContent = localStorage.getItem('student_level') || 'الفرقة الأولى';
-        document.getElementById('ui-points').textContent = localStorage.getItem('student_points') || '0';
-        
-        const d = new Date();
-        document.getElementById('ui-date').textContent = `التاريخ: ${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-
-        if (userRole === 'admin') {
-            document.getElementById('ui-admin-badge').classList.remove('d-none');
-            document.getElementById('admin-panel-btn').classList.remove('d-none');
-            document.getElementById('note-card-wrapper').classList.replace('col-12', 'col-6');
-        }
-
-        loadBiblePlan();
-
-        // تحديث النقاط والاسم من الخادم (القيم المحفوظة محليًا للعرض السريع فقط)
-        ChurchAuth.ready.then(function (s) {
-            if (!s) return;
-            document.getElementById('ui-name').textContent = s.name || 'مخدوم';
-            document.getElementById('ui-level').textContent = s.level || '';
-            document.getElementById('ui-points').textContent = s.points || 0;
-        });
-    });
-
-    // ضبط التاريخ بدقة (الشهر الحالي واليوم الحالي)
-    const todayObj = new Date();
-    let selectedMonth = todayObj.getMonth() + 1;
-    let selectedDay = todayObj.getDate();
-    let currentReading = "قراءة يومية حرة";
-
-    async function loadBiblePlan() {
-        try {
-            const planResponse = await fetch('bible_plan.json?t=' + new Date().getTime());
-            const biblePlan = await planResponse.json();
-            const planKey = `${selectedMonth}-${selectedDay}`;
-            
-            document.getElementById('readingDateDisplay').textContent = `المقرر ليوم: ${todayObj.getFullYear()}-${String(selectedMonth).padStart(2,'0')}-${String(selectedDay).padStart(2,'0')}`;
-            
-            if (biblePlan && biblePlan[planKey]) {
-                currentReading = biblePlan[planKey].reading;
-                document.getElementById('currentReadingText').textContent = currentReading;
-                document.getElementById('btnOpenBible').href = `bible.html?book=${encodeURIComponent(biblePlan[planKey].book)}&chapter=${biblePlan[planKey].chapter}`;
-            } else {
-                document.getElementById('currentReadingText').textContent = currentReading;
-            }
-        } catch (error) {
-            console.warn("تعذر تحميل خطة الكتاب المقدس.");
-        }
-    }
-
-    async function submitCurrentDayReading() {
-        const btn = document.getElementById('btnMarkDone');
-        const originalHtml = btn.innerHTML;
-
-        if (!studentCode) return window.location.href = 'login.html';
-
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> جاري الحفظ...';
-        btn.disabled = true;
-
-        const requestPayload = {
-            action: 'mark_reading',
-            code: studentCode,
-            month: selectedMonth,
-            day: selectedDay,
-            reading: currentReading
-        };
-
-        try {
-            const bypassUrl = '/api/mark_plan_read?t=' + new Date().getTime();
-            const response = await ChurchAuth.fetch(bypassUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-cache' },
-                body: JSON.stringify({ payload: requestPayload })
-            });
-
-            const textResponse = await response.text();
-            let result;
-            try {
-                result = JSON.parse(textResponse);
-            } catch (parseError) {
-                throw new Error(`[Server Crash / Parse Error]: \nStatus: ${response.status}\nResponse: ${textResponse.substring(0, 300)}...`);
-            }
-
-            if (result.success) {
-                markDoneUI(result.points);
-                showToast(result.message, 'success');
-            } else if (response.status === 409) {
-                markDoneUI(result.points);
-                showToast(result.message, 'warning');
-            } else {
-                throw new Error(`[API Logical Error]: ${result.message}`);
-            }
-        } catch (error) {
-            showErrorToCopy(error.message);
-            btn.innerHTML = originalHtml;
-            btn.disabled = false;
-        }
-    }
-
-    function markDoneUI(newPoints) {
-        const badge = document.getElementById('readingStatusBadge');
-        const btn = document.getElementById('btnMarkDone');
-        if (badge) { badge.className = 'badge bg-success px-3 py-1'; badge.textContent = '✓ تم الإنجاز'; }
-        if (btn) { btn.className = 'btn btn-outline-success w-100 fw-bold'; btn.innerHTML = '<i class="fa-solid fa-check me-1"></i> تمت القراءة'; btn.disabled = true; }
-        
-        const pointsElem = document.getElementById('ui-points');
-        if (pointsElem) {
-            const updated = newPoints !== undefined ? newPoints : (parseInt(pointsElem.textContent || 0) + 5);
-            pointsElem.textContent = updated;
-            localStorage.setItem('student_points', updated);
-        }
-    }
+  }).catch(function(err){
+      console.error("خطأ في المصادقة:", err);
+  });
+})();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</body></html>
