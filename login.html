@@ -32,41 +32,36 @@
             <div class="tab" id="tab-servant" onclick="switchTab('servant')">👑 دخول خادم</div>
         </div>
 
-        <!-- دخول المخدوم -->
         <div id="form-student" class="form-section active">
             <label>كود المخدوم (رقم الامتحان):</label>
             <input type="text" id="stCode" placeholder="أدخل الكود الخاص بك" dir="ltr">
-            
             <label>رقم الهاتف:</label>
             <input type="tel" id="stPhone" placeholder="أدخل رقم هاتفك المسجل" dir="ltr">
-            
             <button class="btn" onclick="loginStudent()">تسجيل الدخول</button>
         </div>
 
-        <!-- دخول الخادم -->
         <div id="form-servant" class="form-section">
             <label>اسم المستخدم أو كود الخادم:</label>
             <input type="text" id="svUser" placeholder="أدخل اسمك أو الكود">
-            
             <label>كلمة المرور:</label>
             <input type="password" id="svPass" placeholder="••••••••" dir="ltr">
-            
             <button class="btn" onclick="loginServant()">دخول الخدام</button>
         </div>
     </div>
 
+    <!-- استدعاء ملف الصلاحيات الجديد -->
+    <script src="auth-client.js"></script>
     <script>
-        // لو مسجل دخول مسبقاً، يطير فوراً على الرئيسية بدون رقص
-        if(localStorage.getItem('church_auth_session')) {
-            window.location.replace('index.html');
-        }
+        // التحقق الهادئ من الجلسة لمنع الرقص
+        ChurchAuth.ready.then(session => {
+            if(session && session.role) window.location.replace('index.html');
+        });
 
         function switchTab(type) {
             document.getElementById('tab-student').classList.remove('active');
             document.getElementById('tab-servant').classList.remove('active');
             document.getElementById('form-student').classList.remove('active');
             document.getElementById('form-servant').classList.remove('active');
-
             document.getElementById('tab-' + type).classList.add('active');
             document.getElementById('form-' + type).classList.add('active');
         }
