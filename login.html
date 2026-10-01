@@ -1,169 +1,182 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#06235c">
-<title>تسجيل الدخول — خدمتي برو</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script>
+(function() {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(regs) {
+            for (let r of regs) r.unregister();
+        });
+    }
+})();
+</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b4ca5"><title>خدمتي برو — الرئيسية</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#06235c;--blue:#0b4ca5;--sky:#eaf3ff;--gold:#d99812;--ink:#17233d;--muted:#64748b;--line:#d6e2f1;--bad:#b42318;--badbg:#fdecea}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%}
-body{font-family:Tajawal,Arial,sans-serif;color:var(--ink);background:#f3f7fc;-webkit-text-size-adjust:100%}
-.page{min-height:100vh;min-height:100dvh;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr)}
-.brand{position:relative;background:var(--navy);color:#fff;padding:48px 44px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
-.brand svg.cross{position:absolute;inset-inline-start:-12%;bottom:-14%;width:88%;height:auto;opacity:.95;pointer-events:none}
-.brand h1{position:relative;margin:0;font-size:44px;font-weight:900;letter-spacing:0}
-.brand p{position:relative;margin:14px 0 0;max-width:19em;font-size:17px;line-height:1.9;color:#cfdcf2}
-.brand .rule{position:relative;width:54px;height:4px;background:var(--gold);margin-top:22px;border-radius:2px}
-.brand small{position:relative;color:#9fb4d8;font-size:13px}
-.formside{display:flex;align-items:center;justify-content:center;padding:32px 22px}
-.card{width:100%;max-width:400px}
-.card h2{margin:0 0 6px;font-size:28px;font-weight:900}
-.card .sub{margin:0 0 26px;color:var(--muted);font-size:15px;line-height:1.8}
-label{display:block;font-weight:800;font-size:14px;margin:0 0 7px}
-.field{margin-bottom:18px}
-input{width:100%;height:52px;border:1.5px solid var(--line);border-radius:12px;background:#fff;padding:0 15px;font:500 17px Tajawal,Arial,sans-serif;color:var(--ink);transition:border-color .15s,box-shadow .15s}
-input::placeholder{color:#9aa8bd}
-input:focus-visible{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px rgba(11,76,165,.16)}
-.pw{position:relative}
-.pw input{padding-inline-end:76px}
-.pw button{position:absolute;inset-inline-end:6px;top:6px;height:40px;padding:0 12px;border:0;border-radius:9px;background:var(--sky);color:var(--blue);font:800 13px Tajawal,Arial,sans-serif;cursor:pointer}
-.pw button:focus-visible,.go:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-.go{width:100%;height:54px;border:0;border-radius:12px;background:var(--blue);color:#fff;font:900 18px Tajawal,Arial,sans-serif;cursor:pointer;margin-top:4px}
-.go:hover{background:#093f8a}
-.go[disabled]{opacity:.65;cursor:progress}
-.err{display:none;margin:0 0 18px;padding:12px 14px;border-radius:10px;background:var(--badbg);color:var(--bad);font-weight:700;font-size:14.5px;line-height:1.7}
-.err.show{display:block}
-.help{margin:22px 0 0;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px;line-height:1.9}
-.help b{color:var(--ink)}
-.update-box{margin-top:15px;text-align:center;}
-@media (max-width:820px){
-  .page{grid-template-columns:1fr;grid-template-rows:auto 1fr}
-  .brand{padding:26px 22px 30px;min-height:0}
-  .brand h1{font-size:32px}
-  .brand p{font-size:15px;margin-top:8px}
-  .brand .rule{margin-top:14px}
-  .brand small{display:none}
-  .brand svg.cross{width:150px;inset-inline-start:auto;inset-inline-end:-18px;bottom:-26px;opacity:.9}
-  .formside{align-items:flex-start;padding:26px 20px 40px}
-}
+:root{--blue:#0b4ca5;--blue2:#1682ee;--green:#087f62;--green2:#18a673;--gold:#d99812;--ink:#17233d;--muted:#708098;--bg:#f3f7fc;--line:#dce6f2;--shadow:0 10px 28px rgba(18,55,105,.08);--radius:20px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tajawal,Arial,sans-serif}.top{background:linear-gradient(125deg,#06235c,#0b4ca5 58%,#1682ee);color:#fff;padding:18px 14px 26px}.topin{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px;border:1px solid #ffffff40;background:#ffffff16;border-radius:16px;display:grid;place-items:center;font-size:27px}.brand h1{font-size:25px;margin:0;font-weight:900}.brand p{margin:4px 0 0;opacity:.82;font-size:12px}.wrap{max-width:1050px;margin:-10px auto 0;padding:0 12px 30px}
+.intro{margin-top:15px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:15px}.intro h2{margin:0 0 5px;font-size:22px}.intro p{margin:0;color:var(--muted);line-height:1.7;font-size:13px}.role{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px}.tag{border:1px solid var(--line);background:#f7faff;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:800;color:#52627a}.tag.blue{background:#eaf3ff;color:var(--blue);border-color:#bcd8f7}.tag.green{background:#eaf8f3;color:var(--green);border-color:#b9e2d3}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px;text-align:center}.stat i{font-style:normal;font-size:21px}.stat b{display:block;font-size:22px;margin-top:3px}.stat small{color:var(--muted);font-size:10px}.section{margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:8px;margin-bottom:11px}.sectionhead h3{margin:0;font-size:17px;color:var(--blue)}.sectionhead span{font-size:11px;color:var(--muted);font-weight:bold}.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.tile{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:linear-gradient(145deg,#fff,#f7faff);border-radius:15px;padding:13px;min-height:102px;transition:0.2s}.tile:active{transform:scale(.95)}.tile .ico{font-size:25px;margin-bottom:6px}.tile strong{display:block;margin:6px 0 2px;font-size:13px;color:#1e293b}.tile small{display:block;color:var(--muted);font-size:11px;line-height:1.5}.who{display:flex;align-items:center;gap:8px;font-size:12px;border:1px solid #ffffff42;background:#ffffff12;border-radius:999px;padding:5px 6px 5px 12px;white-space:nowrap;max-width:60vw}.who button{border:0;border-radius:999px;background:#fff;color:#0b4ca5;font:800 12px Tajawal,Arial,sans-serif;padding:6px 12px;cursor:pointer}
+@media(max-width:850px){.tiles{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.top{padding-bottom:22px}.brand h1{font-size:20px}.brand p{font-size:10px}.wrap{padding:0 9px 78px}.intro{padding:16px}.intro h2{font-size:19px}.stats{gap:7px}.stat{padding:11px}.stat b{font-size:19px}.section{padding:13px}.tiles{gap:7px}.tile{min-height:94px;padding:11px}.tile strong{font-size:12px}}
 </style>
 </head>
 <body>
-<div class="page">
-  <aside class="brand" aria-hidden="false">
-    <svg class="cross" viewBox="0 0 400 520" fill="none" aria-hidden="true">
-      <path d="M170 10h60v150h130v60H230v290h-60V220H40v-60h130z" stroke="#1d4f9c" stroke-width="3"/>
-      <path d="M186 30h28v150h130v28H214v290h-28V208H46v-28h140z" stroke="#d99812" stroke-width="2" opacity=".75"/>
-    </svg>
+<header class="top">
+  <div class="topin">
+    <div class="brand"><div class="logo">✝</div><div><h1>خدمتي برو</h1><p>منصة واحدة للخدمة — كل دور له مساره</p></div></div>
+    <div class="who"><span id="whoName">جاري التحميل...</span><button type="button" onclick="localStorage.clear(); sessionStorage.clear(); location.replace('login.html?v=4');">خروج</button></div>
+  </div>
+</header>
+<main class="wrap">
+
+<section class="section" style="margin-bottom:15px; background:linear-gradient(135deg,#eaf3ff,#f7faff); border-color:#bcd8f7;">
+  <div class="sectionhead">
+    <h3 style="color:var(--blue);">📖 القراءة الروحية اليومية</h3>
+    <span style="font-weight:700; color:var(--blue2);">خطة الكنيسة</span>
+  </div>
+  <div style="display:flex; align-items:center; justify-content:space-between; gap:15px; flex-wrap:wrap;">
     <div>
-      <h1>خدمتي برو</h1>
-      <div class="rule"></div>
-      <p>متابعة القراءة والنوتة الروحية والمقررات والحضور في مكان واحد.</p>
+      <p style="margin:0 0 5px; color:var(--muted); font-size:12px;">الإصحاح المقترح حسب جدول اليوم:</p>
+      <h2 id="todaysReadingValue" style="margin:0; font-size:22px; color:var(--ink);">يونان 4:1</h2>
     </div>
-    <small>للمخدومين والخدام وأمناء الخدمة</small>
-  </aside>
+    <a id="openReadingBtn" href="bible.html?book=يونان&chapter=1&v=4" style="background:var(--blue); color:#fff; border-radius:12px; padding:10px 16px; text-decoration:none; font-weight:bold; font-size:12px;">فتح إصحاح اليوم مباشرة</a>
+  </div>
+</section>
 
-  <main class="formside">
-    <div class="card">
-      <h2>تسجيل الدخول</h2>
-      <p class="sub">اكتب بيانات حسابك للدخول إلى خدمتك.</p>
-      <div id="err" class="err" role="alert" aria-live="assertive"></div>
-      <form id="f" novalidate>
-        <div class="field">
-          <label for="id">الكود أو البريد الإلكتروني</label>
-          <input id="id" name="username" type="text" inputmode="email" dir="ltr" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="مثال: 1001" required>
-        </div>
-        <div class="field">
-          <label for="pw">كلمة المرور</label>
-          <div class="pw">
-            <input id="pw" name="password" type="password" dir="ltr" autocomplete="current-password" placeholder="••••••••" required>
-            <button type="button" id="tg" aria-pressed="false">إظهار</button>
-          </div>
-        </div>
-        <button class="go" id="go" type="submit">دخول</button>
-      </form>
-
-      <!-- زر تحديث النسخة والبيانات (موضع صحيح داخل البطاقة) -->
-      <div class="update-box">
-        <button type="button" id="forceUpdateBtn" style="background: transparent; border: 1px solid var(--line); color: var(--muted); padding: 8px 14px; border-radius: 999px; font: 700 12px Tajawal, Arial, sans-serif; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
-          🔄 تحديث النسخة وسحب البيانات الجديدة
-        </button>
+<!-- اللوحات ظاهرة برمجياً لتجنب الشاشة البيضاء -->
+<div id="staffPanel" style="display: block;">
+  <div class="intro">
+      <div>
+          <h2><span id="staffIcon">👑</span> <span id="sName">أمين الخدمة</span></h2>
+          <p id="staffIntroText">إدارة الخدمة ومتابعة المخدومين والحياة الروحية.</p>
+          <div class="role"><span class="tag green" id="staffRoleBadge">أمين خدمة (أدمن)</span></div>
       </div>
+      <div style="font-size:45px;">📊</div>
+  </div>
 
-      <p class="help"><b>المخدوم:</b> يدخل بالكود الذي أعطاه له أمين الخدمة.<br><b>الخادم وأمين الخدمة:</b> يدخلان بالبريد الإلكتروني.<br>نسيت كلمة المرور؟ اطلب من أمين الخدمة إعادة تعيينها.</p>
+  <div class="stats">
+      <div class="stat"><i>👥</i><b id="aStudents">0</b><small>المخدومون</small></div>
+      <div class="stat"><i>👨‍🏫</i><b id="aServants">0</b><small>الخدام</small></div>
+      <div class="stat"><i>⭐</i><b id="aPoints">0</b><small>إجمالي النقاط</small></div>
+      <div class="stat"><i>📖</i><b id="aReaders">0</b><small>قراء نشطون</small></div>
+  </div>
+
+  <div class="section"><div class="sectionhead"><h3>الخدمة الميدانية</h3><span>الحضور والتواصل</span></div>
+      <div class="tiles">
+          <a class="tile" href="admin-dashboard.html?task=members&v=4"><div class="ico">👥</div><strong>إدارة المخدومين</strong><small>ملفات وبحث وباركود.</small></a>
+          <a class="tile" href="admin-dashboard.html?task=attendance&v=4"><div class="ico">📷</div><strong>تسجيل الحضور</strong><small>الماسح الذكي للكارنيهات.</small></a>
+          <a class="tile" href="admin-dashboard.html?task=visits&v=4"><div class="ico">🤝</div><strong>سجل الخدام والافتقاد</strong><small>حضور وافتقاد الخدام.</small></a>
+          <a class="tile" href="admin-dashboard.html?task=broadcast&v=4"><div class="ico">📲</div><strong>واتساب جماعي</strong><small>مراسلة الغائبين.</small></a>
+      </div>
+  </div>
+
+  <div class="section"><div class="sectionhead"><h3 style="color:#d35400;">التعليم والأنشطة</h3><span style="color:#e67e22;">المناهج والخطة</span></div>
+      <div class="tiles">
+          <a class="tile" href="admin_subjects.html?v=4"><div class="ico">📚</div><strong>المناهج والتقييم</strong><small>الشيتات والمقررات.</small></a>
+          <a class="tile" href="admin-dashboard.html?task=plan&v=4"><div class="ico">🗓️</div><strong>خطة السنة</strong><small>الأجندة والفعاليات.</small></a>
+          <a class="tile" href="projects.html?v=4"><div class="ico">🚀</div><strong>المشروعات والأنشطة</strong><small>إدارة المشروعات.</small></a>
+          <a class="tile" href="admin-dashboard.html?task=graduation&v=4"><div class="ico">🎓</div><strong>التخرج والترقية</strong><small>ترحيل الدفعات.</small></a>
+      </div>
+  </div>
+
+  <div class="section"><div class="sectionhead"><h3 style="color:#8e44ad;">التقارير والنظام</h3><span style="color:#9b59b6;">الإحصائيات والأمان</span></div>
+      <div class="tiles">
+          <a class="tile" href="harvest.html?v=4"><div class="ico">🌾</div><strong>حصاد الخدمة</strong><small>المؤشرات والنمو الشامل.</small></a>
+          <a class="tile" href="admin-dashboard.html?task=servants&v=4"><div class="ico">⚙️</div><strong>إدارة الخدام</strong><small>حسابات وصلاحيات.</small></a>
+          <a class="tile" href="admin-dashboard.html?task=reports&v=4"><div class="ico">📁</div><strong>النسخ الاحتياطي</strong><small>تصدير واستيراد كامل.</small></a>
+          <a class="tile" href="admin-dashboard.html?task=audit&v=4"><div class="ico">🛡️</div><strong>سجل العمليات</strong><small>تدقيق أمني لحظي.</small></a>
+      </div>
+  </div>
+
+  <div class="section" style="background:linear-gradient(145deg, #fdfefe, #f4fbf7); border-color:#d5f5e3;">
+    <div class="sectionhead"><h3 style="color:#1e8449;">حياتي الروحية (للتشجيع والقدوة)</h3><span style="color:#27ae60;">غذاء الخادم</span></div>
+    <div class="tiles">
+      <a class="tile" href="bible.html?v=4"><div class="ico">📖</div><strong>الكتاب المقدس</strong><small>قراءة وتأمل يومي.</small></a>
+      <a class="tile" href="spiritual_note.html?v=4"><div class="ico">🕊️️</div><strong>النوتة الروحية</strong><small>الأجبية، الأصوام، الأسرار.</small></a>
+      <a class="tile" href="harvest.html?v=4"><div class="ico">🌾</div><strong>حصادي الشخصي</strong><small>متابعة نموي الروحي.</small></a>
+      <a class="tile" href="katamaros.html?v=4"><div class="ico">⛪</div><strong>القطمارس</strong><small>قراءات الكنيسة اليومية.</small></a>
     </div>
-  </main>
+  </div>
 </div>
 
-<script>
-document.getElementById('forceUpdateBtn').addEventListener('click', async function() {
-  const btn = this;
-  btn.textContent = "⏳ جاري تحديث النسخة ومسح الكاش...";
-  btn.style.opacity = "0.7";
+<div id="memberPanel" style="display: none;">
+  <div class="intro">
+      <div>
+          <h2>👤 <span id="mName">مخدوم</span></h2>
+          <p>مساحتك الروحية والتعليمية والشخصية.</p>
+          <div class="role"><span class="tag blue">مخدوم</span><span class="tag" id="mLevel">سنة أولى</span><span class="tag" id="memberPointsPill" style="background:#fff3cd; color:#856404;">0 نقطة</span></div>
+      </div>
+      <div style="font-size:45px;">🎓</div>
+  </div>
+  <div class="stats">
+      <div class="stat"><i>⭐</i><b id="mPoints">0</b><small>النقاط</small></div>
+      <div class="stat"><i>📖</i><b id="mReads">0</b><small>أيام القراءة</small></div>
+      <div class="stat"><i>🕊️</i><b id="mNotes">0</b><small>أيام النوتة</small></div>
+      <div class="stat"><i>📚</i><b id="mSubjects">0</b><small>شيتات منجزة</small></div>
+  </div>
+  <div class="section"><div class="sectionhead"><h3>ملفي وحصادي</h3><span>أدواتي الشخصية</span></div>
+      <div class="tiles">
+          <a class="tile" href="barcode.html?v=4"><div class="ico">🪪</div><strong>الباركود الشخصي</strong><small>الحضور الإلكتروني.</small></a>
+          <a class="tile" href="student.html?v=4"><div class="ico">📋</div><strong>الملف الكامل</strong><small>بياناتي ومعلوماتي.</small></a>
+          <a class="tile" href="harvest.html?v=4"><div class="ico">🌾</div><strong>حصادي الروحي</strong><small>إنجازاتي ونقاطي.</small></a>
+          <a class="tile" href="projects.html?v=4"><div class="ico">🚀</div><strong>الأنشطة</strong><small>المشروعات والمشاركة.</small></a>
+      </div>
+  </div>
+  <div class="section"><div class="sectionhead"><h3 style="color:#1e8449;">الصلوات والتعليم</h3><span style="color:#27ae60;">غذاء الروح</span></div>
+      <div class="tiles">
+          <a class="tile" href="bible.html?v=4"><div class="ico">📖</div><strong>الكتاب المقدس</strong><small>العهد القديم والجديد.</small></a>
+          <a class="tile" href="spiritual_note.html?v=4"><div class="ico">🕊️</div><strong>النوتة الروحية</strong><small>الأجبية، الأصوام، الأسرار.</small></a>
+          <a class="tile" href="sheets_list.html?v=4"><div class="ico">📚</div><strong>مقرراتي وشيتاتي</strong><small>التكليفات الدراسية.</small></a>
+          <a class="tile" href="katamaros.html?v=4"><div class="ico">⛪</div><strong>القطمارس</strong><small>قراءات القداس.</small></a>
+      </div>
+  </div>
+</div>
+</main>
 
-  try {
-    if (window.caches) {
-      const cacheNames = await caches.keys();
-      await Promise.all(cacheNames.map(name => caches.delete(name)));
-    }
-
-    if ('serviceWorker' in navigator) {
-      const registrations = await navigator.serviceWorker.getRegistrations();
-      for (let registration of registrations) {
-        await registration.unregister();
-      }
-    }
-
-    setTimeout(() => {
-      window.location.href = window.location.href.split('?')[0] + '?v=' + new Date().getTime();
-    }, 1000);
-
-  } catch (error) {
-    console.error("خطأ أثناء التحديث:", error);
-    window.location.reload(true);
-  }
-});
-</script>
-<script src="auth-client.js" data-require="none"></script>
+<script src="auth-client.js"></script>
 <script>
 (function(){
-  var f=document.getElementById('f'),id=document.getElementById('id'),pw=document.getElementById('pw'),
-      go=document.getElementById('go'),err=document.getElementById('err'),tg=document.getElementById('tg');
+  try {
+    let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
+    let servants = JSON.parse(localStorage.getItem('my_church_servants')) || [];
+    let totalPts = members.reduce((sum, m) => sum + (parseInt(m.points) || 0), 0);
+    let totalReaders = members.filter(m => (m.readCount || 0) > 0).length;
 
-  function showErr(m){err.textContent=m;err.classList.add('show')}
-  function clearErr(){err.textContent='';err.classList.remove('show')}
+    document.getElementById('aStudents').innerText = members.length;
+    document.getElementById('aServants').innerText = servants.length;
+    document.getElementById('aPoints').innerText = totalPts;
+    document.getElementById('aReaders').innerText = totalReaders;
+  } catch(e) {}
 
-  tg.addEventListener('click',function(){
-    var show=pw.type==='password';
-    pw.type=show?'text':'password';
-    tg.textContent=show?'إخفاء':'إظهار';
-    tg.setAttribute('aria-pressed',String(show));
-  });
-
-  fetch('/api/me',{credentials:'same-origin',cache:'no-store'}).then(function(r){
-    if(r.ok) location.replace('index.html');
-  }).catch(function(){});
-
-  f.addEventListener('submit',function(e){
-    e.preventDefault();
-    clearErr();
-    var u=id.value.trim(),p=pw.value;
-    if(!u||!p){showErr('اكتب الكود أو البريد وكلمة المرور.');(u?pw:id).focus();return}
-    go.disabled=true;go.textContent='جارٍ الدخول…';
-    ChurchAuth.login(u,p).then(function(){
-      location.replace('index.html');
-    }).catch(function(ex){
-      showErr(ex&&ex.message?ex.message:'تعذر الاتصال بالخادم. تأكد من الإنترنت وحاول مرة أخرى.');
-      go.disabled=false;go.textContent='دخول';
-      pw.value='';pw.focus();
-    });
-  });
+  ChurchAuth.ready.then(s => {
+    if(!s) return location.replace('login.html?v=4');
+    document.getElementById('whoName').textContent = s.name || '';
+    if (s.role === 'student') {
+        document.getElementById('staffPanel').style.display = 'none';
+        document.getElementById('memberPanel').style.display = 'block';
+        document.getElementById('mName').textContent = s.name;
+        
+        let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
+        let me = members.find(m => m.id.toString() === s.id.toString() || m.code === s.code) || {};
+        
+        document.getElementById('mPoints').textContent = me.points || 0;
+        document.getElementById('memberPointsPill').textContent = (me.points || 0) + ' نقطة';
+        document.getElementById('mReads').textContent = me.readCount || 0;
+        document.getElementById('mSubjects').textContent = me.sheetsCount || 0;
+        document.getElementById('mNotes').textContent = me.spiritualDays || 0;
+    } else {
+        document.getElementById('sName').textContent = s.name;
+        if (s.role !== 'admin' && s.permission !== 'admin') {
+            document.getElementById('staffIcon').innerText = '👨‍🏫';
+            document.getElementById('staffRoleBadge').innerText = 'خادم ميداني';
+            document.getElementById('staffIntroText').textContent = 'مساحتك الميدانية لإدارة المخدومين والاهتمام بحياتك الروحية.';
+            let adminOnlyTiles = document.querySelectorAll('a[href*="task=servants"], a[href*="task=reports"], a[href*="task=audit"], a[href*="task=settings"], a[href*="task=graduation"]');
+            adminOnlyTiles.forEach(tile => tile.style.display = 'none');
+        }
+    }
+  }).catch(e => console.warn(e));
 })();
 </script>
-</body>
-</html>
+</body></html>
