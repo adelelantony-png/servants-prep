@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <script>
-// سكربت التحديث الإجباري لتنظيف المتصفحات من أي ملفات معلقة (Service Worker Killer)
+// سكربت التحديث الإجباري لتنظيف المتصفحات (Service Worker Killer)
 (function() {
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.getRegistrations().then(function(registrations) {
@@ -26,14 +26,9 @@
 <style>
 :root{--blue:#0b4ca5;--blue2:#1682ee;--green:#087f62;--green2:#18a673;--gold:#d99812;--ink:#17233d;--muted:#708098;--bg:#f3f7fc;--line:#dce6f2;--card:#fff;--shadow:0 10px 28px rgba(18,55,105,.08);--radius:20px}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tajawal,Arial,sans-serif}.top{background:linear-gradient(125deg,#06235c,#0b4ca5 58%,#1682ee);color:#fff;padding:18px 14px 26px}.topin{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px;border:1px solid #ffffff40;background:#ffffff16;border-radius:16px;display:grid;place-items:center;font-size:27px}.brand h1{font-size:25px;margin:0;font-weight:900}.brand p{margin:4px 0 0;opacity:.82;font-size:12px}.demo{font-size:11px;border:1px solid #ffffff42;background:#ffffff12;border-radius:999px;padding:7px 10px;white-space:nowrap}.wrap{max-width:1050px;margin:-10px auto 0;padding:0 12px 30px}.switcher{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:18px;padding:7px;display:grid;grid-template-columns:1fr 1fr;gap:7px;position:sticky;top:8px;z-index:20}.switch{border:0;background:#f4f7fb;color:#64748b;border-radius:13px;padding:13px 10px;font:800 15px Tajawal;cursor:pointer}.switch.active{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff}
-.intro{margin-top:15px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:15px}.intro h2{margin:0 0 5px;font-size:22px}.intro p{margin:0;color:var(--muted);line-height:1.7;font-size:13px}.role{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px}.tag{border:1px solid var(--line);background:#f7faff;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:800;color:#52627a}.tag.blue{background:#eaf3ff;color:var(--blue);border-color:#bcd8f7}.tag.green{background:#eaf8f3;color:var(--green);border-color:#b9e2d3}.introicon{font-size:52px;flex:none}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px;text-align:center}.stat i{font-style:normal;font-size:21px}.stat b{display:block;font-size:22px;margin-top:3px}.stat small{color:var(--muted);font-size:10px}.section{margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:8px;margin-bottom:11px}.sectionhead h3{margin:0;font-size:17px}.sectionhead span{font-size:11px;color:var(--muted)}.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.tile{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:linear-gradient(145deg,#fff,#f7faff);border-radius:15px;padding:13px;min-height:102px}.tile:active{transform:scale(.99)}.tile .ico{font-size:23px}.tile strong{display:block;margin:6px 0 2px;font-size:13px}.tile small{display:block;color:var(--muted);font-size:10px;line-height:1.5}.primary{display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:18px;padding:16px 17px;color:#fff;margin-top:12px}.primary.admin{background:linear-gradient(120deg,#082b68,#116bd6)}.primary.servant{background:linear-gradient(120deg,#075f4b,#18a673)}.primary h3{margin:0 0 4px;font-size:17px}.primary p{margin:0;opacity:.84;font-size:11px;line-height:1.6}.open{background:#fff;color:var(--blue);border-radius:11px;padding:10px 13px;text-decoration:none;font-weight:900;font-size:12px;white-space:nowrap}.primary.servant .open{color:var(--green)}.rolebar{display:flex;gap:7px;margin-top:12px}.rolebtn{flex:1;border:1px solid var(--line);background:#f6f8fb;color:#607089;border-radius:11px;padding:10px;font:800 12px Tajawal}.rolebtn.active{background:#eaf3ff;color:var(--blue);border-color:#bcd8f7}.group{margin-top:12px}.group-title{display:flex;align-items:center;gap:7px;margin-bottom:8px;font-size:13px;font-weight:900;color:#40536e}.group-title:after{content:'';height:1px;background:var(--line);flex:1}.footer{text-align:center;color:#8794a7;font-size:10px;padding:20px 5px 8px}.mobilebar{display:none}
+.intro{margin-top:15px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:15px}.intro h2{margin:0 0 5px;font-size:22px}.intro p{margin:0;color:var(--muted);line-height:1.7;font-size:13px}.role{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px}.tag{border:1px solid var(--line);background:#f7faff;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:800;color:#52627a}.tag.blue{background:#eaf3ff;color:var(--blue);border-color:#bcd8f7}.tag.green{background:#eaf8f3;color:var(--green);border-color:#b9e2d3}.introicon{font-size:52px;flex:none}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px;text-align:center}.stat i{font-style:normal;font-size:21px}.stat b{display:block;font-size:22px;margin-top:3px}.stat small{color:var(--muted);font-size:10px}.section{margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:8px;margin-bottom:11px}.sectionhead h3{margin:0;font-size:17px;color:var(--blue);}.sectionhead span{font-size:11px;color:var(--muted);font-weight:bold;}.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.tile{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:linear-gradient(145deg,#fff,#f7faff);border-radius:15px;padding:13px;min-height:102px}.tile:active{transform:scale(.99)}.tile .ico{font-size:25px;margin-bottom:6px;}.tile strong{display:block;margin:6px 0 2px;font-size:13px;color:#1e293b;}.tile small{display:block;color:var(--muted);font-size:11px;line-height:1.5}.primary{display:flex;align-items:center;justify-content:space-between;gap:12px;border-radius:18px;padding:16px 17px;color:#fff;margin-top:12px}.primary.admin{background:linear-gradient(120deg,#082b68,#116bd6)}.primary.servant{background:linear-gradient(120deg,#075f4b,#18a673)}.primary h3{margin:0 0 4px;font-size:17px}.primary p{margin:0;opacity:.84;font-size:11px;line-height:1.6}.open{background:#fff;color:var(--blue);border-radius:11px;padding:10px 13px;text-decoration:none;font-weight:900;font-size:12px;white-space:nowrap}.primary.servant .open{color:var(--green)}.who{display:flex;align-items:center;gap:8px;font-size:12px;border:1px solid #ffffff42;background:#ffffff12;border-radius:999px;padding:5px 6px 5px 12px;white-space:nowrap;max-width:60vw}.who span{overflow:hidden;text-overflow:ellipsis}.who button{border:0;border-radius:999px;background:#fff;color:#0b4ca5;font:800 12px Tajawal,Arial,sans-serif;padding:6px 12px;cursor:pointer}.who button:focus-visible{outline:3px solid #d99812;outline-offset:2px}
 @media(max-width:850px){.tiles{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.top{padding-bottom:22px}.brand h1{font-size:20px}.brand p{font-size:10px}.demo{display:none}.wrap{padding:0 9px 78px}.switcher{top:5px}.switch{font-size:13px;padding:12px 6px}.intro{padding:16px}.intro h2{font-size:19px}.introicon{font-size:42px}.stats{gap:7px}.stat{padding:11px}.stat b{font-size:19px}.section{padding:13px}.tiles{gap:7px}.tile{min-height:94px;padding:11px}.tile strong{font-size:12px}.primary{align-items:flex-start;flex-direction:column}.open{width:100%;text-align:center}.mobilebar{display:grid;grid-template-columns:repeat(2,1fr);position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);padding:7px;z-index:50;box-shadow:0 -6px 22px rgba(18,55,105,.1)}}
-
-.who{display:flex;align-items:center;gap:8px;font-size:12px;border:1px solid #ffffff42;background:#ffffff12;border-radius:999px;padding:5px 6px 5px 12px;white-space:nowrap;max-width:60vw}
-.who span{overflow:hidden;text-overflow:ellipsis}
-.who button{border:0;border-radius:999px;background:#fff;color:#0b4ca5;font:800 12px Tajawal,Arial,sans-serif;padding:6px 12px;cursor:pointer}
-.who button:focus-visible{outline:3px solid #d99812;outline-offset:2px}
+@media(max-width:560px){.top{padding-bottom:22px}.brand h1{font-size:20px}.brand p{font-size:10px}.demo{display:none}.wrap{padding:0 9px 78px}.switcher{top:5px}.switch{font-size:13px;padding:12px 6px}.intro{padding:16px}.intro h2{font-size:19px}.introicon{font-size:42px}.stats{gap:7px}.stat{padding:11px}.stat b{font-size:19px}.section{padding:13px}.tiles{gap:7px}.tile{min-height:94px;padding:11px}.tile strong{font-size:12px}.primary{align-items:flex-start;flex-direction:column}.open{width:100%;text-align:center}}
 </style>
 </head>
 <body>
@@ -59,54 +54,137 @@
       <p style="margin:0 0 5px; color:var(--muted); font-size:12px;">الإصحاح المقترح حسب جدول اليوم:</p>
       <h2 id="todaysReadingValue" style="margin:0; font-size:22px; color:var(--ink);">جاري التحميل...</h2>
     </div>
-    <a id="openReadingBtn" class="open" href="bible.html" style="background:var(--blue); color:#fff; border-radius:12px; padding:10px 16px;">فتح إصحاح اليوم مباشرة</a>
+    <a id="openReadingBtn" class="open" href="bible.html" style="background:var(--blue); color:#fff; border-radius:12px; padding:10px 16px; border:1px solid var(--blue);">فتح إصحاح اليوم مباشرة</a>
   </div>
 </section>
 
-<!-- لوحة المخدوم -->
+<!-- ========================================== -->
+<!-- 1. لوحة المخدوم (الدارس) -->
+<!-- ========================================== -->
 <section id="memberPanel" style="display: none;">
-  <div class="intro"><div><h2>👤 <span id="mName"></span></h2><p>هذه هي مساحة المخدوم الشخصية. كل ما يخص رحلتي الروحية والتعليمية والأنشطة مرتبط بملفي.</p><div class="role"><span class="tag blue">مخدوم</span><span class="tag" id="mLevel"></span><span class="tag" id="memberPointsPill">0 نقطة</span></div></div><div class="introicon">🎓</div></div>
-  <div class="stats"><div class="stat"><i>⭐</i><b id="mPoints">0</b><small>النقاط</small></div><div class="stat"><i>📖</i><b id="mReads">0</b><small>أيام القراءة هذا العام</small></div><div class="stat"><i>📚</i><b id="mSubjects">0</b><small>المقررات والشيتات</small></div><div class="stat"><i>🕊️</i><b id="mNotes">0</b><small>أيام النوتة</small></div></div>
-  <div class="section"><div class="sectionhead"><h3>ملفي ورحلتي</h3><span>ابدأ من هنا</span></div><div class="tiles"><a class="tile" href="barcode.html"><div class="ico">🪪</div><strong>الرئيسية والباركود</strong><small>الحضور والنقاط والحالة.</small></a><a class="tile" href="student.html"><div class="ico">📋</div><strong>الملف الكامل</strong><small>بياناتي ومعلوماتي.</small></a><a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصادي</strong><small>ملخص الإنجاز.</small></a><a class="tile" href="projects.html"><div class="ico">🚀</div><strong>مشروعاتي</strong><small>أنشطتي ومشاركتي.</small></a></div></div>
-  <div class="section"><div class="sectionhead"><h3>التعليم والقراءة</h3><span>تعليمي اليومي</span></div><div class="tiles"><a class="tile" href="bible.html"><div class="ico">📖</div><strong>الكتاب وخطة القراءة</strong><small>القراءة وتسجيل الإنجاز.</small></a><a class="tile" href="sheets_list.html"><div class="ico">📚</div><strong>مقرراتي وشيتاتي</strong><small>المواد والتكليفات.</small></a><a class="tile" href="katamaros.html"><div class="ico">⛪</div><strong>القراءات الكنسية</strong><small>القطمارس والقراءات.</small></a><a class="tile" href="spiritual_note.html"><div class="ico">🕊️</div><strong>النوتة الروحية</strong><small>المتابعة الروحية.</small></a></div></div>
+  <div class="intro">
+      <div>
+          <h2>👤 <span id="mName"></span></h2>
+          <p>هذه هي مساحتك الشخصية. تابع مسارك التعليمي، سجل حضورك، واهتم بقانونك الروحي.</p>
+          <div class="role"><span class="tag blue">مخدوم</span><span class="tag" id="mLevel"></span><span class="tag" id="memberPointsPill" style="background:#fff3cd; color:#856404; border-color:#ffeeba;">0 نقطة</span></div>
+      </div>
+      <div class="introicon">🎓</div>
+  </div>
+  
+  <div class="stats">
+      <div class="stat"><i>⭐</i><b id="mPoints">0</b><small>النقاط</small></div>
+      <div class="stat"><i>📖</i><b id="mReads">0</b><small>أيام القراءة</small></div>
+      <div class="stat"><i>🕊️</i><b id="mNotes">0</b><small>أيام النوتة</small></div>
+      <div class="stat"><i>📚</i><b id="mSubjects">0</b><small>شيتات منجزة</small></div>
+  </div>
+
+  <div class="section"><div class="sectionhead"><h3>ملفي ورحلتي</h3><span>بياناتي الشخصية</span></div>
+      <div class="tiles">
+          <a class="tile" href="barcode.html"><div class="ico">🪪</div><strong>الباركود الخاص بي</strong><small>أظهره لتسجيل الحضور.</small></a>
+          <a class="tile" href="student.html"><div class="ico">📋</div><strong>الملف الكامل</strong><small>البيانات والتقييم.</small></a>
+          <a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصادي</strong><small>ملخص إنجازاتي.</small></a>
+          <a class="tile" href="projects.html"><div class="ico">🚀</div><strong>الأنشطة</strong><small>المشروعات والخدمة.</small></a>
+      </div>
+  </div>
+  
+  <div class="section"><div class="sectionhead"><h3 style="color:#1e8449;">التعليم والقراءة</h3><span style="color:#27ae60;">غذاء الروح والعقل</span></div>
+      <div class="tiles">
+          <a class="tile" href="bible.html"><div class="ico">📖</div><strong>الكتاب المقدس</strong><small>خطة القراءة اليومية.</small></a>
+          <a class="tile" href="spiritual_note.html"><div class="ico">🕊️</div><strong>النوتة الروحية</strong><small>المتابعة الروحية والأسرار.</small></a>
+          <a class="tile" href="sheets_list.html"><div class="ico">📚</div><strong>مقرراتي وشيتاتي</strong><small>المواد والتكليفات.</small></a>
+          <a class="tile" href="katamaros.html"><div class="ico">⛪</div><strong>القطمارس</strong><small>قراءات الكنيسة.</small></a>
+      </div>
+  </div>
 </section>
 
-<!-- لوحة الخدام وأمين الخدمة -->
+<!-- ========================================== -->
+<!-- 2. لوحة الخدام وأمين الخدمة -->
+<!-- ========================================== -->
 <section id="staffPanel" style="display: none;">
-  <div class="intro"><div><h2>👨‍🏫 <span id="sName"></span></h2><p id="staffIntroText"></p></div><div class="introicon">📊</div></div>
-  
+  <div class="intro">
+      <div>
+          <h2><span id="staffIcon">👨‍🏫</span> <span id="sName"></span></h2>
+          <p id="staffIntroText">مساحتك اليومية لإدارة الخدمة ومتابعة المخدومين والاهتمام بحياتك الروحية.</p>
+          <div class="role"><span class="tag green" id="staffRoleBadge">خادم مسجل</span></div>
+      </div>
+      <div class="introicon" id="staffBigIcon">📊</div>
+  </div>
+
+  <!-- واجهة أمين الخدمة (Admin) الشاملة والمسطحة -->
   <div id="adminView" style="display: none;">
-    <div class="primary admin"><div><h3>👑 مركز أمين الخدمة</h3><p>نظرة واحدة على المخدومين والخدام والحضور والتعليم والمشروعات والتخرج والتقارير.</p></div><a class="open" href="admin-dashboard.html?task=dashboard">فتح لوحة الخدمة الذكية</a></div>
     <div class="stats">
         <div class="stat"><i>👥</i><b id="aStudents">0</b><small>المخدومون</small></div>
         <div class="stat"><i>👨‍🏫</i><b id="aServants">0</b><small>الخدام</small></div>
         <div class="stat"><i>⭐</i><b id="aPoints">0</b><small>إجمالي النقاط</small></div>
         <div class="stat"><i>📖</i><b id="aReaders">0</b><small>قراء نشطون</small></div>
     </div>
-    <div class="section"><div class="sectionhead"><h3>نظرة عامة</h3><span>أهم ما تحتاجه يوميًا</span></div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=members"><div class="ico">👥</div><strong>المخدومين والباركود</strong><small>إدارة ملفات وحضور.</small></a><a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>الحضور بالكاميرا</strong><small>تسجيل ومراجعة.</small></a><a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>متابعة الخدام</strong><small>حضور وافتقاد.</small></a><a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓</div><strong>خطة السنة</strong><small>الأحداث والأنشطة.</small></a></div></div>
-    <div class="group"><div class="group-title">إدارة الخدمة</div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=servants"><div class="ico">👨‍🏫</div><strong>الخدام والصلاحيات</strong><small>إضافة وتعديل الصلاحيات.</small></a>
-        <!-- تغيير المسمى ليتناسب مع الإدارة المركزية -->
-        <a class="tile" href="admin_subjects.html"><div class="ico">🎓</div><strong>إدارة المناهج والتعليم</strong><small>إدارة الشيتات والمقررات.</small></a>
-        <a class="tile" href="admin-dashboard.html?task=graduation"><div class="ico">🎓</div><strong>التخرج والترقية</strong><small>المؤهلون وترحيل المراحل.</small></a><a class="tile" href="admin-dashboard.html?task=settings"><div class="ico">⚙️</div><strong>الإعدادات</strong><small>إعدادات الخدمة والنظام.</small></a></div></div>
-    <div class="group"><div class="group-title">المراجعة والتقارير</div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=reports"><div class="ico">📊</div><strong>التقارير والنسخ</strong><small>تقارير ونسخ احتياطي.</small></a><a class="tile" href="admin-dashboard.html?task=audit"><div class="ico">🛡️</div><strong>سجل العمليات</strong><small>تتبع تغييرات الإدارة.</small></a><a class="tile" href="admin-dashboard.html?task=broadcast"><div class="ico">📲</div><strong>التواصل الجماعي</strong><small>واتساب الخدمة.</small></a></div></div>
-  </div>
-  
-  <div id="servantView" style="display:none">
-    <div class="primary servant"><div><h3>👨‍🏫 لوحة الخادم اليومية</h3><p>مساحة الخادم: مخدومي، الحضور، الافتقاد، الخطة والأنشطة.</p></div><a class="open" href="admin-dashboard.html?task=attendance">فتح واجهة الخادم</a></div>
-    
-    <!-- قسم حياتي الروحية الجديد للخدام للتشجيع -->
-    <div class="section" style="background:#fdfefe; border-color:#d5f5e3;">
-      <div class="sectionhead"><h3 style="color:#1e8449;">حياتي الروحية (للتشجيع)</h3><span style="color:#27ae60;">غذاء الروح</span></div>
-      <div class="tiles">
-        <a class="tile" href="bible.html"><div class="ico">📖</div><strong>الكتاب المقدس</strong><small>قراءة وتأمل يومي.</small></a>
-        <a class="tile" href="spiritual_note.html"><div class="ico">🕊️</div><strong>النوتة الروحية</strong><small>متابعة شخصية للأسرار.</small></a>
-        <a class="tile" href="katamaros.html"><div class="ico">⛪</div><strong>القطمارس</strong><small>قراءات الكنيسة.</small></a>
-      </div>
+
+    <div class="section"><div class="sectionhead"><h3>الخدمة الميدانية</h3><span>الحضور والمتابعة</span></div>
+        <div class="tiles">
+            <a class="tile" href="admin-dashboard.html?task=members"><div class="ico">👥</div><strong>إدارة المخدومين</strong><small>ملفات وبحث وباركود.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>تسجيل الحضور</strong><small>كاميرا وباركود.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>سجل الخدام</strong><small>حضور وافتقاد.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=broadcast"><div class="ico">📲</div><strong>واتساب جماعي</strong><small>مراسلة الغائبين.</small></a>
+        </div>
     </div>
 
-    <div class="section"><div class="sectionhead"><h3>خدمة اليوم</h3><span>ابدأ من هنا</span></div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=members"><div class="ico">👥</div><strong>المخدومين والملفات</strong><small>المجموعة والملفات.</small></a><a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>الحضور بالكاميرا</strong><small>تسجيل ومراجعة.</small></a><a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>الافتقاد</strong><small>الزيارات والتواصل.</small></a><a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓️</div><strong>خطة الخدمة</strong><small>المحاضرات والأنشطة.</small></a></div></div>
-    <div class="section"><div class="sectionhead"><h3>متابعة خدمتي</h3><span>أدوات شخصية</span></div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=broadcast"><div class="ico">📲</div><strong>رسائل جماعية</strong><small>مراسلة الغائبين.</small></a><a class="tile" href="projects.html"><div class="ico">🚀</div><strong>الأنشطة والمشروعات</strong><small>المشاركة والمتابعة.</small></a></div></div>
+    <div class="section"><div class="sectionhead"><h3 style="color:#d35400;">التعليم والأنشطة</h3><span style="color:#e67e22;">المناهج والخطة</span></div>
+        <div class="tiles">
+            <a class="tile" href="admin_subjects.html"><div class="ico">📚</div><strong>المقررات والشيتات</strong><small>إدارة المناهج والتقييم.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓</div><strong>خطة السنة</strong><small>الأحداث والمحاضرات.</small></a>
+            <a class="tile" href="projects.html"><div class="ico">🚀</div><strong>الأنشطة والمشروعات</strong><small>إدارة المشروعات.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=graduation"><div class="ico">🎓</div><strong>التخرج والترقية</strong><small>ترحيل الدفعات.</small></a>
+        </div>
+    </div>
+
+    <div class="section"><div class="sectionhead"><h3 style="color:#8e44ad;">النظام والتقارير</h3><span style="color:#9b59b6;">لوحة التحكم</span></div>
+        <div class="tiles">
+            <a class="tile" href="admin-dashboard.html?task=servants"><div class="ico">⚙️</div><strong>إدارة الخدام</strong><small>الصلاحيات والحسابات.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=reports"><div class="ico">📁</div><strong>النسخ الاحتياطي</strong><small>تقارير ونسخ.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=audit"><div class="ico">🛡️</div><strong>سجل العمليات</strong><small>مراقبة وتدقيق.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=settings"><div class="ico">🔒</div><strong>إعدادات النظام</strong><small>الخدمة والسحابة.</small></a>
+        </div>
+    </div>
   </div>
+  
+  <!-- واجهة الخادم (Servant) الميدانية والمسطحة -->
+  <div id="servantView" style="display:none">
+    <div class="stats">
+        <div class="stat"><i>👥</i><b id="svStudents">0</b><small>المخدومون</small></div>
+        <div class="stat"><i>🤝</i><b id="svVisits">0</b><small>افتقادات الخدام</small></div>
+        <div class="stat"><i>📖</i><b id="svReaders">0</b><small>قراء نشطون</small></div>
+        <div class="stat"><i>⭐</i><b id="svPoints">0</b><small>إجمالي النقاط</small></div>
+    </div>
+
+    <div class="section"><div class="sectionhead"><h3>الخدمة الميدانية</h3><span>المهام الأساسية</span></div>
+        <div class="tiles">
+            <a class="tile" href="admin-dashboard.html?task=members"><div class="ico">👥</div><strong>المخدومون</strong><small>بحث ومتابعة الأفراد.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>تسجيل الحضور</strong><small>كاميرا وباركود.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>الافتقاد</strong><small>الزيارات وسجل الخدام.</small></a>
+            <a class="tile" href="admin-dashboard.html?task=broadcast"><div class="ico">📲</div><strong>رسائل جماعية</strong><small>مراسلة الغائبين.</small></a>
+        </div>
+    </div>
+    
+    <div class="section"><div class="sectionhead"><h3 style="color:#d35400;">الأنشطة والخطة</h3><span style="color:#e67e22;">متابعة الخدمة</span></div>
+        <div class="tiles">
+            <a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓️</div><strong>خطة الخدمة</strong><small>المحاضرات والتكليفات.</small></a>
+            <a class="tile" href="projects.html"><div class="ico">🚀</div><strong>المشروعات</strong><small>المشاركة والتنظيم.</small></a>
+            <a class="tile" href="admin_subjects.html"><div class="ico">📚</div><strong>المقررات (للاطلاع)</strong><small>متابعة شيتات المخدومين.</small></a>
+        </div>
+    </div>
+  </div>
+
+  <!-- قسم الحياة الروحية المشترك للخادم وأمين الخدمة -->
+  <div class="section" style="background:linear-gradient(145deg, #fdfefe, #f4fbf7); border-color:#d5f5e3;">
+    <div class="sectionhead"><h3 style="color:#1e8449;">حياتي الروحية (للتشجيع)</h3><span style="color:#27ae60;">غذاء الروح والحصاد</span></div>
+    <div class="tiles">
+      <a class="tile" href="bible.html"><div class="ico">📖</div><strong>الكتاب المقدس</strong><small>قراءة وتأمل يومي.</small></a>
+      <a class="tile" href="spiritual_note.html"><div class="ico">🕊️</div><strong>النوتة الروحية</strong><small>قانوني الروحي الشخصي.</small></a>
+      <a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصادي כخادم</strong><small>إنجازاتي ومواظبتي.</small></a>
+      <a class="tile" href="katamaros.html"><div class="ico">⛪</div><strong>القطمارس</strong><small>قراءات الكنيسة اليومية.</small></a>
+    </div>
+  </div>
+
 </section>
 </main>
 
@@ -149,31 +227,31 @@
     } catch(e) { console.error(e); }
   })();
 
-  // الجسر الذكي لحل مشكلة الأصفار في الداشبورد
-  async function api(path){
-    let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
-    let servants = JSON.parse(localStorage.getItem('my_church_servants')) || [];
+  // الجسر الذكي لحساب الإحصائيات مباشرة من قاعدة البيانات المحلية (Local Storage)
+  function loadLiveStats(sRole) {
+      let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
+      let servants = JSON.parse(localStorage.getItem('my_church_servants')) || [];
+      let sheets = JSON.parse(localStorage.getItem('my_church_sheets')) || [];
+      
+      let totalPts = members.reduce((sum, m) => sum + (parseInt(m.points) || 0), 0);
+      let totalReaders = members.filter(m => (m.readCount || 0) > 0).length;
+      let totalVisits = 0;
+      members.forEach(m => { if(m.visitations) totalVisits += m.visitations.length; });
 
-    if (path.includes('/api/harvest')) {
-        let currentStudentId = localStorage.getItem('student_code') || (ChurchAuth.session() ? ChurchAuth.session().code : null);
-        let me = members.find(m => m.code == currentStudentId || m.id == currentStudentId) || {};
-        return { success: true, data: { points: me.points||0, bibleCount: me.readCount||0, totalSubjects: 0, spiritualCount: me.spiritualDays||0 } };
-    }
-    
-    if (path.includes('type=dashboard')) {
-        let pts = members.reduce((sum, m) => sum + (parseInt(m.points) || 0), 0);
-        let readers = members.filter(m => (m.readCount || 0) > 0).length;
-        return { success: true, data: { totalStudents: members.length, readers: readers, totalPoints: pts } };
-    }
-    
-    if (path.includes('type=servants')) {
-        return { success: true, data: servants };
-    }
-
-    return { success: true, data: {} };
+      if(sRole === 'admin') {
+          if($('aStudents'))$('aStudents').innerText = members.length;
+          if($('aServants'))$('aServants').innerText = servants.length;
+          if($('aPoints'))$('aPoints').innerText = totalPts;
+          if($('aReaders'))$('aReaders').innerText = totalReaders;
+      } else if (sRole === 'servant') {
+          if($('svStudents'))$('svStudents').innerText = members.length;
+          if($('svVisits'))$('svVisits').innerText = totalVisits;
+          if($('svReaders'))$('svReaders').innerText = totalReaders;
+          if($('svPoints'))$('svPoints').innerText = totalPts;
+      }
   }
 
-  // تفعيل اللوحات
+  // تفعيل اللوحات وتوجيه المستخدم
   ChurchAuth.ready.then(function(s){
     try {
       if(!s) {
@@ -191,44 +269,39 @@
         if(staffPanel) staffPanel.style.display = 'none';
         
         if($('mName'))$('mName').textContent = s.name || '';
-        if($('mLevel'))$('mLevel').textContent = s.level || '';
+        if($('mLevel'))$('mLevel').textContent = s.level || 'سنة أولى';
         
-        api('/api/harvest').then(function(j){
-          var d=j.data;
-          if($('mPoints'))$('mPoints').textContent = d.points;
-          if($('memberPointsPill'))$('memberPointsPill').textContent = d.points + ' نقطة';
-          if($('mReads'))$('mReads').textContent = d.bibleCount;
-          if($('mSubjects'))$('mSubjects').textContent = d.totalSubjects;
-          if($('mNotes'))$('mNotes').textContent = d.spiritualCount;
-        }).catch(function(){});
+        let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
+        let me = members.find(m => m.id.toString() === s.id.toString() || m.code === s.code) || {};
+        
+        if($('mPoints'))$('mPoints').textContent = me.points || 0;
+        if($('memberPointsPill'))$('memberPointsPill').textContent = (me.points || 0) + ' نقطة';
+        if($('mReads'))$('mReads').textContent = me.readCount || 0;
+        if($('mSubjects'))$('mSubjects').textContent = me.sheetsCount || 0;
+        if($('mNotes'))$('mNotes').textContent = me.spiritualDays || 0;
         
       } else {
         // أمين الخدمة أو خادم
         if(memberPanel) memberPanel.style.display = 'none';
         if(staffPanel) staffPanel.style.display = 'block';
         
-        if($('sName'))$('sName').textContent = s.name || 'مساحة الخدمة';
+        if($('sName'))$('sName').textContent = s.name || 'الخادم';
         
-        var isAdmin = (s.role === 'admin');
+        var isAdmin = (s.role === 'admin' || s.permission === 'admin');
+        
         if($('adminView'))$('adminView').style.display = isAdmin ? 'block' : 'none';
         if($('servantView'))$('servantView').style.display = isAdmin ? 'none' : 'block';
         
-        if($('staffIntroText')) {$('staffIntroText').textContent = isAdmin
-              ? 'أمين الخدمة يرى النظام بالكامل: المخدومين والخدام والتعليم والمشروعات والتقارير.'
-              : 'مساحتك اليومية: مخدومي، الحضور، الافتقاد، الخطة والأنشطة.';
-        }
-
-        if(isAdmin){
-          api('/api/admin?type=dashboard').then(function(j){
-            var d=j.data;
-            if($('aStudents'))$('aStudents').textContent = d.totalStudents;
-            if($('aPoints'))$('aPoints').textContent = d.totalPoints;
-            if($('aReaders'))$('aReaders').textContent = d.readers;
-          }).catch(function(){});
-          
-          api('/api/admin?type=servants').then(function(j){
-            if($('aServants'))$('aServants').textContent = j.data.filter(function(x){return (x.role==='servant' || x.permission==='servant')}).length;
-          }).catch(function(){});
+        if(isAdmin) {
+            if($('staffIcon'))$('staffIcon').innerText = '👑';
+            if($('staffRoleBadge')) { $('staffRoleBadge').innerText = 'أمين خدمة (أدمن)'; $('staffRoleBadge').className = 'tag blue'; }
+            if($('staffIntroText'))$('staffIntroText').textContent = 'نظرة شاملة على جميع أدوات الإدارة، المناهج، التقارير، والخدام.';
+            loadLiveStats('admin');
+        } else {
+            if($('staffIcon'))$('staffIcon').innerText = '👨‍🏫';
+            if($('staffRoleBadge')) {$('staffRoleBadge').innerText = 'خادم ميداني'; }
+            if($('staffIntroText'))$('staffIntroText').textContent = 'مساحتك الميدانية لإدارة المخدومين والاهتمام بالخدمة وحياتك الروحية.';
+            loadLiveStats('servant');
         }
       }
     } catch(err) {
