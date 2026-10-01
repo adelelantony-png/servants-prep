@@ -1,6 +1,27 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
+<script>
+// سكربت التحديث الإجباري ومسح التخزين العميق (Service Worker Killer)
+(function() {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for (let registration of registrations) {
+                registration.unregister();
+            }
+        });
+    }
+    if (window.caches) {
+        caches.keys().then(function(names) {
+            for (let name of names) caches.delete(name);
+        });
+    }
+    if (!window.location.search.includes('v=')) {
+        var cleanUrl = window.location.href.split('?')[0];
+        window.location.replace(cleanUrl + '?v=' + new Date().getTime());
+    }
+})();
+</script>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b4ca5"><title>خدمتي برو — الرئيسية</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -14,8 +35,8 @@
 .who span{overflow:hidden;text-overflow:ellipsis}
 .who button{border:0;border-radius:999px;background:#fff;color:#0b4ca5;font:800 12px Tajawal,Arial,sans-serif;padding:6px 12px;cursor:pointer}
 .who button:focus-visible{outline:3px solid #d99812;outline-offset:2px}
-</style>
-</head>
+.panel.active{display:block}
+</style></head>
 <body>
 <header class="top"><div class="topin"><div class="brand"><div class="logo">✝</div><div><h1>خدمتي برو</h1><p>منصة واحدة للخدمة — كل دور له مساره وأدواته</p></div></div><div class="who"><span id="whoName"></span><button type="button" id="logoutBtn">خروج</button></div></div></header>
 <main class="wrap">
@@ -31,12 +52,11 @@
       <p style="margin:0 0 5px; color:var(--muted); font-size:12px;">الإصحاح المقترح حسب جدول اليوم:</p>
       <h2 id="todaysReadingValue" style="margin:0; font-size:22px; color:var(--ink);">جاري التحميل...</h2>
     </div>
-    <!-- الزر يفتح صفحة الكتاب المقدس الأصلية كما طلبت بدون تغييرات -->
-    <a class="open" href="bible.html" style="background:var(--blue); color:#fff; border-radius:12px; padding:10px 16px;">فتح سفر الكتاب المقدس</a>
+    <a id="openReadingBtn" class="open" href="bible.html" style="background:var(--blue); color:#fff; border-radius:12px; padding:10px 16px;">فتح إصحاح اليوم مباشرة</a>
   </div>
 </section>
 
-<!-- لوحة المخدوم (نشطة افتراضياً لمنع الشاشة البيضاء) -->
+<!-- لوحة المخدوم -->
 <section id="memberPanel" class="panel active">
   <div class="intro"><div><h2>👤 <span id="mName"></span></h2><p>هذه هي مساحة المخدوم الشخصية. كل ما يخص رحلتي الروحية والتعليمية والأنشطة مرتبط بملفي.</p><div class="role"><span class="tag blue">مخدوم</span><span class="tag" id="mLevel"></span><span class="tag" id="memberPointsPill">0 نقطة</span></div></div><div class="introicon">🎓</div></div>
   <div class="stats"><div class="stat"><i>⭐</i><b id="mPoints">0</b><small>النقاط</small></div><div class="stat"><i>📖</i><b id="mReads">0</b><small>أيام القراءة هذا العام</small></div><div class="stat"><i>📚</i><b id="mSubjects">0</b><small>المقررات والشيتات</small></div><div class="stat"><i>🕊️</i><b id="mNotes">0</b><small>أيام النوتة</small></div></div>
@@ -50,7 +70,7 @@
   <div id="adminView">
     <div class="primary admin"><div><h3>👑 مركز أمين الخدمة</h3><p>نظرة واحدة على المخدومين والخدام والحضور والتعليم والمشروعات والتخرج والتقارير.</p></div><a class="open" href="admin-dashboard.html?task=dashboard">فتح لوحة الخدمة</a></div>
     <div class="stats"><div class="stat"><i>👥</i><b id="aStudents">0</b><small>المخدومون</small></div><div class="stat"><i>👨‍🏫</i><b id="aServants">0</b><small>الخدام</small></div><div class="stat"><i>⭐</i><b id="aPoints">0</b><small>إجمالي النقاط</small></div><div class="stat"><i>📖</i><b id="aReaders">0</b><small>قراء نشطون</small></div></div>
-    <div class="section"><div class="sectionhead"><h3>نظرة عامة</h3><span>أهم ما تحتاجه يوميًا</span></div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=members"><div class="ico">👥</div><strong>المخدومون</strong><small>ملفات ومتابعة وتقييم.</small></a><a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>الحضور والـQR</strong><small>تسجيل ومراجعة.</small></a><a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>متابعة الخدام</strong><small>حضور وافتقاد.</small></a><a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓️️</div><strong>خطة السنة</strong><small>الأحداث والأنشطة.</small></a></div></div>
+    <div class="section"><div class="sectionhead"><h3>نظرة عامة</h3><span>أهم ما تحتاجه يوميًا</span></div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=members"><div class="ico">👥</div><strong>المخدومون</strong><small>ملفات ومتابعة وتقييم.</small></a><a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>الحضور والـQR</strong><small>تسجيل ومراجعة.</small></a><a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>متابعة الخدام</strong><small>حضور وافتقاد.</small></a><a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓</div><strong>خطة السنة</strong><small>الأحداث والأنشطة.</small></a></div></div>
     <div class="group"><div class="group-title">إدارة الخدمة</div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=servants"><div class="ico">👨‍🏫</div><strong>الخدام والصلاحيات</strong><small>إضافة وتعديل الصلاحيات.</small></a><a class="tile" href="admin_subjects.html"><div class="ico">📚</div><strong>المقررات والشيتات</strong><small>إدارة المحتوى والتكليفات.</small></a><a class="tile" href="admin-dashboard.html?task=graduation"><div class="ico">🎓</div><strong>التخرج والترقية</strong><small>المؤهلون وترحيل المراحل.</small></a><a class="tile" href="admin-dashboard.html?task=settings"><div class="ico">⚙️</div><strong>الإعدادات</strong><small>إعدادات الخدمة والنظام.</small></a></div></div>
     <div class="group"><div class="group-title">المراجعة والتقارير</div><div class="tiles"><a class="tile" href="admin-dashboard.html?task=reports"><div class="ico">📊</div><strong>التقارير والنسخ</strong><small>تقارير ونسخ احتياطي.</small></a><a class="tile" href="admin-dashboard.html?task=audit"><div class="ico">🛡️</div><strong>سجل العمليات</strong><small>تتبع تغييرات الإدارة.</small></a><a class="tile" href="admin-dashboard.html?task=broadcast"><div class="ico">📲</div><strong>التواصل الجماعي</strong><small>واتساب الخدمة.</small></a></div></div>
   </div>
@@ -64,10 +84,9 @@
 <script src="auth-client.js"></script>
 <script>
 (function(){
-  var $=function(id){return document.getElementById(id)};
-  $('logoutBtn').addEventListener('click',function(){ChurchAuth.logout()});
+  var $=function(id){return document.getElementById(id)};$('logoutBtn').addEventListener('click',function(){ChurchAuth.logout()});
 
-  // كود جلب القراءة اليومية بشكل منفصل تماماً لكي لا يعطل أي شيء آخر
+  // تحديد قراءة اليوم وتحديث رابط الكتاب المقدس
   (function(){
     try {
       const today = new Date();
@@ -87,8 +106,16 @@
       let reading = "يونان 4:1";
       if(month === 10 && octoberPlan[day]) reading = octoberPlan[day];
       
-      if($('todaysDateLabel')) $('todaysDateLabel').textContent = day + ' أكتوبر';
-      if($('todaysReadingValue')) $('todaysReadingValue').textContent = reading;
+      if($('todaysDateLabel'))$('todaysDateLabel').textContent = day + ' أكتوبر';
+      if($('todaysReadingValue'))$('todaysReadingValue').textContent = reading;
+
+      // تحديث رابط الزر ليرسل اسم السفر والإصحاح
+      if($('openReadingBtn')) {
+         let bookName = reading.replace(/[0-9: ]+$/, '').trim(); 
+         let nums = reading.match(/\d+/g);
+         let chapterNum = (nums && nums.length > 0) ? Math.min(...nums.map(Number)) : 1;
+         $('openReadingBtn').href = `bible.html?book=${encodeURIComponent(bookName)}&chapter=${chapterNum}`;
+      }
     } catch(e) { 
       console.error(e); 
     }
@@ -105,10 +132,8 @@
     $('whoName').textContent=s.name||'';
 
     if(s.role==='student'){
-      $('memberPanel').classList.add('active');
-      $('mName').textContent=s.name||'';
-      $('mLevel').textContent=s.level||'';
-      $('mPoints').textContent=s.points||0;
+      $('memberPanel').classList.add('active');$('mName').textContent=s.name||'';
+      $('mLevel').textContent=s.level\vert{}\vert{}'';$('mPoints').textContent=s.points||0;
       $('memberPointsPill').textContent=(s.points||0)+' نقطة';
       api('/api/harvest').then(function(j){
         var d=j.data;
@@ -123,14 +148,10 @@
 
     // أمين الخدمة أو خادم
     $('staffPanel').classList.add('active');
-    // إخفاء لوحة المخدومين إذا كان الدخول كأمين خدمة أو خادم
-    $('memberPanel').classList.remove('active');
-    
-    $('sName').textContent=s.name||'مساحة الخدمة';
+    $('memberPanel').classList.remove('active');$('sName').textContent=s.name||'مساحة الخدمة';
     var isAdmin=s.role==='admin';
     $('adminView').style.display=isAdmin?'block':'none';
-    $('servantView').style.display=isAdmin?'none':'block';
-    $('staffIntroText').textContent=isAdmin
+    $('servantView').style.display=isAdmin?'none':'block';$('staffIntroText').textContent=isAdmin
       ?'أمين الخدمة يرى النظام بالكامل: المخدومين والخدام والتعليم والمشروعات والتقارير.'
       :'مساحتك اليومية: مخدومي، الحضور، الافتقاد، الخطة والأنشطة.';
 
