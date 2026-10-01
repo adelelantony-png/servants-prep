@@ -1,143 +1,191 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<script>
-(function() {
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(regs) {
-            for (let r of regs) r.unregister();
-        });
-    }
-    if (window.caches) {
-        caches.keys().then(function(names) {
-            for (let n of names) caches.delete(n);
-        });
-    }
-})();
-</script>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b4ca5"><title>خدمتي برو — الرئيسية</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-<style>
-:root{--blue:#0b4ca5;--blue2:#1682ee;--green:#087f62;--green2:#18a673;--gold:#d99812;--ink:#17233d;--muted:#708098;--bg:#f3f7fc;--line:#dce6f2;--card:#fff;--shadow:0 10px 28px rgba(18,55,105,.08);--radius:20px}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tajawal,Arial,sans-serif}.top{background:linear-gradient(125deg,#06235c,#0b4ca5 58%,#1682ee);color:#fff;padding:18px 14px 26px}.topin{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px;border:1px solid #ffffff40;background:#ffffff16;border-radius:16px;display:grid;place-items:center;font-size:27px}.brand h1{font-size:25px;margin:0;font-weight:900}.brand p{margin:4px 0 0;opacity:.82;font-size:12px}.wrap{max-width:1050px;margin:-10px auto 0;padding:0 12px 30px}
-.intro{margin-top:15px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:15px}.intro h2{margin:0 0 5px;font-size:22px}.intro p{margin:0;color:var(--muted);line-height:1.7;font-size:13px}.role{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px}.tag{border:1px solid var(--line);background:#f7faff;border-radius:999px;padding:6px 10px;font-size:11px;font-weight:800;color:#52627a}.tag.blue{background:#eaf3ff;color:var(--blue);border-color:#bcd8f7}.tag.green{background:#eaf8f3;color:var(--green);border-color:#b9e2d3}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px}.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px;text-align:center}.stat i{font-style:normal;font-size:21px}.stat b{display:block;font-size:22px;margin-top:3px}.stat small{color:var(--muted);font-size:10px}.section{margin-top:12px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:8px;margin-bottom:11px}.sectionhead h3{margin:0;font-size:17px;color:var(--blue)}.sectionhead span{font-size:11px;color:var(--muted);font-weight:bold}.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.tile{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--line);background:linear-gradient(145deg,#fff,#f7faff);border-radius:15px;padding:13px;min-height:102px}.tile:active{transform:scale(.99)}.tile .ico{font-size:25px;margin-bottom:6px}.tile strong{display:block;margin:6px 0 2px;font-size:13px;color:#1e293b}.tile small{display:block;color:var(--muted);font-size:11px;line-height:1.5}.open{background:#fff;color:var(--blue);border-radius:11px;padding:10px 13px;text-decoration:none;font-weight:900;font-size:12px;white-space:nowrap}.who{display:flex;align-items:center;gap:8px;font-size:12px;border:1px solid #ffffff42;background:#ffffff12;border-radius:999px;padding:5px 6px 5px 12px;white-space:nowrap;max-width:60vw}
-.who span{overflow:hidden;text-overflow:ellipsis}.who button{border:0;border-radius:999px;background:#fff;color:#0b4ca5;font:800 12px Tajawal,Arial,sans-serif;padding:6px 12px;cursor:pointer}
-@media(max-width:850px){.tiles{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.top{padding-bottom:22px}.brand h1{font-size:20px}.brand p{font-size:10px}.wrap{padding:0 9px 78px}.intro{padding:16px}.intro h2{font-size:19px}.stats{gap:7px}.stat{padding:11px}.stat b{font-size:19px}.section{padding:13px}.tiles{gap:7px}.tile{min-height:94px;padding:11px}.tile strong{font-size:12px}}
-</style>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>النوتة الروحية الأرثوذكسية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background-color: #f4f7fb; color: #1e293b; }
+        .card-custom { background: #fff; border-radius: 18px; padding: 22px; box-shadow: 0 4px 15px rgba(0,0,0,0.04); margin-bottom: 16px; border: 1px solid #e2e8f0; }
+        .check-item { display: flex; align-items: center; justify-content: space-between; padding: 13px 0; border-bottom: 1px dashed #e2e8f0; }
+        .check-item:last-child { border-bottom: none; }
+        .form-check-input { width: 24px; height: 24px; cursor: pointer; border-color: #cbd5e1; }
+        .form-check-input:checked { background-color: #0b4ca5; border-color: #0b4ca5; }
+        .fasting-badge { font-size: 13px; font-weight: 800; padding: 8px 14px; border-radius: 12px; }
+    </style>
 </head>
 <body>
-<header class="top">
-  <div class="topin">
-    <div class="brand">
-      <div class="logo">✝</div>
-      <div><h1>خدمتي برو</h1><p>منصة واحدة للخدمة — كل دور له مساره وأدواته</p></div>
+    <div class="container py-4" style="max-width: 650px;">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="index.html" class="btn btn-outline-secondary btn-sm fw-bold"><i class="fa-solid fa-arrow-right me-1"></i> العودة للرئيسية</a>
+            <h4 class="fw-bold mb-0 text-primary">🕊️ النوتة الروحية الأرثوذكسية</h4>
+        </div>
+
+        <div class="card-custom text-center" style="background: linear-gradient(135deg, #eaf3ff, #f7faff); border-color:#bcd8f7;">
+            <h4 class="fw-bold mb-1 text-primary" id="userName">جاري التحميل...</h4>
+            <div class="text-muted small fw-bold mb-2">تاريخ اليوم: <span id="todayDateStr"></span></div>
+            <div id="fastingInfoBadge" class="d-inline-block fasting-badge bg-light text-secondary border">جاري فحص الطقس الكنسي...</div>
+        </div>
+
+        <!-- صلوات الأجبية الكاملة -->
+        <div class="card-custom">
+            <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-hands-praying me-2 text-warning"></i> صلوات الأجبية والمزامير</h5>
+            <div class="check-item">
+                <label class="fw-bold"><i class="fa-regular fa-sun text-warning me-2"></i> صلاة باكر</label>
+                <input type="checkbox" class="form-check-input" id="chkAgpeyaBaker">
+            </div>
+            <div class="check-item">
+                <label class="fw-bold"><i class="fa-solid fa-cloud-sun text-warning me-2"></i> صلاة الغروب</label>
+                <input type="checkbox" class="form-check-input" id="chkAgpeyaGhoroub">
+            </div>
+            <div class="check-item">
+                <label class="fw-bold"><i class="fa-solid fa-moon text-primary me-2"></i> صلاة النوم</label>
+                <input type="checkbox" class="form-check-input" id="chkAgpeyaNoum">
+            </div>
+            <div class="check-item">
+                <label class="fw-bold"><i class="fa-solid fa-cross text-danger me-2"></i> صلوات أخرى (السواعي / صلاة يسوع / صلاة خاصة)</label>
+                <input type="checkbox" class="form-check-input" id="chkOtherPrayers">
+            </div>
+        </div>
+
+        <!-- كلمة الله والمطالعة -->
+        <div class="card-custom">
+            <h5 class="fw-bold text-success mb-3"><i class="fa-solid fa-book-bible me-2"></i> كلمة الله والمطالعة</h5>
+            <div class="check-item">
+                <label class="fw-bold"><i class="fa-solid fa-bookmark text-primary me-2"></i> قراءة إصحاح الكتاب المقدس</label>
+                <input type="checkbox" class="form-check-input" id="chkBible">
+            </div>
+            <div class="check-item">
+                <label class="fw-bold"><i class="fa-solid fa-book-open-reader text-success me-2"></i> قراءة روحية / سنكسار / قطمارس</label>
+                <input type="checkbox" class="form-check-input" id="chkSpiritualReading">
+            </div>
+        </div>
+
+        <!-- الأصوام والأسرار -->
+        <div class="card-custom">
+            <h5 class="fw-bold text-danger mb-3"><i class="fa-solid fa-church me-2"></i> الأصوام والأسرار الكنسية</h5>
+            <div class="check-item" id="fastingCheckRow">
+                <div>
+                    <label class="fw-bold d-block mb-1" id="fastingLabelTitle"><i class="fa-solid fa-utensils text-danger me-2"></i> صوم اليوم (الأربعاء / الجمعة / صوام كنسية)</label>
+                    <small class="text-muted" id="fastingNoteDesc">بحسب طقس الكنيسة اليوم</small>
+                </div>
+                <input type="checkbox" class="form-check-input" id="chkFasting">
+            </div>
+            <div class="check-item">
+                <label class="fw-bold"><i class="fa-solid fa-bread-slice text-warning me-2"></i> حضور القداس الإلهي / التناول 🕊️</label>
+                <input type="checkbox" class="form-check-input" id="chkCommunion">
+            </div>
+            <div class="check-item">
+                <label class="fw-bold"><i class="fa-solid fa-heart text-danger me-2"></i> عمل محبة ورحمة / افتقاد</label>
+                <input type="checkbox" class="form-check-input" id="chkMercy">
+            </div>
+        </div>
+
+        <button class="btn btn-primary w-100 py-3 fw-bold fs-5 shadow-sm rounded-3" id="btnSaveSpiritual" onclick="saveSpiritualNote()">
+            حفظ النوتة الروحية لليوم ✔️
+        </button>
     </div>
-    <div class="who"><span id="whoName">زائر</span><button type="button" id="logoutBtn">خروج</button></div>
-  </div>
-</header>
-<main class="wrap">
 
-<!-- صندوق القراءة اليومية -->
-<section class="section" style="margin-bottom:15px; background:linear-gradient(135deg,#eaf3ff,#f7faff); border-color:#bcd8f7;">
-  <div class="sectionhead">
-    <h3 style="color:var(--blue);">📖 القراءة الروحية اليومية (<span id="todaysDateLabel">اليوم</span>)</h3>
-    <span style="font-weight:700; color:var(--blue2);">خطة الكنيسة</span>
-  </div>
-  <div style="display:flex; align-items:center; justify-content:space-between; gap:15px; flex-wrap:wrap;">
-    <div>
-      <p style="margin:0 0 5px; color:var(--muted); font-size:12px;">الإصحاح المقترح حسب جدول اليوم:</p>
-      <h2 id="todaysReadingValue" style="margin:0; font-size:22px; color:var(--ink);">يونان 4:1</h2>
-    </div>
-    <a id="openReadingBtn" class="open" href="bible.html?book=يونان&chapter=1" style="background:var(--blue); color:#fff; border-radius:12px; padding:10px 16px;">فتح إصحاح اليوم مباشرة</a>
-  </div>
-</section>
+    <script src="auth-client.js"></script>
+    <script>
+        let currentUser = null;
+        let isServant = false;
 
-<!-- لوحة الخدام وأمين الخدمة (تظهر افتراضياً لمنع أي تعليق) -->
-<section id="staffPanel" style="display: block;">
-  <div class="intro">
-      <div>
-          <h2><span id="staffIcon">👑</span> <span id="sName">أمين الخدمة</span></h2>
-          <p id="staffIntroText">مساحتك الشاملة لإدارة الخدمة ومتابعة المخدومين والحياة الروحية.</p>
-          <div class="role"><span class="tag green" id="staffRoleBadge">أمين خدمة (أدمن)</span></div>
-      </div>
-      <div style="font-size:45px;">📊</div>
-  </div>
+        function getOrthodoxEaster(year) {
+            const a = year % 4, b = year % 7, c = year % 19;
+            const d = (19 * c + 15) % 30;
+            const e = (2 * a + 4 * b - d + 34) % 7;
+            const month = Math.floor((d + e + 114) / 31);
+            const day = ((d + e + 114) % 31) + 1;
+            let easter = new Date(year, month - 1, day);
+            easter.setDate(easter.getDate() + 13);
+            return easter;
+        }
 
-  <div class="stats">
-      <div class="stat"><i>👥</i><b id="aStudents">0</b><small>المخدومون</small></div>
-      <div class="stat"><i>👨‍🏫</i><b id="aServants">0</b><small>الخدام</small></div>
-      <div class="stat"><i>⭐</i><b id="aPoints">0</b><small>إجمالي النقاط</small></div>
-      <div class="stat"><i>📖</i><b id="aReaders">0</b><small>قراء نشطون</small></div>
-  </div>
+        function evaluateCopticFast(date) {
+            const year = date.getFullYear(), month = date.getMonth() + 1, day = date.getDate(), dayOfWeek = date.getDay();
+            const easter = getOrthodoxEaster(year);
+            const pentecost = new Date(easter);
+            pentecost.setDate(pentecost.getDate() + 49);
 
-  <div class="section"><div class="sectionhead"><h3>الخدمة الميدانية</h3><span>الحضور والتواصل</span></div>
-      <div class="tiles">
-          <a class="tile" href="admin-dashboard.html?task=members"><div class="ico">👥</div><strong>إدارة المخدومين</strong><small>ملفات وبحث وباركود.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=attendance"><div class="ico">📷</div><strong>تسجيل الحضور</strong><small>الماسح الذكي للكارنيهات.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=visits"><div class="ico">🤝</div><strong>سجل الخدام والافتقاد</strong><small>حضور وافتقاد الخدام.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=broadcast"><div class="ico">📲</div><strong>واتساب جماعي</strong><small>مراسلة الغائبين.</small></a>
-      </div>
-  </div>
+            if (date >= easter && date <= pentecost) {
+                return { isFasting: false, isFifty: true, title: "فترة الخماسين المقدسة ✨", desc: "أيام قيامة وفرح: لا صيام أربعاء أو جمعة." };
+            }
+            if ((month === 11 && day >= 25) || month === 12 || (month === 1 && day <= 6)) {
+                return { isFasting: true, isFifty: false, title: "صوم الميلاد المجيد 🌟", desc: "صوم كنسي مبارك حتى 7 يناير." };
+            }
+            if (month === 8 && day >= 7 && day <= 21) {
+                return { isFasting: true, isFifty: false, title: "صوم السيدة العذراء مريم 🌹", desc: "صوم مبارك حتى 22 أغسطس." };
+            }
+            if (dayOfWeek === 3) return { isFasting: true, isFifty: false, title: "صوم يوم الأربعاء ✝️", desc: "تذكار التشاور على تسليم المخلص." };
+            if (dayOfWeek === 5) return { isFasting: true, isFifty: false, title: "صوم يوم الجمعة ✝️", desc: "تذكار الصلب والفداء المجيد." };
 
-  <div class="section"><div class="sectionhead"><h3 style="color:#d35400;">التعليم والأنشطة</h3><span style="color:#e67e22;">المناهج والخطة</span></div>
-      <div class="tiles">
-          <a class="tile" href="admin_subjects.html"><div class="ico">📚</div><strong>المناهج والتقييم</strong><small>الشيتات والمقررات.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=plan"><div class="ico">🗓️</div><strong>خطة السنة</strong><small>الأجندة والفعاليات.</small></a>
-          <a class="tile" href="projects.html"><div class="ico">🚀</div><strong>المشروعات والأنشطة</strong><small>إدارة المشروعات.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=graduation"><div class="ico">🎓</div><strong>التخرج والترقية</strong><small>ترحيل الدفعات.</small></a>
-      </div>
-  </div>
+            return { isFasting: false, isFifty: false, title: "يوم فطر كنسي 🌿", desc: "لا يوجد صوم كنسي إلزامي اليوم." };
+        }
 
-  <div class="section"><div class="sectionhead"><h3 style="color:#8e44ad;">التقارير والنظام</h3><span style="color:#9b59b6;">الإحصائيات والأمان</span></div>
-      <div class="tiles">
-          <a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصاد الخدمة</strong><small>المؤشرات والنمو الشامل.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=servants"><div class="ico">⚙️</div><strong>إدارة الخدام</strong><small>حسابات وصلاحيات.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=reports"><div class="ico">📁</div><strong>النسخ الاحتياطي</strong><small>تصدير واستيراد كامل.</small></a>
-          <a class="tile" href="admin-dashboard.html?task=audit"><div class="ico">🛡️</div><strong>سجل العمليات</strong><small>تدقيق أمني لحظي.</small></a>
-      </div>
-  </div>
+        const now = new Date();
+        document.getElementById('todayDateStr').innerText = now.toLocaleDateString('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-  <!-- قسم الحياة الروحية -->
-  <div class="section" style="background:linear-gradient(145deg, #fdfefe, #f4fbf7); border-color:#d5f5e3;">
-    <div class="sectionhead"><h3 style="color:#1e8449;">حياتي الروحية (للتشجيع والقدوة)</h3><span style="color:#27ae60;">غذاء الخادم</span></div>
-    <div class="tiles">
-      <a class="tile" href="bible.html"><div class="ico">📖</div><strong>الكتاب المقدس</strong><small>قراءة وتأمل يومي.</small></a>
-      <a class="tile" href="spiritual_note.html"><div class="ico">🕊️</div><strong>النوتة الروحية</strong><small>الأجبية، الأصوام، الأسرار.</small></a>
-      <a class="tile" href="harvest.html"><div class="ico">🌾</div><strong>حصادي الشخصي</strong><small>متابعة نموي الروحي.</small></a>
-      <a class="tile" href="katamaros.html"><div class="ico">⛪</div><strong>القطمارس</strong><small>قراءات الكنيسة اليومية.</small></a>
-    </div>
-  </div>
-</section>
-</main>
+        const fastStatus = evaluateCopticFast(now);
+        const badge = document.getElementById('fastingInfoBadge');
+        const fastRow = document.getElementById('fastingCheckRow');
+        const fastLabel = document.getElementById('fastingLabelTitle');
+        const fastDesc = document.getElementById('fastingNoteDesc');
 
-<script src="auth-client.js"></script>
-<script>
-(function(){
-  var $=id=>document.getElementById(id);
-  $('logoutBtn').addEventListener('click',()=>ChurchAuth.logout());
+        badge.innerText = fastStatus.title;
+        if (fastStatus.isFifty) {
+            badge.className = "d-inline-block fasting-badge bg-warning text-dark border border-warning";
+            fastRow.style.opacity = "0.6";
+            fastLabel.innerHTML = `<i class="fa-solid fa-dove text-warning me-2"></i> فرح الخماسين المقدسة`;
+            fastDesc.innerText = "لا يوجد صيام في فترة الخماسين";
+            document.getElementById('chkFasting').disabled = true;
+        } else if (fastStatus.isFasting) {
+            badge.className = "d-inline-block fasting-badge bg-danger text-white";
+            fastLabel.innerHTML = `<i class="fa-solid fa-utensils text-danger me-2"></i> ${fastStatus.title}`;
+            fastDesc.innerText = fastStatus.desc;
+        } else {
+            badge.className = "d-inline-block fasting-badge bg-success text-white";
+            fastLabel.innerHTML = `<i class="fa-solid fa-leaf text-success me-2"></i> صوم اختياري / تدريب خاص`;
+            fastDesc.innerText = fastStatus.desc;
+        }
 
-  // تحميل الإحصائيات من الذاكرة المحلية فوراً بدون انتظار شبكة
-  try {
-    let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
-    let servants = JSON.parse(localStorage.getItem('my_church_servants')) || [];
-    let totalPts = members.reduce((sum, m) => sum + (parseInt(m.points) || 0), 0);
-    let totalReaders = members.filter(m => (m.readCount || 0) > 0).length;
+        ChurchAuth.ready.then(s => {
+            if(!s) return location.replace('login.html');
+            currentUser = s;
+            isServant = (s.role === 'admin' || s.role === 'servant');
+            document.getElementById('userName').innerText = s.name + (isServant ? ' (خادم)' : ' (دارس)');
+        });
 
-    if($('aStudents')) $('aStudents').innerText = members.length;
-    if($('aServants')) $('aServants').innerText = servants.length;
-    if($('aPoints')) $('aPoints').innerText = totalPts;
-    if($('aReaders')) $('aReaders').innerText = totalReaders;
-  } catch(e) {}
+        function saveSpiritualNote() {
+            if(!currentUser) return;
+            const btn = document.getElementById('btnSaveSpiritual');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> جاري الحفظ...';
 
-  // جلب اسم المستخدم وجلسته في الخلفية
-  ChurchAuth.ready.then(s => {
-    if(!s) return;
-    if($('whoName')) $('whoName').textContent = s.name || '';
-    if($('sName')) $('sName').textContent = s.name || 'الخادم';
-  }).catch(e=>{});
-})();
-</script>
-</body></html>
+            if(!isServant) {
+                let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
+                let idx = members.findIndex(m => m.id.toString() === currentUser.id.toString() || m.code === currentUser.code);
+                if(idx > -1) {
+                    members[idx].spiritualDays = (members[idx].spiritualDays || 0) + 1;
+                    members[idx].points = (parseInt(members[idx].points) || 0) + 5;
+                    localStorage.setItem('my_church_class', JSON.stringify(members));
+                }
+            } else {
+                let servants = JSON.parse(localStorage.getItem('my_church_servants')) || [];
+                let idx = servants.findIndex(x => x.id.toString() === currentUser.id.toString() || x.code === currentUser.code);
+                if(idx > -1) {
+                    servants[idx].spiritualDays = (servants[idx].spiritualDays || 0) + 1;
+                    localStorage.setItem('my_church_servants', JSON.stringify(servants));
+                }
+            }
+
+            setTimeout(() => {
+                btn.className = 'btn btn-success w-100 py-3 fw-bold fs-5 shadow-sm rounded-3';
+                btn.innerHTML = '<i class="fa-solid fa-check-double me-1"></i> تم حفظ نوتتك الروحية بنجاح!';
+            }, 400);
+        }
+    </script>
+</body>
+</html>
