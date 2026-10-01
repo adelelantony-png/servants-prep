@@ -1,0 +1,36 @@
+// دالة لجلب وعرض قراءة اليوم تلقائياً
+async function loadTodaysReading() {
+    const today = new Date();
+    const day = today.getDate();     // اليوم (مثلاً 1)
+    const month = today.getMonth() + 1; // الشهر (مثلاً 10 لشهر أكتوبر)
+
+    // أسماء الشهور بالعربية بما يتوافق مع هيكل الملف
+    const monthsNames = [
+        "يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", 
+        "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+    ];
+    
+    const currentMonthName = monthsNames[month - 1];
+
+    try {
+        // افترض أننا وفرنا ملف JSON يحتوي على جدول القراءات لكل الشهور
+        const response = await fetch('/data/bible-plan.json');
+        const planData = await response.json();
+
+        // البحث عن قراءة اليوم والشهر الحالي
+        const todaysReading = planData[currentMonthName]?.find(row => row.date === day);
+
+        if (todaysReading) {
+            // تحديث عناصر الواجهة في الموقع لتظهر القراءة تلقائياً
+            document.getElementById('todays-reading-text').innerText = todaysReading.reading;
+            document.getElementById('todays-date-text').innerText = `${day} ${currentMonthName}`;
+        } else {
+            document.getElementById('todays-reading-text').innerText = "لا توجد قراءة مسجلة لهذا اليوم.";
+        }
+    } f (error) {
+        console.error("خطأ في تحميل خطة القراءة:", error);
+    }
+}
+
+// تشغيل الدالة بمجرد فتح الصفحة
+window.onload = loadTodaysReading;
