@@ -31,7 +31,6 @@
       <p style="margin:0 0 5px; color:var(--muted); font-size:12px;">الإصحاح المقترح حسب جدول اليوم:</p>
       <h2 id="todaysReadingValue" style="margin:0; font-size:22px; color:var(--ink);">جاري التحميل...</h2>
     </div>
-    <!-- تمت إضافة ID هنا للتحكم بالرابط برمجياً -->
     <a id="openReadingBtn" class="open" href="bible.html" style="background:var(--blue); color:#fff; border-radius:12px; padding:10px 16px;">فتح إصحاح اليوم مباشرة</a>
   </div>
 </section>
@@ -91,9 +90,9 @@
 
       // تحديث رابط الزر ليرسل اسم السفر والإصحاح
       if($('openReadingBtn')) {
-         let bookName = reading.replace(/[0-9: ]+$/, '').trim(); // استخراج اسم السفر
+         let bookName = reading.replace(/[0-9: ]+$/, '').trim(); 
          let nums = reading.match(/\d+/g);
-         let chapterNum = (nums && nums.length > 0) ? Math.min(...nums.map(Number)) : 1; // استخراج بداية الإصحاح
+         let chapterNum = (nums && nums.length > 0) ? Math.min(...nums.map(Number)) : 1;
          $('openReadingBtn').href = `bible.html?book=${encodeURIComponent(bookName)}&chapter=${chapterNum}`;
       }
     } catch(e) { 
