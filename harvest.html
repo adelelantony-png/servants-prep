@@ -26,6 +26,7 @@
             <span class="badge bg-primary fs-6 px-3 py-2" id="hRole">...</span>
         </div>
 
+        <!-- إحصائيات المخدوم -->
         <div class="row g-3" id="studentStats" style="display:none;">
             <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-star text-warning"></i><h3 id="stPoints">0</h3><p>إجمالي النقاط</p></div></div>
             <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-book-bible text-primary"></i><h3 id="stBible">0</h3><p>أيام القراءة</p></div></div>
@@ -33,6 +34,7 @@
             <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-file-lines text-danger"></i><h3 id="stSheets">0</h3><p>الشيتات المنجزة</p></div></div>
         </div>
 
+        <!-- إحصائيات الخادم / الأدمن -->
         <div class="row g-3" id="servantStats" style="display:none;">
             <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-calendar-check text-success"></i><h3 id="svAttend">0</h3><p>حضور الخدمة</p></div></div>
             <div class="col-6 col-md-3"><div class="stat-box"><i class="fa-solid fa-house-chimney-medical text-danger"></i><h3 id="svVisits">0</h3><p>الافتقادات</p></div></div>
@@ -44,7 +46,7 @@
     <script src="auth-client.js"></script>
     <script>
         ChurchAuth.ready.then(s => {
-            if(!s) return window.location.href = 'login.html';
+            if(!s) return window.location.replace('login.html');
             
             document.getElementById('hName').innerText = s.name;
             let isServant = (s.role === 'admin' || s.role === 'servant');
@@ -57,28 +59,35 @@
 
             if(!isServant) {
                 document.getElementById('studentStats').style.display = 'flex';
-                let me = members.find(m => m.id.toString() === s.id.toString() || m.code === s.code) || {};
+                let me = members.find(m => m.name === s.name || m.code === s.code) || {};
                 document.getElementById('stPoints').innerText = me.points || 0;
                 document.getElementById('stBible').innerText = me.readCount || 0;
                 document.getElementById('stNotes').innerText = me.spiritualDays || 0;
                 document.getElementById('stSheets').innerText = me.sheetsCount || 0;
             } else {
                 document.getElementById('servantStats').style.display = 'flex';
+                
                 let attCount = 0;
                 Object.values(servantsAtt).forEach(dayList => {
-                    if(dayList.some(x => x.id.toString() === s.id.toString() || x.code === s.code)) attCount++;
+                    if(dayList.some(x => x.name === s.name || x.code === s.code)) attCount++;
                 });
+
                 let visCount = 0;
                 members.forEach(m => {
                     if(m.visitations) visCount += m.visitations.filter(v => v.by === s.name || (s.role==='admin' && v.by==='admin')).length;
                 });
+
                 let taskCount = masterPlan.filter(p => p.responsible === s.name).length;
-                let myServantFile = servants.find(x => x.id.toString() === s.id.toString() || x.code === s.code) || {};
+
+                // قراءة النقاط الروحية بدقة سواء كان الخادم في المصفوفة أو كأدمن مستقل
+                let myServantFile = servants.find(x => x.name === s.name || x.code === s.code) || {};
+                let standaloneAdminNotes = JSON.parse(localStorage.getItem('admin_spiritual_notes') || '{}');
+                let spiritualDaysTotal = myServantFile.spiritualDays || standaloneAdminNotes[s.name] || 0;
 
                 document.getElementById('svAttend').innerText = attCount;
                 document.getElementById('svVisits').innerText = visCount;
                 document.getElementById('svTasks').innerText = taskCount;
-                document.getElementById('svSpiritual').innerText = myServantFile.spiritualDays || 0;
+                document.getElementById('svSpiritual').innerText = spiritualDaysTotal;
             }
         });
     </script>
