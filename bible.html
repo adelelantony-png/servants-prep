@@ -2,7 +2,6 @@
 <html lang="ar" dir="rtl">
 <head>
     <script>
-    // سكربت التحديث الإجباري لتنظيف الكاش (Service Worker Killer)
     (function() {
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistrations().then(function(registrations) {
@@ -83,7 +82,6 @@
 </div>
 
 <script>
-// تحديد المستخدم الحالي من الجلسة
 let currentUserId = null;
 ChurchAuth.ready.then(function(s){
     if(!s) {
@@ -233,7 +231,7 @@ function changeFontSize(delta) {
     document.getElementById('versesArea').style.fontSize = `${currentFontSize}rem`;
 }
 
-// دالة التسجيل باستخدام اللوكال ستورج (الجسر الذكي) لمنع رسالة "حدث خطأ"
+// دالة التسجيل عبر الجسر الذكي مع التزامن التلقائي لنوتة الصلاة
 function markCurrentChapterRead() {
     if(!currentUserId) {
         alert("يرجى تسجيل الدخول أولاً لتتمكن من تسجيل قراءاتك!");
@@ -245,31 +243,26 @@ function markCurrentChapterRead() {
     btnMark.disabled = true;
 
     try {
-        // سحب بيانات الأعضاء من قاعدة البيانات المحلية
         let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
-        
-        // البحث عن المستخدم (سواء كان مخدوماً أو خادماً تم تسجيله كعضو)
         let memberIndex = members.findIndex(m => m.code === currentUserId || m.id.toString() === currentUserId);
 
         if (memberIndex !== -1) {
-            // زيادة عدد القراءات والنقاط (+1 نقطة لكل إصحاح)
             members[memberIndex].readCount = (members[memberIndex].readCount || 0) + 1;
             members[memberIndex].points = (parseInt(members[memberIndex].points) || 0) + 1;
-            
-            // حفظ التحديث في المتصفح
             localStorage.setItem('my_church_class', JSON.stringify(members));
-
-            setTimeout(() => {
-                btnMark.className = 'btn btn-outline-success w-100 fw-bold';
-                btnMark.innerHTML = '<i class="fa-solid fa-check-double me-1"></i> مسجلة بنجاح';
-            }, 500);
-        } else {
-            // في حالة كان خادماً وليس له ملف كمخدوم، نظهر له رسالة نجاح تشجيعية فقط بدون حساب نقاط مخدومين
-            setTimeout(() => {
-                btnMark.className = 'btn btn-outline-success w-100 fw-bold';
-                btnMark.innerHTML = '<i class="fa-solid fa-check-double me-1"></i> قراءة مباركة يا خادم الرب';
-            }, 500);
         }
+
+        // التزامن التلقائي مع النوتة الروحية (تفعيل خيار قراءة الكتاب المقدس في نوتة اليوم)
+        let todayKey = new Date().toISOString().split('T')[0];
+        let bibleLogs = JSON.parse(localStorage.getItem('church_bible_reads') || '{}');
+        bibleLogs[todayKey] = true;
+        localStorage.setItem('church_bible_reads', JSON.stringify(bibleLogs));
+
+        setTimeout(() => {
+            btnMark.className = 'btn btn-outline-success w-100 fw-bold';
+            btnMark.innerHTML = '<i class="fa-solid fa-check-double me-1"></i> مسجلة بنجاح وتسميع بالنوتة';
+        }, 500);
+
     } catch (error) {
         console.error(error);
         alert("تعذر حفظ القراءة: " + error.message);
@@ -283,4 +276,4 @@ window.onload = loadBibleData;
 </script>
 
 </body>
-</html>
+    </html> 
