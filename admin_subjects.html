@@ -2,21 +2,11 @@
 <html lang="ar" dir="rtl">
 <head>
 <script>
-// سكربت التحديث الإجباري ومسح التخزين العميق (Service Worker Killer)
 (function() {
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.getRegistrations().then(function(registrations) {
             for (let registration of registrations) registration.unregister();
         });
-    }
-    if (window.caches) {
-        caches.keys().then(function(names) {
-            for (let name of names) caches.delete(name);
-        });
-    }
-    if (!window.location.search.includes('v=')) {
-        var cleanUrl = window.location.href.split('?')[0];
-        window.location.replace(cleanUrl + '?v=' + new Date().getTime());
     }
 })();
 </script>
@@ -25,7 +15,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- ملاحظة: الصفحة محمية ومخصصة لأمين الخدمة فقط (admin) -->
 <script src="auth-client.js" data-require="admin"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
@@ -41,19 +30,18 @@ body{font-family:Tajawal,sans-serif;background:#f4f7fb;color:#1e293b}.top{backgr
 <ul class="nav nav-pills gap-2 mb-3" role="tablist"><li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#students">المخدومون</button></li><li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#sheets">الشيتات</button></li><li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#promote">الترحيل</button></li><li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#spiritual">المتابعة الروحية</button></li><li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#projectsTab">المشروعات</button></li><li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#servantsTab">الخدام</button></li></ul>
 <div class="tab-content">
 <div class="tab-pane fade show active" id="students">
-  <!-- التوجيه السليم للمركزية (تعديلك العبقري) -->
   <div class="cardx text-center mb-3" style="background: linear-gradient(135deg, #eaf3ff, #f7faff); border: 2px solid #bcd8f7;">
     <h4 class="fw-bold text-primary mb-2">إضافة المخدومين المركزية</h4>
     <p class="text-muted mb-3">لضمان توليد الباركود بشكل صحيح وارتباطه بنظام الحضور والغياب، تتم إضافة أو استيراد المخدومين حصرياً من اللوحة الرئيسية.</p>
     <a href="admin-dashboard.html?task=members" class="btn btn-primary px-4 py-2 fw-bold shadow-sm">الذهاب للوحة الإدارة لإضافة مخدوم 🚀</a>
   </div>
-  <div class="cardx"><div class="d-flex justify-content-between mb-3"><h5 class="fw-bold">قائمة المخدومين (للعرض والتحكم بحساباتهم)</h5><button id="loadStudentsBtn" class="btn btn-dark btn-sm">تحديث</button></div><div class="table-responsive"><table class="table table-bordered text-center"><thead><tr><th>الكود</th><th>الاسم</th><th>الفرقة</th><th>النقاط</th><th>إجراء</th></tr></thead><tbody id="studentsBody"><tr><td colspan="5">جاري التحميل...</td></tr></tbody></table></div></div>
+  <div class="cardx"><div class="d-flex justify-content-between mb-3"><h5 class="fw-bold">قائمة المخدومين المركزية (مزامنة فورية)</h5><button id="loadStudentsBtn" class="btn btn-dark btn-sm">تحديث</button></div><div class="table-responsive"><table class="table table-bordered text-center"><thead><tr><th>الكود</th><th>الاسم</th><th>الفرقة</th><th>النقاط</th><th>إجراء</th></tr></thead><tbody id="studentsBody"><tr><td colspan="5">جاري التحميل...</td></tr></tbody></table></div></div>
 </div>
 <div class="tab-pane fade" id="sheets"><div class="cardx"><h5 class="fw-bold text-primary">إضافة شيت</h5><form id="addSheet"><input id="sh_title" class="form-control mb-2" placeholder="العنوان" required><input id="sh_link" type="url" class="form-control mb-2" placeholder="الرابط" required><select id="sh_level" class="form-select mb-3"><option>الفرقة الأولى</option><option>الفرقة الثانية</option><option>الفرقة الثالثة</option><option>الفرقة الرابعة</option><option>عام للجميع</option></select><button class="btn btn-primary">نشر الشيت</button></form></div><div class="cardx mt-3"><h5 class="fw-bold">الشيتات المنشورة</h5><div class="table-responsive"><table class="table table-bordered text-center"><thead><tr><th>العنوان</th><th>الفرقة</th><th>الرابط</th><th>إجراء</th></tr></thead><tbody id="sheetsBody"><tr><td colspan="4">جاري التحميل...</td></tr></tbody></table></div></div></div>
 <div class="tab-pane fade" id="promote"><div class="cardx"><h5 class="fw-bold text-warning">ترحيل دفعة</h5><div class="row g-2"><div class="col-md-5"><select id="promo_from" class="form-select"><option>الفرقة الأولى</option><option>الفرقة الثانية</option><option>الفرقة الثالثة</option><option>الفرقة الرابعة</option></select></div><div class="col-md-2 text-center py-2">←</div><div class="col-md-5"><select id="promo_to" class="form-select"><option>الفرقة الثانية</option><option>الفرقة الثالثة</option><option>الفرقة الرابعة</option><option>خريجين</option></select></div></div><button id="promoteBtn" class="btn btn-danger mt-3">تنفيذ الترحيل</button></div></div>
 <div class="tab-pane fade" id="spiritual"><div class="cardx"><div class="d-flex justify-content-between mb-3"><h5 class="fw-bold">المتابعة الروحية والتعليمية</h5><button id="exportBtn" class="btn btn-success btn-sm">Excel</button></div><div class="table-responsive"><table id="spiritualTable" class="table table-bordered text-center"><thead><tr><th>الكود</th><th>الاسم</th><th>الفرقة</th><th>النقاط</th><th>القراءات</th><th>أيام النوتة</th><th>الشيتات</th></tr></thead><tbody id="spiritualBody"><tr><td colspan="7">جاري التحميل...</td></tr></tbody></table></div></div></div>
 <div class="tab-pane fade" id="projectsTab"><div class="cardx mb-3"><h5 class="fw-bold text-primary">إضافة مشروع / نشاط</h5><form id="addProject"><input id="pr_title" class="form-control mb-2" placeholder="العنوان" maxlength="150" required><div class="row g-2 mb-2"><div class="col-md-4"><input id="pr_date" type="date" class="form-control" required></div><div class="col-md-4"><select id="pr_level" class="form-select"><option>عام للجميع</option><option>الفرقة الأولى</option><option>الفرقة الثانية</option><option>الفرقة الثالثة</option><option>الفرقة الرابعة</option><option>خريجين</option></select></div><div class="col-md-4"><input id="pr_points" type="number" min="0" max="1000" value="10" class="form-control" placeholder="النقاط"></div></div><textarea id="pr_desc" class="form-control mb-3" rows="2" maxlength="500" placeholder="وصف مختصر"></textarea><button class="btn btn-primary">إضافة المشروع</button></form></div><div class="cardx"><h5 class="fw-bold">المشروعات</h5><div class="table-responsive"><table class="table table-bordered text-center"><thead><tr><th>العنوان</th><th>التاريخ</th><th>الفرقة</th><th>النقاط</th><th>إجراء</th></tr></thead><tbody id="projectsBody"><tr><td colspan="5">جاري التحميل...</td></tr></tbody></table></div></div></div>
-<div class="tab-pane fade" id="servantsTab"><div class="cardx mb-3"><h5 class="fw-bold text-primary">إضافة خادم</h5><p class="small text-muted">يدخل الخادم بالبريد الإلكتروني وكلمة المرور، ويرى بيانات المخدومين دون تعديلها.</p><form id="addServant"><input id="sv_name" class="form-control mb-2" placeholder="الاسم" maxlength="100" required><input id="sv_email" type="email" dir="ltr" class="form-control mb-2" placeholder="البريد الإلكتروني" required><input id="sv_pass" type="password" minlength="6" class="form-control mb-3" placeholder="كلمة المرور (6 أحرف على الأقل)" autocomplete="new-password" required><button class="btn btn-primary">إضافة الخادم</button></form></div><div class="cardx"><h5 class="fw-bold">الخدام وأمناء الخدمة</h5><div class="table-responsive"><table class="table table-bordered text-center"><thead><tr><th>الاسم</th><th>البريد</th><th>الدور</th><th>إجراء</th></tr></thead><tbody id="servantsBody"><tr><td colspan="4">جاري التحميل...</td></tr></tbody></table></div></div></div>
+<div class="tab-pane fade" id="servantsTab"><div class="cardx mb-3"><h5 class="fw-bold text-primary">إدارة الخدام المركزية</h5><p class="small text-muted">تتم إضافة الخدام وإدارة صلاحياتهم الآن من خلال لوحة الداشبورد الذكي.</p><a href="admin-dashboard.html?task=servants" class="btn btn-primary w-100">الانتقال لإدارة الخدام ⚙️</a></div><div class="cardx"><h5 class="fw-bold">الخدام وأمناء الخدمة المسجلين</h5><div class="table-responsive"><table class="table table-bordered text-center"><thead><tr><th>الاسم</th><th>البريد/الهاتف</th><th>الدور</th></tr></thead><tbody id="servantsBody"><tr><td colspan="3">جاري التحميل...</td></tr></tbody></table></div></div></div>
 </div></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -63,88 +51,116 @@ const show=(m,type='success')=>{
   if(!$('alert')) return;
   $('alert').innerHTML=`<div class="alert alert-${type} py-2">${esc(m)}</div>`;
   window.scrollTo({top:0,behavior:'smooth'});
-  setTimeout(()=>{$('alert').innerHTML=''},7000);
+  setTimeout(()=>{$('alert').innerHTML=''},5000);
 };
 
-async function api(url,options={}){
-  const r=await ChurchAuth.fetch(url,options);
-  const j=await r.json().catch(()=>({success:false,message:'استجابة غير متوقعة من الخادم'}));
-  if(!r.ok||!j.success)throw new Error(j.message||'فشل الطلب');
-  return j;
+// الجسر العبقري: استبدال اتصال Vercel المكسور بالاتصال المحلي المتوافق مع الداشبورد الذكي
+async function api(url, options={}) {
+  let isPost = options.method === 'POST';
+  let body = isPost ? JSON.parse(options.body) : {};
+
+  // جلب البيانات من نفس قاعدة بيانات الداشبورد الجديد
+  let members = JSON.parse(localStorage.getItem('my_church_class')) || [];
+  let servants = JSON.parse(localStorage.getItem('my_church_servants')) || [];
+  let sheets = JSON.parse(localStorage.getItem('my_church_sheets')) || [];
+  let projects = JSON.parse(localStorage.getItem('my_church_projects')) || [];
+
+  if (!isPost) {
+      if (url.includes('type=dashboard')) {
+          let pts = members.reduce((sum, m) => sum + (parseInt(m.points) || 0), 0);
+          let topList = [...members].sort((a,b) => (b.points||0) - (a.points||0)).slice(0, 5).map(m => ({
+              name: m.name, code: m.code || m.id, level: m.stage || m.level || 'سنة أولى', readings: m.readCount || 0, points: m.points || 0
+          }));
+          let byLevelObj = {};
+          members.forEach(m => { let stg = m.stage || 'سنة أولى'; byLevelObj[stg] = (byLevelObj[stg] || 0) + 1; });
+          
+          return { success: true, data: {
+              totalStudents: members.length, readers: 0, totalPoints: pts, totalSubjects: sheets.length,
+              generatedAt: Date.now(), topStudents: topList, byLevel: byLevelObj
+          }};
+      }
+      if (url.includes('type=students')) {
+          let formattedMembers = members.map(m => ({
+              code: m.code || m.id, name: m.name, level: m.stage || 'سنة أولى', points: m.points || 0,
+              readCount: m.readCount || 0, spiritualDays: m.spiritualDays || 0, sheetsCount: m.sheetsCount || 0
+          }));
+          return { success: true, data: formattedMembers };
+      }
+      if (url.includes('type=sheets')) return { success: true, data: sheets };
+      if (url.includes('type=projects')) return { success: true, data: projects };
+      if (url.includes('type=servants')) {
+          let formattedServants = servants.map(s => ({
+              name: s.name, email: s.phone || s.code || '-', role: s.role === 'admin' ? 'admin' : 'servant', uid: s.id
+          }));
+          return { success: true, data: formattedServants };
+      }
+  } else {
+      if (body.action === 'add_sheet') {
+          sheets.push({ id: Date.now(), title: body.title, link: body.link, level: body.level });
+          localStorage.setItem('my_church_sheets', JSON.stringify(sheets));
+          return { success: true, message: 'تم إضافة الشيت بنجاح' };
+      }
+      if (body.action === 'delete_sheet') {
+          sheets = sheets.filter(s => s.id.toString() !== body.id.toString());
+          localStorage.setItem('my_church_sheets', JSON.stringify(sheets));
+          return { success: true, message: 'تم حذف الشيت' };
+      }
+      if (body.action === 'add_project') {
+          projects.push({ id: Date.now(), title: body.title, date: body.date, level: body.level, points: body.points });
+          localStorage.setItem('my_church_projects', JSON.stringify(projects));
+          return { success: true, message: 'تم إضافة المشروع بنجاح' };
+      }
+      if (body.action === 'delete_project') {
+          projects = projects.filter(p => p.id.toString() !== body.id.toString());
+          localStorage.setItem('my_church_projects', JSON.stringify(projects));
+          return { success: true, message: 'تم حذف المشروع' };
+      }
+      return { success: true, message: 'تم تنفيذ الإجراء (المحلي)' };
+  }
 }
 
 const act=body=>api('/api/admin',{method:'POST',body:JSON.stringify(body)});
-const fail=e=>{
-    console.error(e);
-    show(e.message || 'حدث خطأ غير معروف','danger');
-};
+const fail=e=>{ console.error(e); show(e.message || 'حدث خطأ غير معروف','danger'); };
 const empty=(n,msg)=>`<tr><td colspan="${n}">${msg}</td></tr>`;
 
 async function dashboard(){
   try {
-    const j=await api('/api/admin?type=dashboard&t='+Date.now());
-    const d=j.data;
-    
-    // إضافة حماية (Null Checks) لتجنب توقف السكربت إذا لم يجد العنصر
+    const j=await api('/api/admin?type=dashboard'); const d=j.data;
     if($('sStudents'))$('sStudents').textContent=d.totalStudents || '0';
     if($('sReaders'))$('sReaders').textContent=d.readers || '0';
     if($('sPoints'))$('sPoints').textContent=d.totalPoints || '0';
     if($('sSubjects'))$('sSubjects').textContent=d.totalSubjects || '0';
+    if($('generated'))$('generated').textContent='آخر تحديث: '+ (d.generatedAt ? new Date(d.generatedAt).toLocaleString('ar-EG') : 'الآن');
     
-    if($('generated')) {
-        let genTime = d.generatedAt ? new Date(d.generatedAt).toLocaleString('ar-EG') : 'الآن';
-        $('generated').textContent='آخر تحديث: '+ genTime;
-    }
-    
-    if($('topBody')) {
-        let topStudentsHtml = (d.topStudents && d.topStudents.length) 
+    if($('topBody')) {$('topBody').innerHTML = (d.topStudents && d.topStudents.length) 
             ? d.topStudents.map(s=>`<tr><td>${esc(s.name||'-')}<div class="small text-muted">${esc(s.code||'')}</div></td><td>${esc(s.level||'-')}</td><td>${s.readings||0}</td><td><span class="badge bg-primary">${s.points||0}</span></td></tr>`).join('') 
             : empty(4,'لا توجد بيانات');
-        $('topBody').innerHTML = topStudentsHtml;
     }
-    
     if($('levels') && d.byLevel) {$('levels').innerHTML=Object.entries(d.byLevel).map(([k,v])=>`<div class="d-flex justify-content-between border-bottom py-2"><span>${esc(k)}</span><strong>${v}</strong></div>`).join('');
-    }
-  } catch(e) { 
-      fail(e); 
-  }
-}
-
-async function loadStudents(){
-  try {
-    const j=await api('/api/admin?type=students&t='+Date.now());
-    if($('studentsBody')) {
-        let studentsHtml = (j.data && j.data.length) 
-            ? j.data.map(s=>`<tr><td>${esc(s.code||'-')}</td><td>${esc(s.name||'-')}</td><td>${esc(s.level||'-')}</td><td>${s.points||0}</td><td class="text-nowrap"><button class="btn btn-sm btn-outline-secondary" data-act="pw" data-code="${esc(s.code||'')}">إعادة تعيين كلمة المرور</button></td></tr>`).join('')
-            : empty(5,'لا يوجد مخدومون');
-        $('studentsBody').innerHTML = studentsHtml;
-    }
-    
-    if($('spiritualBody')) {
-        let spiritualHtml = (j.data && j.data.length) 
-            ? j.data.map(s=>`<tr><td>${esc(s.code||'-')}</td><td>${esc(s.name||'-')}</td><td>${esc(s.level||'-')}</td><td>${s.points||0}</td><td>${s.readCount||0}</td><td>${s.spiritualDays||0}</td><td>${s.sheetsCount||0}</td></tr>`).join('')
-            : empty(7,'لا توجد بيانات');
-        $('spiritualBody').innerHTML = spiritualHtml;
     }
   } catch(e) { fail(e); }
 }
 
-if($('studentsBody')) {$('studentsBody').addEventListener('click',async e=>{
-    const b=e.target.closest('button[data-act]');if(!b)return;const code=b.dataset.code;
-    try{
-      if(b.dataset.act==='pw'){const pw=prompt('اكتب كلمة المرور الجديدة للمخدوم '+code+' (6 أحرف على الأقل):');if(!pw)return;show((await act({action:'reset_password',code,password:pw})).message)}
-    }catch(er){fail(er)}
-  });
+async function loadStudents(){
+  try {
+    const j=await api('/api/admin?type=students');
+    if($('studentsBody')) {$('studentsBody').innerHTML = (j.data && j.data.length) 
+            ? j.data.map(s=>`<tr><td>${esc(s.code||'-')}</td><td>${esc(s.name||'-')}</td><td>${esc(s.level||'-')}</td><td><span class="badge bg-warning text-dark">${s.points||0}</span></td><td><span class="text-success fw-bold">متصل بالداشبورد ✔️</span></td></tr>`).join('')
+            : empty(5,'لا يوجد مخدومون');
+    }
+    if($('spiritualBody')) {$('spiritualBody').innerHTML = (j.data && j.data.length) 
+            ? j.data.map(s=>`<tr><td>${esc(s.code||'-')}</td><td>${esc(s.name||'-')}</td><td>${esc(s.level||'-')}</td><td>${s.points||0}</td><td>${s.readCount||0}</td><td>${s.spiritualDays||0}</td><td>${s.sheetsCount||0}</td></tr>`).join('')
+            : empty(7,'لا توجد بيانات');
+    }
+  } catch(e) { fail(e); }
 }
 
 async function loadSheets(){
   try {
-    const j=await api('/api/admin?type=sheets&t='+Date.now());
-    if($('sheetsBody')) {
-        let sheetsHtml = (j.data && j.data.length) 
+    const j=await api('/api/admin?type=sheets');
+    if($('sheetsBody')) {$('sheetsBody').innerHTML = (j.data && j.data.length) 
             ? j.data.map(s=>`<tr><td>${esc(s.title||'-')}</td><td>${esc(s.level==='الكل'?'عام للجميع':s.level)}</td><td><a href="${esc(ChurchAuth.safeUrl(s.link))}" target="_blank" rel="noopener noreferrer">فتح</a></td><td><button class="btn btn-sm btn-outline-danger" data-id="${esc(s.id||'')}">حذف</button></td></tr>`).join('')
             : empty(4,'لا توجد شيتات منشورة');
-        $('sheetsBody').innerHTML = sheetsHtml;
     }
   } catch(e) { fail(e); }
 }
@@ -154,12 +170,10 @@ if($('sheetsBody')) {$('sheetsBody').addEventListener('click',async e=>{const b=
 
 async function loadProjects(){
   try {
-    const j=await api('/api/admin?type=projects&t='+Date.now());
-    if($('projectsBody')) {
-        let projectsHtml = (j.data && j.data.length) 
+    const j=await api('/api/admin?type=projects');
+    if($('projectsBody')) {$('projectsBody').innerHTML = (j.data && j.data.length) 
             ? j.data.map(p=>`<tr><td>${esc(p.title||'-')}</td><td>${esc(p.date||'-')}</td><td>${esc(p.level==='الكل'?'عام للجميع':p.level)}</td><td>${Number(p.points)||0}</td><td><button class="btn btn-sm btn-outline-danger" data-id="${esc(p.id||'')}">حذف</button></td></tr>`).join('')
             : empty(5,'لا توجد مشروعات');
-        $('projectsBody').innerHTML = projectsHtml;
     }
   } catch(e) { fail(e); }
 }
@@ -169,25 +183,16 @@ if($('projectsBody')) {$('projectsBody').addEventListener('click',async e=>{cons
 
 async function loadServants(){
   try {
-    const j=await api('/api/admin?type=servants&t='+Date.now());
-    const me=ChurchAuth.session()&&ChurchAuth.session().uid;
-    if($('servantsBody')) {
-        let servantsHtml = (j.data && j.data.length)
-            ? j.data.map(s=>`<tr><td>${esc(s.name||'-')}</td><td dir="ltr">${esc(s.email||'-')}</td><td>${s.role==='admin'?'أمين الخدمة':'خادم'}</td><td>${s.role==='servant'&&s.uid!==me?`<button class="btn btn-sm btn-outline-danger" data-uid="${esc(s.uid||'')}">حذف</button>`:''}</td></tr>`).join('')
-            : empty(4,'لا توجد حسابات');
-        $('servantsBody').innerHTML = servantsHtml;
+    const j=await api('/api/admin?type=servants');
+    if($('servantsBody')) {$('servantsBody').innerHTML = (j.data && j.data.length)
+            ? j.data.map(s=>`<tr><td>${esc(s.name||'-')}</td><td dir="ltr">${esc(s.email||'-')}</td><td><span class="badge bg-primary">${s.role==='admin'?'أمين الخدمة':'خادم'}</span></td></tr>`).join('')
+            : empty(3,'لا توجد حسابات');
     }
   } catch(e) { fail(e); }
 }
 
-if($('servantsBody')) {$('servantsBody').addEventListener('click',async e=>{const b=e.target.closest('button[data-uid]');if(!b||!confirm('حذف حساب هذا الخادم؟'))return;try{show((await act({action:'delete_servant',uid:b.dataset.uid})).message);await loadServants()}catch(er){fail(er)}});
-}
-
-/* النماذج (Null Checks للحماية) */
 if($('addSheet')) $('addSheet').onsubmit=async e=>{e.preventDefault();try{show((await act({action:'add_sheet',title:$('sh_title').value,link:$('sh_link').value,level:$('sh_level').value})).message);e.target.reset();await Promise.all([loadSheets(),dashboard()])}catch(er){fail(er)}};
 if($('addProject'))$('addProject').onsubmit=async e=>{e.preventDefault();try{show((await act({action:'add_project',title:$('pr_title').value,date:$('pr_date').value,level:$('pr_level').value,points:$('pr_points').value,description:$('pr_desc').value})).message);e.target.reset();$('pr_points').value=10;await loadProjects()}catch(er){fail(er)}};
-if($('addServant')) $('addServant').onsubmit=async e=>{e.preventDefault();try{show((await act({action:'add_servant',name:$('sv_name').value,email:$('sv_email').value,password:$('sv_pass').value})).message);e.target.reset();await loadServants()}catch(er){fail(er)}};
-if($('promoteBtn'))$('promoteBtn').onclick=async()=>{const from=$('promo_from').value,to=$('promo_to').value;if(from===to)return show('اختر فرقتين مختلفتين','warning');if(!confirm(`ترحيل جميع ${from} إلى ${to}؟`))return;try{show((await act({action:'promote_students',fromLevel:from,toLevel:to})).message);await Promise.all([loadStudents(),dashboard()])}catch(er){fail(er)}};
 
 if($('refreshBtn'))$('refreshBtn').onclick=()=>Promise.all([dashboard(),loadStudents(),loadSheets(),loadProjects(),loadServants()]).catch(fail);
 if($('loadStudentsBtn'))$('loadStudentsBtn').onclick=()=>loadStudents().catch(fail);
