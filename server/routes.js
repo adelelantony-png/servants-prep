@@ -1,5 +1,6 @@
 'use strict';
 const L = require('./lib');
+const { statePull, statePush } = require('./state');
 const { HttpError } = L;
 
 const PLAN_READ_POINTS = 5;
@@ -721,6 +722,30 @@ async function adminPost(ctx) {
     return { message: 'تم حذف حساب الخادم.' };
   }
 
+  if (action === 'revoke_sessions') {
+    const uid = L.str(body.uid, 128, 'المعرّف');
+    if (!uid) throw new HttpError(400, 'المعرّف مطلوب.');
+    if (uid === 'all') {
+      const list = await fb.auth.listUsers(1000);
+      let n = 0;
+      for (const u of list.users) {
+        if (u.uid === ctx.session.uid) continue;
+        const c = u.customClaims || {};
+        if (c.servant === true || c.admin === true) {
+          await fb.auth.revokeRefreshTokens(u.uid);
+          n++;
+        }
+      }
+      return { message: `تم إنهاء جلسات ${n} حساب.`, count: n };
+    }
+    if (uid === ctx.session.uid) throw new HttpError(400, 'لا يمكنك إنهاء جلستك الحالية من هنا.');
+    const user = await fb.auth.getUser(uid);
+    const c = user.customClaims || {};
+    if (!(c.servant === true || c.admin === true)) throw new HttpError(400, 'هذا الحساب ليس حساب خدمة.');
+    await fb.auth.revokeRefreshTokens(uid);
+    return { message: 'تم إنهاء جلسات الحساب. سيُطلب منه تسجيل الدخول من جديد.' };
+  }
+
   throw new HttpError(400, 'إجراء غير معروف.');
 }
 
@@ -744,6 +769,8 @@ const ROUTES = {
   'POST projects': { auth: 'student', fn: projectsPost },
   'GET admin': { auth: STAFF, fn: adminGet },
   'POST admin': { auth: ['admin'], fn: adminPost },
+  'GET state': { auth: STAFF, fn: statePull },
+  'POST state': { auth: STAFF, fn: statePush },
   'GET members': { auth: STAFF, fn: async (ctx) => ({ data: await listStudents(ctx.db) }) }
 };
 

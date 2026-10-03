@@ -51,6 +51,15 @@ function setFirebaseForTests(fake) {
   _firebase = fake;
 }
 
+/* ساعة الخادم (قابلة للضبط في الاختبارات فقط) */
+let _clock = () => Date.now();
+function nowMs() {
+  return _clock();
+}
+function setClockForTests(fn) {
+  _clock = fn || (() => Date.now());
+}
+
 /* ---------------- الكوكيز والجلسة ---------------- */
 
 function readCookie(req, name) {
@@ -276,6 +285,8 @@ module.exports = {
   HttpError,
   getFirebaseAdmin,
   setFirebaseForTests,
+  nowMs,
+  setClockForTests,
   readCookie,
   sessionCookieHeader,
   roleFromClaims,
